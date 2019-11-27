@@ -1,4 +1,4 @@
-package SpookyScarySkeletons;
+package SpookyScarySkeletons.anwendungslogik;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

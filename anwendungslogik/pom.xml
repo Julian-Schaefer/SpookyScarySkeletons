@@ -11,5 +11,12 @@
 
     <artifactId>anwendungslogik</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>SpookyScarySkeletons</groupId>
+            <artifactId>persistenzlogik</artifactId>
+            <type>ejb</type>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 </project>

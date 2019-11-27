@@ -1,4 +1,4 @@
-package SpookyScarySkeletons;
+package SpookyScarySkeletons.persistenzlogik;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
@@ -13,4 +13,7 @@ public class AccountManagement implements AccountManagementLocal {
         System.out.println("Initialized AccountManagement Bean!");
     }
 
+    public String sayHello() {
+        return "Hello from Account Management";
+    }
 }
