@@ -19,4 +19,7 @@
             <context-root>api</context-root>
         </web>
     </module>
+    <module id="anwendungslogik-EJB">
+        <ejb>anwendungslogik_EJB.jar</ejb>
+    </module>
 </application>

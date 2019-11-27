@@ -6,11 +6,11 @@ import javax.ejb.Startup;
 
 @Singleton
 @Startup
-public class AccountManagement implements AccountManagementLocal {
+public class ScenarioManagement {
 
     @PostConstruct
     private void init() {
-        System.out.println("Initialized AccountManagement Bean!");
+        System.out.println("Initialized ScenarioManagement Bean!");
     }
 
 }
