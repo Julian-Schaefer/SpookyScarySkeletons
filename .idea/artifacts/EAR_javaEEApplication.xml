@@ -6,6 +6,7 @@
       <element id="artifact" artifact-name="EJB_1:EJB" />
       <element id="artifact" artifact-name="persistenzlogik:EJB" />
       <element id="artifact" artifact-name="frontend:Web" />
+      <element id="artifact" artifact-name="api:Web" />
     </root>
   </artifact>
 </component>

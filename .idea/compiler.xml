@@ -7,9 +7,10 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="persistenzlogik" />
+        <module name="frontend" />
         <module name="EJB_1" />
         <module name="EAR" />
-        <module name="frontend" />
+        <module name="api" />
       </profile>
     </annotationProcessing>
   </component>

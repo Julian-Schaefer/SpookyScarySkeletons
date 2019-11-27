@@ -13,6 +13,7 @@
         <module>EJB_1</module>
         <module>persistenzlogik</module>
         <module>frontend</module>
+        <module>api</module>
     </modules>
 
     <properties>
