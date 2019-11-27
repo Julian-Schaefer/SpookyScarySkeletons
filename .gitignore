@@ -60,6 +60,7 @@ nb-configuration.xml
 *.ipr
 *.iws
 out/**
+.idea/uiDesigner.xml
 atlassian-ide-plugin.xml
 
  

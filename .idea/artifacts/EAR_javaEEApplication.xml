@@ -5,6 +5,7 @@
       <element id="artifact" artifact-name="EAR:javaEEApplication exploded" />
       <element id="artifact" artifact-name="EJB_1:EJB" />
       <element id="artifact" artifact-name="persistenzlogik:EJB" />
+      <element id="artifact" artifact-name="frontend:Web" />
     </root>
   </artifact>
 </component>

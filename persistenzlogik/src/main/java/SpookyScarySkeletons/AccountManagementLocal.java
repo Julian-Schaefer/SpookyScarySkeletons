@@ -1,3 +1,5 @@
+package SpookyScarySkeletons;
+
 import javax.ejb.Local;
 
 @Local

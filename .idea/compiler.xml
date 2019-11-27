@@ -9,6 +9,7 @@
         <module name="persistenzlogik" />
         <module name="EJB_1" />
         <module name="EAR" />
+        <module name="frontend" />
       </profile>
     </annotationProcessing>
   </component>
