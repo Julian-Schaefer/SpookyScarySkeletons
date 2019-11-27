@@ -7,10 +7,10 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="persistenzlogik" />
-        <module name="frontend" />
+        <module name="api" />
         <module name="EAR" />
         <module name="anwendungslogik" />
-        <module name="api" />
+        <module name="frontend" />
       </profile>
     </annotationProcessing>
   </component>

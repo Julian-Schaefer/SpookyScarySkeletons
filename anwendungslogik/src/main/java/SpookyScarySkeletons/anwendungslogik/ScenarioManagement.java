@@ -8,7 +8,7 @@ import SpookyScarySkeletons.persistenzlogik.AccountManagementLocal;
 
 @Singleton
 @Startup
-public class ScenarioManagement {
+public class ScenarioManagement implements ScenarioManagementLocal {
 
     @EJB
     private AccountManagementLocal accountManagement;
@@ -21,5 +21,10 @@ public class ScenarioManagement {
 
     public void testBeanDependency() {
         System.out.println(accountManagement.sayHello());
+    }
+
+    @Override
+    public int getNextStep(int currentStep) {
+        return currentStep+1;
     }
 }
