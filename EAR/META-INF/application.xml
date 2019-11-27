@@ -4,9 +4,6 @@
              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_6.xsd"
              version="6">
 
-    <module id="EJB_1-EJB">
-        <ejb>EJB_1_EJB.jar</ejb>
-    </module>
     <module id="persistenzlogik-EJB">
         <ejb>persistenzlogik_EJB.jar</ejb>
     </module>

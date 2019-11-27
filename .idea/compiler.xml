@@ -8,7 +8,6 @@
         <outputRelativeToContentRoot value="true" />
         <module name="persistenzlogik" />
         <module name="frontend" />
-        <module name="EJB_1" />
         <module name="EAR" />
         <module name="api" />
       </profile>
