@@ -11,6 +11,7 @@
     <modules>
         <module>EAR</module>
         <module>EJB_1</module>
+        <module>persistenzlogik</module>
     </modules>
 
     <properties>

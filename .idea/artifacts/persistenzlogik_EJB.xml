@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="ejb-jar" name="persistenzlogik:EJB">
+    <output-path>$PROJECT_DIR$/out/artifacts/persistenzlogik_EJB</output-path>
+    <root id="archive" name="persistenzlogik_EJB.jar">
+      <element id="artifact" artifact-name="persistenzlogik:EJB exploded" />
+    </root>
+  </artifact>
+</component>

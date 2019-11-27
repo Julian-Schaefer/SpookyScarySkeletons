@@ -4,6 +4,7 @@
     <root id="archive" name="EAR_javaEEApplication.ear">
       <element id="artifact" artifact-name="EAR:javaEEApplication exploded" />
       <element id="artifact" artifact-name="EJB_1:EJB" />
+      <element id="artifact" artifact-name="persistenzlogik:EJB" />
     </root>
   </artifact>
 </component>

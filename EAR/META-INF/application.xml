@@ -7,4 +7,7 @@
     <module id="EJB_1-EJB">
         <ejb>EJB_1_EJB.jar</ejb>
     </module>
+    <module id="persistenzlogik-EJB">
+        <ejb>persistenzlogik_EJB.jar</ejb>
+    </module>
 </application>

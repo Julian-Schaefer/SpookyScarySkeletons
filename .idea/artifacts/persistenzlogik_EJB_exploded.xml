@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-ejb" name="persistenzlogik:EJB exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/persistenzlogik_EJB_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="persistenzlogik/ejb/EJB" />
+      <element id="module-output" name="persistenzlogik" />
+    </root>
+  </artifact>
+</component>
