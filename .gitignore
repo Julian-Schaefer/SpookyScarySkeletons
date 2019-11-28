@@ -61,6 +61,7 @@ nb-configuration.xml
 *.iws
 out/**
 .idea/uiDesigner.xml
+.idea/libraries
 atlassian-ide-plugin.xml
 
  
