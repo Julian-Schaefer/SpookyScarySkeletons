@@ -27,7 +27,7 @@
         <java>postgresql-9.1-901-1.jdbc4.jar</java>
     </module>
 
-    <!-- docker run --rm   --name pg-docker -e POSTGRES_PASSWORD=docker -d -p 5432:5432 postgres -->
+    <!-- docker run -\-rm   -\-name pg-docker -e POSTGRES_PASSWORD=docker -d -p 5432:5432 postgres -->
     <data-source>
         <name>java:app/jdbc/SpookyScarySkeletons</name>
         <class-name>org.postgresql.ds.PGPoolingDataSource</class-name>
