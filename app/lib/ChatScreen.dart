@@ -9,41 +9,38 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  int _counter = 0;
   List<ChatMessage> messages = createChatMessages();
 
   final TextEditingController textEditingController =
       new TextEditingController();
   final ScrollController listScrollController = new ScrollController();
 
-  void connect() {
+  void sendToWebSocket(String message) {
     final channel =
         IOWebSocketChannel.connect("ws://10.0.2.2:8080/api/websocket");
 
-    channel.sink.add("Hallo du da");
+    channel.sink.add(message);
 
-    channel.stream.listen((message) {
-      channel.sink.add("received2!");
+    channel.stream.listen((response) {
+      setState(() {
+        messages.insert(0, ChatMessage(true, response, "now"));
+        listScrollController.animateTo(0.0,
+            duration: Duration(milliseconds: 300), curve: Curves.easeOut);
+      });
       channel.sink.close(status.goingAway);
     });
   }
 
   void onSendMessage(String message) {
     setState(() {
-      List<ChatMessage> newMessages = messages;
-      newMessages.add(ChatMessage(false, message, "now"));
-      messages = newMessages;
+      messages.insert(0, ChatMessage(false, message, "now"));
     });
 
+    sendToWebSocket(message);
+
+    textEditingController.clear();
     listScrollController.animateTo(0.0,
         duration: Duration(milliseconds: 300), curve: Curves.easeOut);
-  }
-
-  void _incrementCounter() {
-    connect();
-    setState(() {
-      _counter++;
-    });
   }
 
   @override
@@ -58,7 +55,6 @@ class _ChatScreenState extends State<ChatScreen> {
             children: <Widget>[
               // List of messages
               buildListMessage(),
-
               // Input content
               buildInput(),
             ],

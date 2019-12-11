@@ -6,6 +6,7 @@ import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
+import java.io.IOException;
 
 // URL zum Testen: ws://localhost:8080/api/websocket
 
@@ -28,7 +29,7 @@ public class WebSocketEndpoint {
     }
 
     @OnMessage
-    public void handleMessage(String message, Session session) {
-        System.out.println("handle" + message);
+    public void handleMessage(String message, Session session) throws IOException {
+        session.getBasicRemote().sendText("Server: " + message);
     }
 }
