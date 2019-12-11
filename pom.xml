@@ -9,11 +9,11 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>EAR</module>
         <module>persistenzlogik</module>
+        <module>anwendungslogik</module>
         <module>frontend</module>
         <module>api</module>
-        <module>anwendungslogik</module>
+        <module>EAR</module>
     </modules>
 
     <properties>
@@ -50,5 +50,15 @@
         </dependency>
     </dependencies>
 
-
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ejb-plugin</artifactId>
+                <configuration>
+                    <ejbVersion>3.2</ejbVersion>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

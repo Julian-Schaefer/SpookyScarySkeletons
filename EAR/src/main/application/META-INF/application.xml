@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns="http://java.sun.com/xml/ns/javaee"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_6.xsd"
+             version="6">
+
+    <module id="persistenzlogik-EJB">
+        <ejb>persistenzlogik_EJB.jar</ejb>
+    </module>
+    <module id="frontend-Web">
+        <web>
+            <web-uri>frontend_Web.war</web-uri>
+            <context-root>frontend</context-root>
+        </web>
+    </module>
+    <module id="api-Web">
+        <web>
+            <web-uri>api_Web.war</web-uri>
+            <context-root>api</context-root>
+        </web>
+    </module>
+    <module id="anwendungslogik-EJB">
+        <ejb>anwendungslogik_EJB.jar</ejb>
+    </module>
+
+    <module>
+        <java>postgre-sql.jar</java>
+    </module>
+
+    <!-- docker run -\-rm   -\-name pg-docker -e POSTGRES_PASSWORD=docker -d -p 5432:5432 postgres -->
+    <data-source>
+        <name>java:app/jdbc/SpookyScarySkeletons</name>
+        <class-name>org.postgresql.ds.PGPoolingDataSource</class-name>
+        <server-name>localhost</server-name>
+        <port-number>5432</port-number>
+        <database-name>spooky</database-name>
+        <user>julian</user>
+        <password></password>
+        <property>
+            <name>create</name>
+            <value>true</value>
+        </property>
+    </data-source>
+</application>

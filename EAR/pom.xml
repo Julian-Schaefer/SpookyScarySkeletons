@@ -9,7 +9,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>EAR</artifactId>
+    <artifactId>SpookyEAR</artifactId>
+    <packaging>ear</packaging>
+    <name>Spooky Scary Skeletons</name>
+
 
     <dependencies>
         <dependency>
@@ -18,5 +21,65 @@
             <type>ejb</type>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>SpookyScarySkeletons</groupId>
+            <artifactId>anwendungslogik</artifactId>
+            <type>ejb</type>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>SpookyScarySkeletons</groupId>
+            <artifactId>frontend</artifactId>
+            <type>war</type>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>SpookyScarySkeletons</groupId>
+            <artifactId>api</artifactId>
+            <type>war</type>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ear-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <modules>
+                        <ejbModule>
+                            <groupId>SpookyScarySkeletons</groupId>
+                            <artifactId>persistenzlogik</artifactId>
+                            <bundleFileName>persistenzlogik_EJB.jar</bundleFileName>
+                        </ejbModule>
+                        <ejbModule>
+                            <groupId>SpookyScarySkeletons</groupId>
+                            <artifactId>anwendungslogik</artifactId>
+                            <bundleFileName>anwendungslogik_EJB.jar</bundleFileName>
+                        </ejbModule>
+                        <webModule>
+                            <groupId>SpookyScarySkeletons</groupId>
+                            <artifactId>frontend</artifactId>
+                            <contextRoot>/frontend</contextRoot>
+                            <bundleFileName>frontend_Web.war</bundleFileName>
+                        </webModule>
+                        <webModule>
+                            <groupId>SpookyScarySkeletons</groupId>
+                            <artifactId>api</artifactId>
+                            <contextRoot>/api</contextRoot>
+                            <bundleFileName>api_Web.war</bundleFileName>
+                        </webModule>
+                        <jarModule>
+                            <groupId>postgresql</groupId>
+                            <artifactId>postgresql</artifactId>
+                            <bundleFileName>postgre-sql.jar</bundleFileName>
+                        </jarModule>
+                    </modules>
+                    <generateApplicationXml>false</generateApplicationXml>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
