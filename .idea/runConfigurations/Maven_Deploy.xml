@@ -1,11 +1,11 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Maven Deploy" type="JBossConfiguration" factoryName="Local" APPLICATION_SERVER_NAME="JBoss 18.0.0.Final" ALTERNATIVE_JRE_ENABLED="false">
     <option name="OPEN_IN_BROWSER_URL" value="http://localhost:8080/frontend" />
-    <option name="UPDATING_POLICY" value="restart-server" />
+    <option name="UPDATING_POLICY" value="redeploy-artifacts" />
     <deployment>
-      <file path="$PROJECT_DIR$/EAR/target/SpookyEAR-1.0-SNAPSHOT.ear">
+      <artifact name="SpookyEAR-Maven">
         <settings />
-      </file>
+      </artifact>
     </deployment>
     <server-settings>
       <option name="SERVER" />
@@ -66,6 +66,9 @@
     </ConfigurationWrapper>
     <method v="2">
       <option name="Maven.BeforeRunTask" enabled="true" file="$PROJECT_DIR$/pom.xml" goal="clean package" />
+      <option name="BuildArtifacts" enabled="true">
+        <artifact name="SpookyEAR-Maven" />
+      </option>
     </method>
   </configuration>
 </component>

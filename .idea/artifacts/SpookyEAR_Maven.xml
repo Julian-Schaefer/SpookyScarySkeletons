@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="ear" name="SpookyEAR-Maven">
+    <output-path>$PROJECT_DIR$/out/artifacts/SpookyEAR_Maven</output-path>
+    <root id="archive" name="SpookyEAR-Maven.ear">
+      <element id="extracted-dir" path="$PROJECT_DIR$/EAR/target/SpookyEAR-1.0-SNAPSHOT.ear" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
