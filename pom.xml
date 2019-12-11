@@ -12,6 +12,7 @@
         <module>persistenzlogik</module>
         <module>anwendungslogik</module>
         <module>frontend</module>
+        <module>messaging</module>
         <module>api</module>
         <module>EAR</module>
     </modules>
