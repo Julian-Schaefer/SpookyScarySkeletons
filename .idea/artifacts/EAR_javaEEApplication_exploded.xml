@@ -2,6 +2,7 @@
   <artifact type="exploded-ear" name="EAR:javaEEApplication exploded">
     <output-path>$PROJECT_DIR$/out/artifacts/EAR_javaEEApplication_exploded</output-path>
     <root id="root">
+      <element id="library" level="project" name="Maven: postgresql:postgresql:9.1-901-1.jdbc4" />
       <element id="javaee-facet-resources" facet="EAR/javaeeApplication/javaEEApplication" />
     </root>
   </artifact>

@@ -22,4 +22,23 @@
     <module id="anwendungslogik-EJB">
         <ejb>anwendungslogik_EJB.jar</ejb>
     </module>
+
+    <module>
+        <java>postgresql-9.1-901-1.jdbc4.jar</java>
+    </module>
+
+    <!-- docker run -\-rm   -\-name pg-docker -e POSTGRES_PASSWORD=docker -d -p 5432:5432 postgres -->
+    <data-source>
+        <name>java:app/jdbc/SpookyScarySkeletons</name>
+        <class-name>org.postgresql.ds.PGPoolingDataSource</class-name>
+        <server-name>localhost</server-name>
+        <port-number>5432</port-number>
+        <database-name>spooky</database-name>
+        <user>postgres</user>
+        <password>docker</password>
+        <property>
+            <name>create</name>
+            <value>true</value>
+        </property>
+    </data-source>
 </application>
