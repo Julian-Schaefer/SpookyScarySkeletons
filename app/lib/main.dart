@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:web_socket_channel/io.dart';
+import 'package:web_socket_channel/status.dart' as status;
 
 void main() => runApp(MyApp());
 
@@ -46,7 +48,20 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
+  void connect() {
+    final channel =
+        IOWebSocketChannel.connect("ws://10.0.2.2:8080/api/websocket");
+
+    channel.sink.add("Hallo du da");
+
+    channel.stream.listen((message) {
+      channel.sink.add("received2!");
+      channel.sink.close(status.goingAway);
+    });
+  }
+
   void _incrementCounter() {
+    connect();
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below

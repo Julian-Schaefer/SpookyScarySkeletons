@@ -34,8 +34,8 @@
         <server-name>localhost</server-name>
         <port-number>5432</port-number>
         <database-name>spooky</database-name>
-        <user>postgres</user>
-        <password>docker</password>
+        <user>julian</user>
+        <password></password>
         <property>
             <name>create</name>
             <value>true</value>

@@ -7,7 +7,7 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
-// URL zum Testen: ws://localhost:8080/api/actions
+// URL zum Testen: ws://localhost:8080/api/websocket
 
 @ServerEndpoint("/websocket")
 public class WebSocketEndpoint {
@@ -29,6 +29,6 @@ public class WebSocketEndpoint {
 
     @OnMessage
     public void handleMessage(String message, Session session) {
-        System.out.println("handle");
+        System.out.println("handle" + message);
     }
 }
