@@ -33,9 +33,9 @@
         <class-name>org.postgresql.ds.PGPoolingDataSource</class-name>
         <server-name>localhost</server-name>
         <port-number>5432</port-number>
-        <database-name>spooky</database-name>
-        <user>julian</user>
-        <password></password>
+        <database-name>postgres</database-name>
+        <user>postgres</user>
+        <password>docker</password>
         <property>
             <name>create</name>
             <value>true</value>
