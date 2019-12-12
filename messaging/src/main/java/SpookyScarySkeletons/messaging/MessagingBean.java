@@ -4,10 +4,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.ejb.*;
 import javax.inject.Inject;
-import javax.jms.ConnectionFactory;
-import javax.jms.JMSContext;
-import javax.jms.JMSException;
-import javax.jms.Message;
+import javax.jms.*;
 
 @Singleton
 @Startup
@@ -20,6 +17,9 @@ public class MessagingBean {
 
     @Inject
     private JMSContext jmsContext;
+
+    @Resource(lookup = "java:app/jms/statisticTopic")
+    private Topic topic;
 
     @PostConstruct
     private void init() {
@@ -36,6 +36,7 @@ public class MessagingBean {
             Message message = jmsContext.createMessage();
             try {
                 message.setDoubleProperty("asd", 1.2);
+                jmsContext.createProducer().send(topic, message);
                 System.out.println("Hallo: " + message.getDoubleProperty("asd"));
             } catch (JMSException e) {
                 e.printStackTrace();
