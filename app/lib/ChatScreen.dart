@@ -8,12 +8,46 @@ class ChatScreen extends StatefulWidget {
   _ChatScreenState createState() => _ChatScreenState();
 }
 
-class _ChatScreenState extends State<ChatScreen> {
+class _ChatScreenState extends State<ChatScreen>
+    with SingleTickerProviderStateMixin {
   List<ChatMessage> messages = createChatMessages();
+
+  AnimationController _controller;
+  Animation<Offset> _outAnimation;
+  Animation<Offset> _inAnimation;
 
   final TextEditingController textEditingController =
       new TextEditingController();
   final ScrollController listScrollController = new ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(seconds: 2),
+      vsync: this,
+    );
+
+    _outAnimation = Tween<Offset>(
+      begin: Offset.zero,
+      end: const Offset(0.0, 1.0),
+    ).animate(
+        CurvedAnimation(parent: _controller, curve: new Interval(0, 0.5)));
+
+    _inAnimation = Tween<Offset>(
+      begin: const Offset(0.0, 1.0),
+      end: Offset.zero,
+    ).animate(
+        CurvedAnimation(parent: _controller, curve: new Interval(0.5, 1)));
+
+    _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
 
   void sendToWebSocket(String message) {
     final channel =
@@ -55,6 +89,24 @@ class _ChatScreenState extends State<ChatScreen> {
             children: <Widget>[
               // List of messages
               buildListMessage(),
+              Stack(
+                children: <Widget>[
+                  SlideTransition(
+                    position: _outAnimation,
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: FlutterLogo(size: 150.0),
+                    ),
+                  ),
+                  SlideTransition(
+                    position: _inAnimation,
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: FlutterLogo(size: 150.0),
+                    ),
+                  ),
+                ],
+              ),
               // Input content
               buildInput(),
             ],
