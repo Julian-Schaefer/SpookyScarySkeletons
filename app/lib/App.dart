@@ -15,6 +15,7 @@ class _AppState extends State<App> {
       theme: ThemeData(
         primaryColor: Colors.red,
         primarySwatch: Colors.red,
+        primaryColorDark: Colors.red[800],
       ),
       home: StartScreen(),
     );

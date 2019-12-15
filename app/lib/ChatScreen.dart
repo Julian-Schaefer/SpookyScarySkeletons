@@ -12,7 +12,7 @@ class _ChatScreenState extends State<ChatScreen>
     with SingleTickerProviderStateMixin {
   List<ChatMessage> messages = createChatMessages();
 
-  AnimationController _controller;
+  AnimationController _animationController;
   Animation<Offset> _outAnimation;
   Animation<Offset> _inAnimation;
 
@@ -23,30 +23,28 @@ class _ChatScreenState extends State<ChatScreen>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      duration: const Duration(seconds: 2),
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 800),
       vsync: this,
     );
 
     _outAnimation = Tween<Offset>(
       begin: Offset.zero,
       end: const Offset(0.0, 1.0),
-    ).animate(
-        CurvedAnimation(parent: _controller, curve: new Interval(0, 0.5)));
+    ).animate(CurvedAnimation(
+        parent: _animationController, curve: new Interval(0, 0.4)));
 
     _inAnimation = Tween<Offset>(
       begin: const Offset(0.0, 1.0),
       end: Offset.zero,
-    ).animate(
-        CurvedAnimation(parent: _controller, curve: new Interval(0.5, 1)));
-
-    _controller.forward();
+    ).animate(CurvedAnimation(
+        parent: _animationController, curve: new Interval(0.6, 1)));
   }
 
   @override
   void dispose() {
     super.dispose();
-    _controller.dispose();
+    _animationController.dispose();
   }
 
   void sendToWebSocket(String message) {
@@ -93,22 +91,68 @@ class _ChatScreenState extends State<ChatScreen>
                 children: <Widget>[
                   SlideTransition(
                     position: _outAnimation,
-                    child: const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: FlutterLogo(size: 150.0),
+                    child: Container(
+                      width: double.infinity,
+                      height: 100,
+                      child: FlatButton(
+                        child: Text(
+                          'Antworten',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                          ),
+                        ),
+                        color: Theme.of(context).primaryColorDark,
+                        onPressed: () {
+                          _animationController.forward();
+                        },
+                      ),
                     ),
                   ),
                   SlideTransition(
                     position: _inAnimation,
-                    child: const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: FlutterLogo(size: 150.0),
+                    child: Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: FlatButton(
+                              child: Text(
+                                'Antwort 1Antwort 1Antwort 1Antwort 1Antwort 1Antwort 1Antwort 1Antwort 1Antwort 1Antwort 1Antwort 1Antwort 1Antwort 1Antwort 1Antwort 1Antwort 1Antwort 1Antwort 1Antwort 1Antwort 1',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 15),
+                              ),
+                              color: Theme.of(context).primaryColorDark,
+                              onPressed: () {
+                                _animationController.reverse();
+                              },
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(5),
+                          ),
+                          Expanded(
+                            child: FlatButton(
+                              child: Text(
+                                'Antwort 2',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 15),
+                              ),
+                              color: Theme.of(context).primaryColorDark,
+                              onPressed: () {
+                                _animationController.reverse();
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
               ),
               // Input content
-              buildInput(),
+              //buildInput(),
             ],
           )
         ],
