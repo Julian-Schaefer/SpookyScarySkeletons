@@ -11,6 +11,8 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen>
     with SingleTickerProviderStateMixin {
   List<ChatMessage> messages = createChatMessages();
+  final channel =
+      IOWebSocketChannel.connect("ws://10.0.2.2:8080/api/websocket");
 
   AnimationController _animationController;
   Animation<Offset> _outAnimation;
@@ -39,6 +41,14 @@ class _ChatScreenState extends State<ChatScreen>
       end: Offset.zero,
     ).animate(CurvedAnimation(
         parent: _animationController, curve: new Interval(0.6, 1)));
+
+    channel.stream.listen((response) {
+      setState(() {
+        messages.insert(0, ChatMessage(true, response, "now"));
+        listScrollController.animateTo(0.0,
+            duration: Duration(milliseconds: 300), curve: Curves.easeOut);
+      });
+    });
   }
 
   @override
@@ -48,19 +58,7 @@ class _ChatScreenState extends State<ChatScreen>
   }
 
   void sendToWebSocket(String message) {
-    final channel =
-        IOWebSocketChannel.connect("ws://10.0.2.2:8080/api/websocket");
-
     channel.sink.add(message);
-
-    channel.stream.listen((response) {
-      setState(() {
-        messages.insert(0, ChatMessage(true, response, "now"));
-        listScrollController.animateTo(0.0,
-            duration: Duration(milliseconds: 300), curve: Curves.easeOut);
-      });
-      channel.sink.close(status.goingAway);
-    });
   }
 
   void onSendMessage(String message) {
@@ -126,6 +124,7 @@ class _ChatScreenState extends State<ChatScreen>
                               color: Theme.of(context).primaryColorDark,
                               onPressed: () {
                                 _animationController.reverse();
+                                onSendMessage('hallo');
                               },
                             ),
                           ),

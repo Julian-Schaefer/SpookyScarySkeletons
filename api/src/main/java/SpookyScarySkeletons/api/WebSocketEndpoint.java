@@ -1,9 +1,10 @@
 package SpookyScarySkeletons.api;
 
+import SpookyScarySkeletons.anwendungslogik.TestStatefulBean;
+
 import javax.annotation.PostConstruct;
-import javax.ejb.ActivationConfigProperty;
-import javax.ejb.MessageDriven;
-import javax.ejb.Stateful;
+import javax.ejb.*;
+import javax.inject.Inject;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
@@ -19,46 +20,42 @@ import java.util.List;
 
 // URL zum Testen: ws://localhost:8080/api/websocket
 
-@MessageDriven(mappedName = "Statistic Topic", activationConfig = {
-        @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic"),
-        @ActivationConfigProperty(propertyName="destination", propertyValue="java:app/jms/statisticTopic"),
-})
+@Stateful
 @ServerEndpoint("/websocket")
-public class WebSocketEndpoint implements MessageListener {
+public class WebSocketEndpoint {
 
-    private List<Session> sessions;
+    @EJB
+    private TestStatefulBean testStatefulBean;
 
-    @PostConstruct
-    private void init() {
-        sessions = new LinkedList<>();
-    }
+    @EJB
+    private ConnectedSessionsBean connectedSessionsBean;
 
     @OnOpen
     public void open(Session session) {
-        sessions.add(session);
+        connectedSessionsBean.addSession(session);
     }
 
     @OnClose
     public void close(Session session) {
-        sessions.remove(session);
+        connectedSessionsBean.removeSession(session);
     }
 
     @OnError
     public void onError(Throwable error) {
-        System.out.println("error");
+        error.printStackTrace();
     }
 
     @OnMessage
     public void handleMessage(String message, Session session) throws IOException {
-        session.getBasicRemote().sendText("Server: " + message);
+        session.getBasicRemote().sendText("Server: " + message + ", " + testStatefulBean.getNumber());
     }
 
-    @Override
+  /*  @Override
     public void onMessage(Message message) {
         try {
             System.out.println("Received Message" + message.getDoubleProperty("asd"));
         } catch(JMSException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 }

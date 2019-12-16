@@ -23,6 +23,12 @@ public class MessagingBean {
 
     @PostConstruct
     private void init() {
+        for(Timer timer : timerService.getAllTimers()) {
+            if(timer.getInfo().equals(STATISTIC_TIMER)) {
+                return;
+            }
+        }
+
         TimerConfig timerConfig = new TimerConfig();
         timerConfig.setInfo(STATISTIC_TIMER);
 
