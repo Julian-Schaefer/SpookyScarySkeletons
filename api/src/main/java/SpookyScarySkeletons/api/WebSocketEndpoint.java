@@ -38,6 +38,7 @@ public class WebSocketEndpoint {
     @OnClose
     public void close(Session session) {
         connectedSessionsBean.removeSession(session);
+        testStatefulBean.dispose();
     }
 
     @OnError
