@@ -8,20 +8,16 @@ import javax.ejb.SessionContext;
 import javax.ejb.Stateful;
 
 @Stateful
-public class TestStatefulBean {
+public class AnwendungsLogikBean {
 
-    @Resource
-    private SessionContext sessionContext;
+    private int counter;
 
-    private double number;
-
-    @PostConstruct
-    private void init() {
-        number = Math.random();
-    }
-
-    public double getNumber() {
-        return number;
+    public Choice getNextChoice() {
+        Choice choice = new Choice();
+        choice.setMessage("Nachricht: " + ++counter);
+        choice.setFirstOption("Antwort 1");
+        choice.setSecondOption("Antwort 2");
+        return choice;
     }
 
     @Remove
