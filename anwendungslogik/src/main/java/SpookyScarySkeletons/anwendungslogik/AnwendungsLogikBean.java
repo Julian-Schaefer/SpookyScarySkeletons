@@ -1,23 +1,27 @@
 package SpookyScarySkeletons.anwendungslogik;
 
+import SpookyScarySkeletons.anwendungslogik.model.Choice;
+import SpookyScarySkeletons.anwendungslogik.model.Message;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.annotation.Resource;
+import javax.ejb.EJB;
 import javax.ejb.Remove;
-import javax.ejb.SessionContext;
 import javax.ejb.Stateful;
 
 @Stateful
 public class AnwendungsLogikBean {
 
-    private int counter;
+    @EJB
+    private EntscheidungsbaumParserBean entscheidungsbaumParserBean;
 
-    public Choice getNextChoice() {
-        Choice choice = new Choice();
-        choice.setMessage("Nachricht: " + ++counter);
-        choice.setFirstOption("Antwort 1");
-        choice.setSecondOption("Antwort 2");
-        return choice;
+    @PostConstruct
+    private void init() {
+        entscheidungsbaumParserBean.buildTree("testpath");
+    }
+
+    public Message getNextMessage(Choice choice) {
+        return choice.getNextMessage();
     }
 
     @Remove
