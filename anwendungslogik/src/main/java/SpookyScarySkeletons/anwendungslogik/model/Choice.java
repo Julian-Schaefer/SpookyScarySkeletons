@@ -5,6 +5,15 @@ public class Choice {
     private int id;
     private String content;
     private Message nextMessage;
+    private int value;
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
+    }
 
     public int getId() {
         return id;
