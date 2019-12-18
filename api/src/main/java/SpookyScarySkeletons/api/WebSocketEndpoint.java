@@ -1,6 +1,8 @@
 package SpookyScarySkeletons.api;
 
 import SpookyScarySkeletons.anwendungslogik.AnwendungsLogikBean;
+import SpookyScarySkeletons.anwendungslogik.model.Choice;
+import SpookyScarySkeletons.anwendungslogik.model.Message;
 
 import javax.ejb.*;
 import javax.json.bind.JsonbBuilder;
@@ -27,7 +29,10 @@ public class WebSocketEndpoint {
     @OnOpen
     public void open(Session session) throws IOException {
         connectedSessionsBean.addSession(session);
-        String choiceJSON = JsonbBuilder.create().toJson(anwendungsLogikBean.getNextChoice());
+        Message message = new Message();
+        message.setContent("Hallo");
+        String choiceJSON = JsonbBuilder.create().toJson(message);
+
         session.getBasicRemote().sendText(choiceJSON);
     }
 
@@ -44,7 +49,7 @@ public class WebSocketEndpoint {
 
     @OnMessage
     public void handleMessage(String message, Session session) throws IOException {
-        String choiceJSON = JsonbBuilder.create().toJson(anwendungsLogikBean.getNextChoice());
-        session.getBasicRemote().sendText(choiceJSON);
+        //String choiceJSON = JsonbBuilder.create().toJson(anwendungsLogikBean.getNextChoice());
+        session.getBasicRemote().sendText("test");
     }
 }
