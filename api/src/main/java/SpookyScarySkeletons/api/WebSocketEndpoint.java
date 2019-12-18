@@ -29,11 +29,19 @@ public class WebSocketEndpoint {
     @OnOpen
     public void open(Session session) throws IOException {
         connectedSessionsBean.addSession(session);
+        Choice firstChoice = new Choice();
+        firstChoice.setContent("Antwort 1");
+
+        Choice secondChoice = new Choice();
+        secondChoice.setContent("Antwort 2");
+
         Message message = new Message();
         message.setContent("Hallo");
-        String choiceJSON = JsonbBuilder.create().toJson(message);
+        message.setFirstChoice(firstChoice);
+        message.setSecondChoice(secondChoice);
+        String messageJSON = JsonbBuilder.create().toJson(message);
 
-        session.getBasicRemote().sendText(choiceJSON);
+        session.getBasicRemote().sendText(messageJSON);
     }
 
     @OnClose
@@ -49,7 +57,19 @@ public class WebSocketEndpoint {
 
     @OnMessage
     public void handleMessage(String message, Session session) throws IOException {
-        //String choiceJSON = JsonbBuilder.create().toJson(anwendungsLogikBean.getNextChoice());
+        Choice firstChoice = new Choice();
+        firstChoice.setContent("Antwort 1");
+
+        Choice secondChoice = new Choice();
+        secondChoice.setContent("Antwort 2");
+
+        Message replyMessage = new Message();
+        replyMessage.setContent("Hallo");
+        replyMessage.setFirstChoice(firstChoice);
+        replyMessage.setSecondChoice(secondChoice);
         session.getBasicRemote().sendText("test");
+        String replyMessageJSON = JsonbBuilder.create().toJson(replyMessage);
+
+        session.getBasicRemote().sendText(replyMessageJSON);
     }
 }
