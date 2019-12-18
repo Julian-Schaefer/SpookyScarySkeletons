@@ -4,9 +4,6 @@ import 'package:app/ChatMessage.dart';
 import 'package:app/model/Message.dart';
 import 'package:flutter/material.dart';
 import 'package:web_socket_channel/io.dart';
-import 'package:web_socket_channel/status.dart' as status;
-
-import 'model/Choice.dart';
 
 class ChatScreen extends StatefulWidget {
   @override
@@ -99,6 +96,7 @@ class _ChatScreenState extends State<ChatScreen>
               // List of messages
               buildListMessage(),
               Stack(
+                alignment: Alignment.bottomCenter,
                 children: <Widget>[
                   SlideTransition(
                     position: _outAnimation,
