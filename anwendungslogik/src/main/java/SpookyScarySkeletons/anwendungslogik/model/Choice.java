@@ -7,6 +7,9 @@ public class Choice {
     private Message nextMessage;
     private int value;
 
+    public Choice() {
+    }
+
     public Choice(int id, String content, Message nextMessage, int value) {
         this.id = id;
         this.content = content;
