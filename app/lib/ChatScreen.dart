@@ -1,11 +1,9 @@
 import 'dart:convert';
 
 import 'package:app/ChatMessage.dart';
+import 'package:app/model/Message.dart';
 import 'package:flutter/material.dart';
 import 'package:web_socket_channel/io.dart';
-import 'package:web_socket_channel/status.dart' as status;
-
-import 'model/Choice.dart';
 
 class ChatScreen extends StatefulWidget {
   @override
@@ -15,8 +13,8 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen>
     with SingleTickerProviderStateMixin {
   List<ChatMessage> messages = createChatMessages();
-  String firstOption = "";
-  String secondOption = "";
+  String firstChoice = "";
+  String secondChoice = "";
 
   final channel =
       IOWebSocketChannel.connect("ws://10.0.2.2:8080/api/websocket");
@@ -50,13 +48,13 @@ class _ChatScreenState extends State<ChatScreen>
         parent: _animationController, curve: new Interval(0.6, 1)));
 
     channel.stream.listen((response) {
-      var choice = Choice.fromJSON(jsonDecode(response));
+      var message = Message.fromJSON(jsonDecode(response));
 
       setState(() {
-        firstOption = choice.firstOption;
-        secondOption = choice.secondOption;
+        firstChoice = message.firstChoice.content;
+        secondChoice = message.secondChoice.content;
 
-        messages.insert(0, ChatMessage(true, choice.message, "now"));
+        messages.insert(0, ChatMessage(true, message.content, "now"));
         listScrollController.animateTo(0.0,
             duration: Duration(milliseconds: 300), curve: Curves.easeOut);
       });
@@ -98,6 +96,7 @@ class _ChatScreenState extends State<ChatScreen>
               // List of messages
               buildListMessage(),
               Stack(
+                alignment: Alignment.bottomCenter,
                 children: <Widget>[
                   SlideTransition(
                     position: _outAnimation,
@@ -129,7 +128,7 @@ class _ChatScreenState extends State<ChatScreen>
                           Expanded(
                             child: FlatButton(
                               child: Text(
-                                firstOption,
+                                firstChoice,
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 15),
                               ),
@@ -146,7 +145,7 @@ class _ChatScreenState extends State<ChatScreen>
                           Expanded(
                             child: FlatButton(
                               child: Text(
-                                secondOption,
+                                secondChoice,
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 15),
                               ),
