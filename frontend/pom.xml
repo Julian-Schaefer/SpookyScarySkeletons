@@ -18,6 +18,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
+                <version>3.2.3</version>
                 <configuration>
                     <webXml>web\WEB-INF\web.xml</webXml>
                     <webappDirectory>web</webappDirectory>
