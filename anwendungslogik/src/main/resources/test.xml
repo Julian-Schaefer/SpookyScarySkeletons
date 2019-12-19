@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<tree>
+    <messages>
+        <message>
+            <id>0</id>
+            <content>
+                Ganz toller Text!
+            </content>
+            <firstChoice>0</firstChoice>
+            <secondChoice>1</secondChoice>
+        </message>
+    </messages>
+    <choices>
+        <choice>
+            <id>0</id>
+            <content>
+                Hallo!
+            </content>
+            <nextMessage>0</nextMessage>
+            <value>0</value>
+        </choice>
+        <choice>
+            <id>1</id>
+            <content>
+                Ende!
+            </content>
+            <nextMessage>-1</nextMessage>
+            <value>1</value>
+        </choice>
+    </choices>
+</tree>
+
+<!--
+    Startknoten: id = 0
+    Blätter: nextMessage/firstChoice/secondChoice = -1
+    Messages und Choices anhand der IDs verknüpfen.
+-->

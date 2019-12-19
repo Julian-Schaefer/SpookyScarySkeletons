@@ -1,16 +1,20 @@
-package SpookyScarySkeletons.anwendungslogik.model;
+package SpookyScarySkeletons.anwendungslogik.xmlDtos;
 
-public class Message {
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
+public class MessageDto {
     private int id;
     private String content;
-    private Choice firstChoice;
-    private Choice secondChoice;
+    private int firstChoice;
+    private int secondChoice;
 
-    public Message() {
+    public MessageDto() {
     }
 
-    public Message(int id, String content, Choice firstChoice, Choice secondChoice) {
+    public MessageDto(int id, String content, int firstChoice, int secondChoice) {
         this.id = id;
         this.content = content;
         this.firstChoice = firstChoice;
@@ -33,20 +37,19 @@ public class Message {
         this.content = content;
     }
 
-    public Choice getFirstChoice() {
+    public int getFirstChoice() {
         return firstChoice;
     }
 
-    public void setFirstChoice(Choice firstChoice) {
+    public void setFirstChoice(int firstChoice) {
         this.firstChoice = firstChoice;
     }
 
-    public Choice getSecondChoice() {
+    public int getSecondChoice() {
         return secondChoice;
     }
 
-    public void setSecondChoice(Choice secondChoice) {
+    public void setSecondChoice(int secondChoice) {
         this.secondChoice = secondChoice;
     }
 }
-

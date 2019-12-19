@@ -7,6 +7,13 @@ public class Choice {
     private Message nextMessage;
     private int value;
 
+    public Choice(int id, String content, Message nextMessage, int value) {
+        this.id = id;
+        this.content = content;
+        this.nextMessage = nextMessage;
+        this.value = value;
+    }
+
     public int getValue() {
         return value;
     }

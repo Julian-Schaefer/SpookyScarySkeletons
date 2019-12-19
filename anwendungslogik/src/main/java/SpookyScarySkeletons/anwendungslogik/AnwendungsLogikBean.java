@@ -17,7 +17,7 @@ public class AnwendungsLogikBean {
 
     @PostConstruct
     private void init() {
-        entscheidungsbaumParserBean.buildTree("alongjourney.xml");
+        entscheidungsbaumParserBean.buildTree("test.xml");
     }
 
     public Message getNextMessage(Choice choice) {
