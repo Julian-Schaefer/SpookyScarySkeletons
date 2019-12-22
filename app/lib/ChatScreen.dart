@@ -2,22 +2,26 @@ import 'dart:convert';
 
 import 'package:app/ChatMessage.dart';
 import 'package:app/model/Message.dart';
+import 'package:app/model/ScenarioEndpoint.dart';
 import 'package:flutter/material.dart';
 import 'package:web_socket_channel/io.dart';
 
 class ChatScreen extends StatefulWidget {
+  final ScenarioEndpoint scenarioEndpoint;
+
+  const ChatScreen({Key key, this.scenarioEndpoint}) : super(key: key);
+
   @override
   _ChatScreenState createState() => _ChatScreenState();
 }
 
 class _ChatScreenState extends State<ChatScreen>
     with SingleTickerProviderStateMixin {
-  List<ChatMessage> messages = createChatMessages();
-  String firstChoice = "";
-  String secondChoice = "";
+  List<ChatMessage> _messages = createChatMessages();
+  String _firstChoice = "";
+  String _secondChoice = "";
 
-  final channel =
-      IOWebSocketChannel.connect("ws://10.0.2.2:8080/api/websocket");
+  IOWebSocketChannel _channel;
 
   AnimationController _animationController;
   Animation<Offset> _outAnimation;
@@ -30,6 +34,9 @@ class _ChatScreenState extends State<ChatScreen>
   @override
   void initState() {
     super.initState();
+    _channel = IOWebSocketChannel.connect(
+        "ws://10.0.2.2:8080/" + widget.scenarioEndpoint.websocketEndpoint);
+
     _animationController = AnimationController(
       duration: const Duration(milliseconds: 800),
       vsync: this,
@@ -47,14 +54,14 @@ class _ChatScreenState extends State<ChatScreen>
     ).animate(CurvedAnimation(
         parent: _animationController, curve: new Interval(0.6, 1)));
 
-    channel.stream.listen((response) {
+    _channel.stream.listen((response) {
       var message = Message.fromJSON(jsonDecode(response));
 
       setState(() {
-        firstChoice = message.firstChoice.content;
-        secondChoice = message.secondChoice.content;
+        _firstChoice = message.firstChoice.content;
+        _secondChoice = message.secondChoice.content;
 
-        messages.insert(0, ChatMessage(true, message.content, "now"));
+        _messages.insert(0, ChatMessage(true, message.content, "now"));
         listScrollController.animateTo(0.0,
             duration: Duration(milliseconds: 300), curve: Curves.easeOut);
       });
@@ -68,12 +75,12 @@ class _ChatScreenState extends State<ChatScreen>
   }
 
   void sendToWebSocket(String message) {
-    channel.sink.add(message);
+    _channel.sink.add(message);
   }
 
   void onSendMessage(String message) {
     setState(() {
-      messages.insert(0, ChatMessage(false, message, "now"));
+      _messages.insert(0, ChatMessage(false, message, "now"));
     });
 
     sendToWebSocket(message);
@@ -89,83 +96,87 @@ class _ChatScreenState extends State<ChatScreen>
       appBar: AppBar(
         title: Text("Unknown number"),
       ),
-      body: Stack(
-        children: <Widget>[
-          Column(
-            children: <Widget>[
-              // List of messages
-              buildListMessage(),
-              Stack(
-                alignment: Alignment.bottomCenter,
-                children: <Widget>[
-                  SlideTransition(
-                    position: _outAnimation,
-                    child: Container(
-                      width: double.infinity,
-                      height: 100,
-                      child: FlatButton(
-                        child: Text(
-                          'Antworten',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
+      body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/wrongnumber_background.jpg"),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Column(
+          children: <Widget>[
+            // List of messages
+            buildListMessage(),
+            Stack(
+              alignment: Alignment.bottomCenter,
+              children: <Widget>[
+                SlideTransition(
+                  position: _outAnimation,
+                  child: Container(
+                    width: double.infinity,
+                    height: 100,
+                    child: FlatButton(
+                      child: Text(
+                        'Antworten',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                        ),
+                      ),
+                      color: Theme.of(context).primaryColorDark,
+                      onPressed: () {
+                        _animationController.forward();
+                      },
+                    ),
+                  ),
+                ),
+                SlideTransition(
+                  position: _inAnimation,
+                  child: Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
+                    child: Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: FlatButton(
+                            child: Text(
+                              _firstChoice,
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 15),
+                            ),
+                            color: Theme.of(context).primaryColorDark,
+                            onPressed: () {
+                              _animationController.reverse();
+                              onSendMessage('hallo');
+                            },
                           ),
                         ),
-                        color: Theme.of(context).primaryColorDark,
-                        onPressed: () {
-                          _animationController.forward();
-                        },
-                      ),
+                        Padding(
+                          padding: EdgeInsets.all(5),
+                        ),
+                        Expanded(
+                          child: FlatButton(
+                            child: Text(
+                              _secondChoice,
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 15),
+                            ),
+                            color: Theme.of(context).primaryColorDark,
+                            onPressed: () {
+                              _animationController.reverse();
+                            },
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  SlideTransition(
-                    position: _inAnimation,
-                    child: Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
-                      child: Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: FlatButton(
-                              child: Text(
-                                firstChoice,
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 15),
-                              ),
-                              color: Theme.of(context).primaryColorDark,
-                              onPressed: () {
-                                _animationController.reverse();
-                                onSendMessage('hallo');
-                              },
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(5),
-                          ),
-                          Expanded(
-                            child: FlatButton(
-                              child: Text(
-                                secondChoice,
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 15),
-                              ),
-                              color: Theme.of(context).primaryColorDark,
-                              onPressed: () {
-                                _animationController.reverse();
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              // Input content
-              //buildInput(),
-            ],
-          )
-        ],
+                ),
+              ],
+            ),
+            // Input content
+            //buildInput(),
+          ],
+        ),
       ),
     );
   }
@@ -174,8 +185,8 @@ class _ChatScreenState extends State<ChatScreen>
     return Flexible(
       child: ListView.builder(
         padding: EdgeInsets.all(10.0),
-        itemBuilder: (context, index) => buildItem(index, messages[index]),
-        itemCount: messages.length,
+        itemBuilder: (context, index) => buildItem(index, _messages[index]),
+        itemCount: _messages.length,
         reverse: true,
         controller: listScrollController,
       ),
@@ -308,7 +319,7 @@ class _ChatScreenState extends State<ChatScreen>
   }
 
   bool isLastMessageLeft(int index) {
-    if ((index > 0 && messages != null && messages[index - 1].isIncoming) ||
+    if ((index > 0 && _messages != null && _messages[index - 1].isIncoming) ||
         index == 0) {
       return true;
     } else {
@@ -317,7 +328,7 @@ class _ChatScreenState extends State<ChatScreen>
   }
 
   bool isLastMessageRight(int index) {
-    if ((index > 0 && messages != null && !messages[index - 1].isIncoming) ||
+    if ((index > 0 && _messages != null && !_messages[index - 1].isIncoming) ||
         index == 0) {
       return true;
     } else {

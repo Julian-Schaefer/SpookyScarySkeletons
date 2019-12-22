@@ -11,21 +11,43 @@ import java.util.List;
 public class ConnectedSessionsBean {
 
     private List<Session> sessions;
+    private List<Session> wrongNumberSessions;
+    private List<Session> longJourneySessions;
 
     @PostConstruct
     private void init() {
         sessions = new LinkedList<>();
     }
 
-    public void addSession(Session session) {
+    public void addWrongNumberSession(Session session) {
         sessions.add(session);
+        wrongNumberSessions.add(session);
     }
 
-    public void removeSession(Session session) {
+    public void removeWrongNumberSession(Session session) {
         sessions.remove(session);
+        wrongNumberSessions.remove(session);
     }
 
-    public List<Session> getSessions() {
+    public void addLongJourneySession(Session session) {
+        sessions.add(session);
+        longJourneySessions.add(session);
+    }
+
+    public void removeLongJourneySession(Session session) {
+        sessions.remove(session);
+        longJourneySessions.remove(session);
+    }
+
+    public List<Session> getAllSessions() {
         return sessions;
+    }
+
+    public List<Session> getWrongNumberSessions() {
+        return wrongNumberSessions;
+    }
+
+    public List<Session> getLongJourneySessions() {
+        return longJourneySessions;
     }
 }

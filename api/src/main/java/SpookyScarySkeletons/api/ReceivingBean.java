@@ -18,7 +18,7 @@ public class ReceivingBean implements MessageListener {
 
     @Override
     public void onMessage(Message message) {
-        for(Session session: connectedSessionsBean.getSessions()) {
+        for(Session session: connectedSessionsBean.getAllSessions()) {
             System.out.println("Sending to session: " + session.getId());
             try {
                 session.getBasicRemote().sendText("Received Message" + message.getDoubleProperty("asd"));

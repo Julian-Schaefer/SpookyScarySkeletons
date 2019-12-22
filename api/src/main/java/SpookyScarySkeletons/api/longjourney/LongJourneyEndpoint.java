@@ -1,34 +1,34 @@
-package SpookyScarySkeletons.api;
+package SpookyScarySkeletons.api.longjourney;
 
 import SpookyScarySkeletons.anwendungslogik.AnwendungsLogikBean;
+import SpookyScarySkeletons.anwendungslogik.longjourney.LongJourneyLogikBean;
 import SpookyScarySkeletons.anwendungslogik.model.Choice;
 import SpookyScarySkeletons.anwendungslogik.model.Message;
+import SpookyScarySkeletons.api.AvailableScenariosEndpoint;
+import SpookyScarySkeletons.api.ConnectedSessionsBean;
 
-import javax.ejb.*;
+import javax.ejb.EJB;
+import javax.ejb.Stateful;
 import javax.json.bind.JsonbBuilder;
-import javax.websocket.OnClose;
-import javax.websocket.OnError;
-import javax.websocket.OnMessage;
-import javax.websocket.OnOpen;
-import javax.websocket.Session;
+import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 
-// URL zum Testen: ws://localhost:8080/api/websocket
+// URL zum Testen: ws://localhost:8080/api/longjourney
 
 @Stateful
-@ServerEndpoint("/websocket")
-public class WebSocketEndpoint {
+@ServerEndpoint(AvailableScenariosEndpoint.ENDPOINT_LONG_JOURNEY)
+public class LongJourneyEndpoint {
 
     @EJB
-    private AnwendungsLogikBean anwendungsLogikBean;
+    private LongJourneyLogikBean longJourneyLogikBean;
 
     @EJB
     private ConnectedSessionsBean connectedSessionsBean;
 
     @OnOpen
     public void open(Session session) throws IOException {
-        connectedSessionsBean.addSession(session);
+        connectedSessionsBean.addLongJourneySession(session);
         Choice firstChoice = new Choice();
         firstChoice.setContent("Antwort 1");
 
@@ -46,8 +46,8 @@ public class WebSocketEndpoint {
 
     @OnClose
     public void close(Session session) {
-        connectedSessionsBean.removeSession(session);
-        anwendungsLogikBean.dispose();
+        connectedSessionsBean.addLongJourneySession(session);
+        longJourneyLogikBean.dispose();
     }
 
     @OnError
