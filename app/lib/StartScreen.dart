@@ -4,6 +4,7 @@ import 'package:app/ChatScreen.dart';
 import 'package:app/model/ScenarioEndpoint.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter/foundation.dart';
 
 class StartScreen extends StatefulWidget {
   @override
@@ -14,8 +15,13 @@ class _StartScreenState extends State<StartScreen> {
   Future<List<ScenarioEndpoint>> _scenarioEndpoints;
 
   Future<List<ScenarioEndpoint>> getAvailableScenarios() async {
-    final response = await http.get('http://10.0.2.2:8080/api/scenarios');
+    http.Response response;
 
+    if (kIsWeb) {
+      response = await http.get('http://localhost:8080/api/scenarios');
+    } else {
+      response = await http.get('http://10.0.2.2:8080/api/scenarios');
+    }
     var scenarioEndpoints = new List<ScenarioEndpoint>();
     if (response.statusCode == 200) {
       for (var jsonObject in jsonDecode(response.body)) {

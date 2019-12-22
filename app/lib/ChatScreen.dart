@@ -1,10 +1,12 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 
 import 'package:app/ChatMessage.dart';
 import 'package:app/model/Message.dart';
 import 'package:app/model/ScenarioEndpoint.dart';
 import 'package:flutter/material.dart';
 import 'package:web_socket_channel/io.dart';
+import 'package:web_socket_channel/html.dart';
 
 class ChatScreen extends StatefulWidget {
   final ScenarioEndpoint scenarioEndpoint;
@@ -21,7 +23,7 @@ class _ChatScreenState extends State<ChatScreen>
   String _firstChoice = "";
   String _secondChoice = "";
 
-  IOWebSocketChannel _channel;
+  var _channel;
 
   AnimationController _animationController;
   Animation<Offset> _outAnimation;
@@ -34,8 +36,14 @@ class _ChatScreenState extends State<ChatScreen>
   @override
   void initState() {
     super.initState();
-    _channel = IOWebSocketChannel.connect(
-        "ws://10.0.2.2:8080/" + widget.scenarioEndpoint.websocketEndpoint);
+
+    if (kIsWeb) {
+      _channel = HtmlWebSocketChannel.connect(
+          "ws://localhost:8080/" + widget.scenarioEndpoint.websocketEndpoint);
+    } else {
+      _channel = IOWebSocketChannel.connect(
+          "ws://10.0.2.2:8080/" + widget.scenarioEndpoint.websocketEndpoint);
+    }
 
     _animationController = AnimationController(
       duration: const Duration(milliseconds: 800),
