@@ -22,11 +22,11 @@ public class EntscheidungsbaumParserBean {
     private TreeDto tree = null;
 
     public Message buildTree(String path) {
-        File file = new File(path);
+        InputStream inputStream = getClass().getResourceAsStream(path);
 
         // parsen
         try {
-            String xml = fileToString(file);
+            String xml = inputStreamToString(inputStream);
             JAXBContext context = JAXBContext.newInstance(TreeDto.class);
             Unmarshaller um = context.createUnmarshaller();
             tree = (TreeDto) um.unmarshal(new StringReader(xml));
@@ -60,12 +60,11 @@ public class EntscheidungsbaumParserBean {
         return findMessageById(0);
     }
 
-    private String fileToString(File file) {
+    private String inputStreamToString(InputStream inputStream) {
         StringBuilder sb = new StringBuilder();
         String line;
         try {
-            FileInputStream fis = new FileInputStream(file);
-            BufferedReader br = new BufferedReader(new InputStreamReader(fis));
+            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
             while ((line = br.readLine()) != null) {
                 sb.append(line);
             }
