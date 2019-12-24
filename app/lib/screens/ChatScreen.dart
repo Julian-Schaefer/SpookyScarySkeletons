@@ -1,17 +1,17 @@
 import 'dart:convert';
-import 'package:flutter/foundation.dart';
 
-import 'package:app/ChatMessage.dart';
+import 'package:app/model/ChatMessage.dart';
 import 'package:app/model/Message.dart';
 import 'package:app/model/ScenarioEndpoint.dart';
 import 'package:flutter/material.dart';
-import 'package:web_socket_channel/io.dart';
-import 'package:web_socket_channel/html.dart';
+
+import 'package:app/model/WebSocket.dart';
 
 class ChatScreen extends StatefulWidget {
   final ScenarioEndpoint scenarioEndpoint;
+  final WebSocket webSocket;
 
-  const ChatScreen({Key key, this.scenarioEndpoint}) : super(key: key);
+  const ChatScreen({this.scenarioEndpoint, this.webSocket});
 
   @override
   _ChatScreenState createState() => _ChatScreenState();
@@ -22,8 +22,6 @@ class _ChatScreenState extends State<ChatScreen>
   List<ChatMessage> _messages = createChatMessages();
   String _firstChoice = "";
   String _secondChoice = "";
-
-  var _channel;
 
   AnimationController _animationController;
   Animation<Offset> _outAnimation;
@@ -36,14 +34,6 @@ class _ChatScreenState extends State<ChatScreen>
   @override
   void initState() {
     super.initState();
-
-    if (kIsWeb) {
-      _channel = HtmlWebSocketChannel.connect(
-          "ws://localhost:8080/" + widget.scenarioEndpoint.websocketEndpoint);
-    } else {
-      _channel = IOWebSocketChannel.connect(
-          "ws://10.0.2.2:8080/" + widget.scenarioEndpoint.websocketEndpoint);
-    }
 
     _animationController = AnimationController(
       duration: const Duration(milliseconds: 800),
@@ -62,7 +52,8 @@ class _ChatScreenState extends State<ChatScreen>
     ).animate(CurvedAnimation(
         parent: _animationController, curve: new Interval(0.6, 1)));
 
-    _channel.stream.listen((response) {
+    widget.webSocket.connect(widget.scenarioEndpoint.websocketEndpoint);
+    widget.webSocket.getStream().listen((response) {
       var message = Message.fromJSON(jsonDecode(response));
 
       setState(() {
@@ -83,7 +74,7 @@ class _ChatScreenState extends State<ChatScreen>
   }
 
   void sendToWebSocket(String message) {
-    _channel.sink.add(message);
+    widget.webSocket.send(message);
   }
 
   void onSendMessage(String message) {

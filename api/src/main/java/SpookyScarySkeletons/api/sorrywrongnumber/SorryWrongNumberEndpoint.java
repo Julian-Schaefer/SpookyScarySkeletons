@@ -69,7 +69,6 @@ public class SorryWrongNumberEndpoint {
         replyMessage.setContent("Hallo");
         replyMessage.setFirstChoice(firstChoice);
         replyMessage.setSecondChoice(secondChoice);
-        session.getBasicRemote().sendText("test");
         String replyMessageJSON = JsonbBuilder.create().toJson(replyMessage);
 
         session.getBasicRemote().sendText(replyMessageJSON);

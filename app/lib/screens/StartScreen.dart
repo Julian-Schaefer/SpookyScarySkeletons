@@ -1,10 +1,12 @@
 import 'dart:convert';
 
-import 'package:app/ChatScreen.dart';
 import 'package:app/model/ScenarioEndpoint.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
+
+import 'ChatScreen.dart';
+import 'package:app/model/WebSocket.dart';
 
 class StartScreen extends StatefulWidget {
   @override
@@ -53,6 +55,7 @@ class _StartScreenState extends State<StartScreen> {
           future: _scenarioEndpoints,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
+              WebSocket myWebSocket = WebSocket();
               return Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -66,7 +69,9 @@ class _StartScreenState extends State<StartScreen> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => ChatScreen(
-                                      scenarioEndpoint: scenarioEndpoint)),
+                                        scenarioEndpoint: scenarioEndpoint,
+                                        webSocket: myWebSocket,
+                                      )),
                             );
                             break;
                           default:

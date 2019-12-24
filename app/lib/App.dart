@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'StartScreen.dart';
+import 'screens/StartScreen.dart';
 
 class App extends StatefulWidget {
   @override

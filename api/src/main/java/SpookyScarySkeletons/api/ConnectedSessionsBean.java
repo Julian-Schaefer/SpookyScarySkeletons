@@ -17,6 +17,8 @@ public class ConnectedSessionsBean {
     @PostConstruct
     private void init() {
         sessions = new LinkedList<>();
+        wrongNumberSessions = new LinkedList<>();
+        longJourneySessions = new LinkedList<>();
     }
 
     public void addWrongNumberSession(Session session) {
