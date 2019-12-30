@@ -1,6 +1,7 @@
 package SpookyScarySkeletons.api.longjourney;
 
 import SpookyScarySkeletons.anwendungslogik.AnwendungsLogikBean;
+import SpookyScarySkeletons.anwendungslogik.ScenarioManagement;
 import SpookyScarySkeletons.anwendungslogik.longjourney.LongJourneyLogikBean;
 import SpookyScarySkeletons.anwendungslogik.model.Choice;
 import SpookyScarySkeletons.anwendungslogik.model.Message;
@@ -17,7 +18,7 @@ import java.io.IOException;
 // URL zum Testen: ws://localhost:8080/api/longjourney
 
 @Stateful
-@ServerEndpoint(AvailableScenariosEndpoint.ENDPOINT_LONG_JOURNEY)
+@ServerEndpoint(ScenarioManagement.ENDPOINT_LONG_JOURNEY)
 public class LongJourneyEndpoint {
 
     @EJB

@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+import 'screens/AccountScreen.dart';
 import 'screens/StartScreen.dart';
 
 class App extends StatefulWidget {
@@ -17,7 +19,9 @@ class _AppState extends State<App> {
         primarySwatch: Colors.red,
         primaryColorDark: Colors.red[800],
       ),
-      home: StartScreen(),
+      home: AccountScreen(),
     );
   }
 }
+
+String baseUrl = kIsWeb ? "http://localhost:8080" : "http://10.0.2.2:8080";

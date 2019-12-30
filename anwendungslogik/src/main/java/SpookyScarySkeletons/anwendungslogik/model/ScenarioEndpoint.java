@@ -1,4 +1,4 @@
-package SpookyScarySkeletons.api.model;
+package SpookyScarySkeletons.anwendungslogik.model;
 
 public class ScenarioEndpoint {
 

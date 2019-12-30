@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:app/model/ScenarioEndpoint.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter/foundation.dart';
 
+import '../App.dart';
 import 'ChatScreen.dart';
 import 'package:app/model/WebSocket.dart';
 
@@ -19,11 +19,8 @@ class _StartScreenState extends State<StartScreen> {
   Future<List<ScenarioEndpoint>> getAvailableScenarios() async {
     http.Response response;
 
-    if (kIsWeb) {
-      response = await http.get('http://localhost:8080/api/scenarios');
-    } else {
-      response = await http.get('http://10.0.2.2:8080/api/scenarios');
-    }
+    response = await http.get(baseUrl + '/api/scenarios');
+
     var scenarioEndpoints = new List<ScenarioEndpoint>();
     if (response.statusCode == 200) {
       for (var jsonObject in jsonDecode(response.body)) {

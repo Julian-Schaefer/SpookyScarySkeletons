@@ -1,6 +1,7 @@
 package SpookyScarySkeletons.api.sorrywrongnumber;
 
 import SpookyScarySkeletons.anwendungslogik.AnwendungsLogikBean;
+import SpookyScarySkeletons.anwendungslogik.ScenarioManagement;
 import SpookyScarySkeletons.anwendungslogik.model.Choice;
 import SpookyScarySkeletons.anwendungslogik.model.Message;
 import SpookyScarySkeletons.api.AvailableScenariosEndpoint;
@@ -19,7 +20,7 @@ import java.io.IOException;
 // URL zum Testen: ws://localhost:8080/api/websocket
 
 @Stateful
-@ServerEndpoint(AvailableScenariosEndpoint.ENDPOINT_SORRY_WRONG_NUMBER)
+@ServerEndpoint(ScenarioManagement.ENDPOINT_SORRY_WRONG_NUMBER)
 public class SorryWrongNumberEndpoint {
 
     @EJB
