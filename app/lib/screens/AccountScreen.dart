@@ -15,6 +15,7 @@ class AccountScreen extends StatefulWidget {
 
 class _AccountScreenState extends State<AccountScreen> {
   final _formKey = GlobalKey<FormState>();
+  final _usernameController = TextEditingController();
 
   Future<Account> _createdAccount;
 
@@ -23,12 +24,14 @@ class _AccountScreenState extends State<AccountScreen> {
 
     Account account = Account(username);
 
-    response = await http.post(baseUrl + '/api/user', body: account.toJson());
+    response = await http.post(baseUrl + '/api/account',
+        headers: {"Content-Type": "application/json"},
+        body: json.encode(account.toJson()));
 
     if (response.statusCode == 200) {
       return Account.fromJSON(jsonDecode(response.body));
     } else {
-      // If that response was not OK, throw an error.
+      print('Error processing the request: ' + response.body);
       throw Exception('Failed to load post');
     }
   }
@@ -69,23 +72,23 @@ class _AccountScreenState extends State<AccountScreen> {
                       children: <Widget>[
                         TextFormField(
                           decoration: const InputDecoration(
-                            hintText: 'Enter your email',
+                            hintText: 'Please enter your username',
                           ),
                           validator: (value) {
                             if (value.isEmpty) {
-                              return 'Please enter some text';
+                              return 'Your username cannot be empty.';
                             }
                             return null;
                           },
+                          controller: _usernameController,
                         ),
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 16.0),
                           child: RaisedButton(
                             onPressed: () {
-                              // Validate will return true if the form is valid, or false if
-                              // the form is invalid.
                               if (_formKey.currentState.validate()) {
-                                // Process data.
+                                _createdAccount =
+                                    _createAccount(_usernameController.text);
                               }
                             },
                             child: Text('Submit'),
