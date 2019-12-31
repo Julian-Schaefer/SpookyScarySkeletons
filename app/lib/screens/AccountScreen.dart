@@ -5,7 +5,6 @@ import 'package:http/http.dart' as http;
 
 import '../App.dart';
 import '../model/Account.dart';
-import 'ChatScreen.dart';
 import 'StartScreen.dart';
 
 class AccountScreen extends StatefulWidget {
@@ -29,11 +28,20 @@ class _AccountScreenState extends State<AccountScreen> {
         body: json.encode(account.toJson()));
 
     if (response.statusCode == 200) {
-      return Account.fromJSON(jsonDecode(response.body));
+      Account account = Account.fromJSON(jsonDecode(response.body));
+      return account;
+    } else if (response.statusCode == 409) {
+      throw Exception('Selected Username is already in use.');
     } else {
       print('Error processing the request: ' + response.body);
-      throw Exception('Failed to load post');
+      throw Exception('Failed to register Account.');
     }
+  }
+
+  void onCreateAccount() {
+    setState(() {
+      _createdAccount = _createAccount(_usernameController.text);
+    });
   }
 
   @override
@@ -50,8 +58,10 @@ class _AccountScreenState extends State<AccountScreen> {
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
+                    Text(
+                        'Account ${snapshot.data.username} successfully created!'),
                     RaisedButton(
-                      child: Text(snapshot.data.username),
+                      child: Text('Show Scenarios'),
                       onPressed: () {
                         Navigator.pushReplacement(
                             context,
@@ -61,8 +71,6 @@ class _AccountScreenState extends State<AccountScreen> {
                     ),
                   ],
                 );
-              } else if (snapshot.hasError) {
-                return Text("${snapshot.error}");
               } else {
                 // By default, show a loading spinner.
                 return Form(
@@ -72,28 +80,38 @@ class _AccountScreenState extends State<AccountScreen> {
                       children: <Widget>[
                         TextFormField(
                           decoration: const InputDecoration(
-                            hintText: 'Please enter your username',
+                            hintText: 'Please select a Username',
                           ),
                           validator: (value) {
                             if (value.isEmpty) {
-                              return 'Your username cannot be empty.';
+                              return 'Username cannot be empty.';
                             }
                             return null;
                           },
                           controller: _usernameController,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 16.0),
-                          child: RaisedButton(
-                            onPressed: () {
-                              if (_formKey.currentState.validate()) {
-                                _createdAccount =
-                                    _createAccount(_usernameController.text);
-                              }
-                            },
-                            child: Text('Submit'),
+                        if (snapshot.connectionState != ConnectionState.waiting)
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 16.0),
+                            child: MaterialButton(
+                              onPressed: () {
+                                if (_formKey.currentState.validate()) {
+                                  onCreateAccount();
+                                }
+                              },
+                              child: Text('Create Account',
+                                  style: TextStyle(color: Colors.white)),
+                              color: Theme.of(context).primaryColorDark,
+                            ),
                           ),
-                        ),
+                        if (snapshot.connectionState == ConnectionState.waiting)
+                          Center(
+                            child: Container(
+                              margin: EdgeInsets.only(top: 20),
+                              child: CircularProgressIndicator(),
+                            ),
+                          ),
+                        if (snapshot.hasError) Text("${snapshot.error}"),
                       ],
                     ));
               }
