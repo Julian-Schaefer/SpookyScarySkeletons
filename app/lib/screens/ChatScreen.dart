@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 
 import 'package:app/model/WebSocket.dart';
 
+import '../App.dart';
+
 class ChatScreen extends StatefulWidget {
   final ScenarioEndpoint scenarioEndpoint;
   final WebSocket webSocket;
@@ -98,8 +100,9 @@ class _ChatScreenState extends State<ChatScreen>
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/wrongnumber_background.jpg"),
-            fit: BoxFit.cover,
+            image: NetworkImage(
+                baseUrl + widget.scenarioEndpoint.backgroundImageUrl),
+            fit: BoxFit.fill,
           ),
         ),
         child: Column(

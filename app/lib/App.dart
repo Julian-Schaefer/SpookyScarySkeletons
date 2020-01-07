@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'screens/AccountScreen.dart';
-import 'screens/StartScreen.dart';
 
 class App extends StatefulWidget {
   @override

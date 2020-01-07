@@ -24,12 +24,14 @@ public class ScenarioManagement implements ScenarioManagementLocal {
 
         ScenarioEndpoint sorryWrongNumberEndpoint = new ScenarioEndpoint();
         sorryWrongNumberEndpoint.setName("Sorry, wrong number.");
-        sorryWrongNumberEndpoint.setWebsocketEndpoint("/api/" + ENDPOINT_SORRY_WRONG_NUMBER);
+        sorryWrongNumberEndpoint.setWebsocketEndpoint("/api" + ENDPOINT_SORRY_WRONG_NUMBER);
+        sorryWrongNumberEndpoint.setBackgroundImageUrl("/frontend/images/wrongnumber_background.jpg");
         scenarioEndpoints.add(sorryWrongNumberEndpoint);
 
         ScenarioEndpoint longJourneyEndpoint = new ScenarioEndpoint();
         longJourneyEndpoint.setName("A long journey.");
-        longJourneyEndpoint.setWebsocketEndpoint("/api/" + ENDPOINT_LONG_JOURNEY);
+        longJourneyEndpoint.setWebsocketEndpoint("/api" + ENDPOINT_LONG_JOURNEY);
+        longJourneyEndpoint.setBackgroundImageUrl("/frontend/images/longjourney_background.jpg");
         scenarioEndpoints.add(longJourneyEndpoint);
         return scenarioEndpoints;
     }

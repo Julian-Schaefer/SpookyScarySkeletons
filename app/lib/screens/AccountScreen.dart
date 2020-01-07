@@ -59,15 +59,22 @@ class _AccountScreenState extends State<AccountScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                        'Account ${snapshot.data.username} successfully created!'),
-                    RaisedButton(
-                      child: Text('Show Scenarios'),
+                        'Account ${snapshot.data.username} has been successfully created!'),
+                    Padding(
+                      padding: EdgeInsets.only(top: 20),
+                    ),
+                    MaterialButton(
+                      child: Text(
+                        'Show Scenarios',
+                        style: TextStyle(color: Colors.white),
+                      ),
                       onPressed: () {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => StartScreen()));
                       },
+                      color: Theme.of(context).primaryColorDark,
                     ),
                   ],
                 );

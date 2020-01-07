@@ -33,7 +33,7 @@ public class MessagingBean {
         timerConfig.setInfo(STATISTIC_TIMER);
 
         System.out.println("Creating Timer!");
-        timerService.createIntervalTimer(0, 5000, timerConfig);
+        timerService.createIntervalTimer(0, 20000, timerConfig);
     }
 
     @Timeout

@@ -52,30 +52,48 @@ class _StartScreenState extends State<StartScreen> {
           future: _scenarioEndpoints,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              WebSocket myWebSocket = WebSocket();
+              WebSocket webSocket = WebSocket();
               return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   for (var scenarioEndpoint in snapshot.data)
-                    RaisedButton(
-                      child: Text(scenarioEndpoint.name),
-                      onPressed: () {
-                        switch (scenarioEndpoint.name) {
-                          case 'Sorry, wrong number.':
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ChatScreen(
-                                        scenarioEndpoint: scenarioEndpoint,
-                                        webSocket: myWebSocket,
-                                      )),
-                            );
-                            break;
-                          default:
-                            this._showDialog('Scenario was not found: ' +
-                                scenarioEndpoint.name);
-                        }
-                      },
+                    Expanded(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: NetworkImage(
+                                baseUrl + scenarioEndpoint.backgroundImageUrl),
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                        child: FlatButton(
+                          child: Text(
+                            scenarioEndpoint.name,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 32,
+                              fontStyle: FontStyle.italic,
+                            ),
+                          ),
+                          onPressed: () {
+                            switch (scenarioEndpoint.name) {
+                              case 'Sorry, wrong number.':
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ChatScreen(
+                                            scenarioEndpoint: scenarioEndpoint,
+                                            webSocket: webSocket,
+                                          )),
+                                );
+                                break;
+                              default:
+                                this._showDialog('Scenario was not found: ' +
+                                    scenarioEndpoint.name);
+                            }
+                          },
+                        ),
+                      ),
                     ),
                 ],
               );
