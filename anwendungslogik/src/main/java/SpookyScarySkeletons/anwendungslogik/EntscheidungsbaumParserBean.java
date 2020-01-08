@@ -39,7 +39,7 @@ public class EntscheidungsbaumParserBean {
         // Messages und Choices erstellen
         tree.getChoices()
                 .stream()
-                .forEach(choiceDto -> choices.add(new Choice(choiceDto.getId(), choiceDto.getContent(), null, choiceDto.getValue())));
+                .forEach(choiceDto -> choices.add(new Choice(choiceDto.getId(), choiceDto.getContent(), null, choiceDto.getValueChange(), choiceDto.getMinValue())));
         tree.getMessages()
                 .stream()
                 .forEach(messageDto -> messages.add(new Message(messageDto.getId(), messageDto.getContent(), null, null)));

@@ -1,7 +1,5 @@
 package SpookyScarySkeletons.anwendungslogik.xmlDtos;
 
-import SpookyScarySkeletons.anwendungslogik.model.Choice;
-
 import javax.xml.bind.annotation.*;
 import java.util.List;
 
@@ -10,11 +8,11 @@ import java.util.List;
 public class TreeDto {
     @XmlElementWrapper(name = "messages")
     @XmlElement(name = "message")
-    List<MessageDto> messages;
+    private List<MessageDto> messages;
 
     @XmlElementWrapper(name = "choices")
     @XmlElement(name = "choice")
-    List<ChoiceDto> choices;
+    private List<ChoiceDto> choices;
 
     public List<MessageDto> getMessages() {
         return messages;

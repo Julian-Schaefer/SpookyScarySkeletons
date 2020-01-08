@@ -5,24 +5,26 @@ public class Choice {
     private int id;
     private String content;
     private Message nextMessage;
-    private int value;
+    private int valueChange;
+    private int minValue;
 
     public Choice() {
     }
 
-    public Choice(int id, String content, Message nextMessage, int value) {
+    public Choice(int id, String content, Message nextMessage, int valueChange, int minValue) {
         this.id = id;
         this.content = content;
         this.nextMessage = nextMessage;
-        this.value = value;
+        this.valueChange = valueChange;
+        this.minValue = minValue;
     }
 
-    public int getValue() {
-        return value;
+    public int getValueChange() {
+        return valueChange;
     }
 
-    public void setValue(int value) {
-        this.value = value;
+    public void setValueChange(int valueChange) {
+        this.valueChange = valueChange;
     }
 
     public int getId() {
@@ -47,5 +49,13 @@ public class Choice {
 
     public void setNextMessage(Message nextMessage) {
         this.nextMessage = nextMessage;
+    }
+
+    public int getMinValue() {
+        return minValue;
+    }
+
+    public void setMinValue(int minValue) {
+        this.minValue = minValue;
     }
 }

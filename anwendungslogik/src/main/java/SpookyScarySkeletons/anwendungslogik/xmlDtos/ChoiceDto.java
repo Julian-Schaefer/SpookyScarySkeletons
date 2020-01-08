@@ -1,22 +1,21 @@
 package SpookyScarySkeletons.anwendungslogik.xmlDtos;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
 public class ChoiceDto {
     private int id;
     private String content;
     private int nextMessage;
-    private int value;
+    private int valueChange;
+    private int minValue;
 
     public ChoiceDto() {
     }
 
-    public ChoiceDto(int id, String content, int nextMessage, int value) {
+    public ChoiceDto(int id, String content, int nextMessage, int valueChange, int minValue) {
         this.id = id;
         this.content = content;
         this.nextMessage = nextMessage;
-        this.value = value;
+        this.valueChange = valueChange;
+        this.minValue = minValue;
     }
 
     public String getContent() {
@@ -35,12 +34,12 @@ public class ChoiceDto {
         this.nextMessage = nextMessage;
     }
 
-    public int getValue() {
-        return value;
+    public int getValueChange() {
+        return valueChange;
     }
 
-    public void setValue(int value) {
-        this.value = value;
+    public void setValueChange(int valueChange) {
+        this.valueChange = valueChange;
     }
 
     public int getId() {
@@ -49,5 +48,13 @@ public class ChoiceDto {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getMinValue() {
+        return minValue;
+    }
+
+    public void setMinValue(int minValue) {
+        this.minValue = minValue;
     }
 }

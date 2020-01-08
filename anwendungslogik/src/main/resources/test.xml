@@ -17,7 +17,8 @@
                 Hallo!
             </content>
             <nextMessage>0</nextMessage>
-            <value>0</value>
+            <valueChange>1</valueChange>
+            <minValue>0</minValue>
         </choice>
         <choice>
             <id>1</id>
@@ -25,7 +26,8 @@
                 Ende!
             </content>
             <nextMessage>-1</nextMessage>
-            <value>1</value>
+            <valueChange>1</valueChange>
+            <minValue>1</minValue>
         </choice>
     </choices>
 </tree>
@@ -34,4 +36,23 @@
     Startknoten: id = 0
     Blätter: nextMessage/firstChoice/secondChoice = -1
     Messages und Choices anhand der IDs verknüpfen.
+    valueChange: Änderung des Sanity/Vertrauens-values wenn diese Antwort ausgewählt wird.
+    minValue: Mindestwert, den Sanity/Vertrauen haben muss, um diese Antwort anzuzeugen.
+-->
+
+<!--
+    lowValuePath
+    Wenn der value Wert, also Sanity/Vertrauen, unter 0 sinkt wird ein lowValuePath gestartet und eine
+    zweite XML Datei geladen. Die Datei kann dazu genutzt werden um
+        1. Einen Zwischenpfad zu erzeugen. Wenn Jerry kein Vertrauen mehr in einen hat kann man über
+            über diesen Weg wieder Vertrauen gewinnen.
+        2. Das Spiel abhängig von Sanity-/Vertraunswert zu beenden.
+    Wenn man im lowValuePath am Ende ist (Message = null oder beideChoices = null) ist das Spiel zu Ende.
+    Sollte man im lowValuePath wieder genug Sanity/Vertrauen gewinnen geht es Stelle weiter an der
+    man aufehört hat. Kommt man dann ein zweites mal in den lowValuePath fängt dieser wieder am Anfang des Baumes an.
+    Die XML Datei ist genau so aufbgebaut wie die Datei für die normale Story.
+
+    Wenn eine Antwort ein minValue hat, das größer ist als das value des Spielers, dann wird diese auf null gesetzt.
+    Es können also auch beide Antworten wegen zu kleinen values auf null gesetzt werden ohne das zwingend der lowValuePath
+    gestartet wird.
 -->

@@ -15,13 +15,51 @@ public class AnwendungsLogikBean {
     @EJB
     private EntscheidungsbaumParserBean entscheidungsbaumParserBean;
 
+    private Message currentMessage;
+    private Message lowValueStartMessage;
+    private int value = 5;
+    private boolean lowValuePath = false;
+
     @PostConstruct
     private void init() {
-        entscheidungsbaumParserBean.buildTree("/test.xml");
+        currentMessage = entscheidungsbaumParserBean.buildTree("/test.xml");
+        lowValueStartMessage = entscheidungsbaumParserBean.buildTree("");
     }
 
     public Message getNextMessage(Choice choice) {
-        return choice.getNextMessage();
+        value += choice.getValueChange();
+
+        Message nextMessage;
+        if (value >= 0 && !lowValuePath) {
+            //normal
+            nextMessage = choice.getNextMessage();
+            currentMessage = nextMessage;
+        } else if (lowValuePath) {
+            if (value < 0)
+                nextMessage = choice.getNextMessage();
+            else {
+                //lowValuePath beenden
+                nextMessage = currentMessage;
+                lowValuePath = false;
+            }
+        } else {
+            // !lowValuePath && value < 0; lowValuePath starten
+            nextMessage = lowValueStartMessage;
+            lowValuePath = true;
+        }
+
+        if (nextMessage.getFirstChoice() != null) {
+            if (nextMessage.getFirstChoice().getMinValue() >= value) {
+                nextMessage.setFirstChoice(null);
+            }
+        }
+        if (nextMessage.getSecondChoice()!= null) {
+            if (nextMessage.getSecondChoice().getMinValue() >= value) {
+                nextMessage.setSecondChoice(null);
+            }
+        }
+
+        return nextMessage;
     }
 
     @Remove
