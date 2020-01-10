@@ -1,1 +1,602 @@
-<test></test>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<tree>
+    <messages>
+        <message>
+            <id>0</id>
+            <content>
+                Hallo?
+            </content>
+            <firstChoice>0</firstChoice>
+            <secondChoice>-1</secondChoice>
+        </message>
+        <message>
+            <id>1</id>
+            <content>
+                Ich heiße Jerry, ich weiß nicht wo ich bin...\n
+                Kannst du mir helfen?
+            </content>
+            <firstChoice>2</firstChoice>
+            <secondChoice>1</secondChoice>
+        </message>
+        <message>
+            <id>2</id>
+            <content>
+                Bitte!! Das ist die einzige Nummer auf dem Handy!
+            </content>
+            <firstChoice>2</firstChoice>
+            <secondChoice>3</secondChoice>
+        </message>
+        <message>
+            <id>3</id>
+            <content>
+                Ich weiß nicht! Ich bin in einem dunklen Raum aufgewacht
+                und kann mich an nichts erinnern! Ich hab Angst..
+            </content>
+            <firstChoice>4</firstChoice>
+            <secondChoice>-1</secondChoice>
+        </message>
+        <message>
+            <id>4</id>
+            <content>
+                Oh mein Gott! Ich bin so froh, danke!\n
+                Ich wüsste gar nicht was ich machen soll, so ganz alleine..
+            </content>
+            <firstChoice>5</firstChoice>
+            <secondChoice>6</secondChoice>
+        </message>
+        <message>
+            <id>5</id>
+            <content>
+                :)
+            </content>
+            <firstChoice>6</firstChoice>
+            <secondChoice>-1</secondChoice>
+        </message>
+        <message>
+            <id>6</id>
+            <content>
+                Nein..\n
+                Hier ist es sehr dunkel, keine Fenster und ich sehe nur
+                das Handy und 2 Türen.
+            </content>
+            <firstChoice>7</firstChoice>
+            <secondChoice>-1</secondChoice>
+        </message>
+        <message>
+            <id>7</id>
+            <content>
+                Gute Idee! Vielleicht ist da etwas versteckt...\n
+                Moment...
+            </content>
+            <firstChoice>8</firstChoice>
+            <secondChoice>-1</secondChoice>
+        </message>
+        <message>
+            <id>8</id>
+            <content>
+                Tatsächlich ja! Hier sind die Wände an einer Stelle
+                eingekerbt... Sowas wie eine Strichliste. Gruselig!
+            </content>
+            <firstChoice>9</firstChoice>
+            <secondChoice>10</secondChoice>
+        </message>
+        <message>
+            <id>9</id>
+            <content>
+                Ich tu hier mein Bestes...
+            </content>
+            <firstChoice>10</firstChoice>
+            <secondChoice>-1</secondChoice>
+        </message>
+        <message>
+            <id>10</id>
+            <content>
+                Ja! Ein zusammengefaltetes Stück Papier.\n
+                Ich falte es auf!
+            </content>
+            <firstChoice>11</firstChoice>
+            <secondChoice>-1</secondChoice>
+        </message>
+        <message>
+            <id>11</id>
+            <content>
+                Oh nein...
+            </content>
+            <firstChoice>12</firstChoice>
+            <secondChoice>-1</secondChoice>
+        </message>
+        <message>
+            <id>12</id>
+            <content>
+                Da steht, dass eine Tür zu meiner Freiheit führt und die
+                andere in meinen Tod...\n
+                Wie bin ich hier nur hereingeraten?! Warum denn ich?!
+            </content>
+            <firstChoice>13</firstChoice>
+            <secondChoice>14</secondChoice>
+        </message>
+        <message>
+            <id>13</id>
+            <content>
+                Du hast ja Recht...\n
+                Da stehen komische Buchstaben, die keine Wörter bilden...
+            </content>
+            <firstChoice>15</firstChoice>
+            <secondChoice>-1</secondChoice>
+        </message>
+        <message>
+            <id>14</id>
+            <content>
+                MJOLT JTU GSFJIFJU
+            </content>
+            <firstChoice>16</firstChoice>
+            <secondChoice>-1</secondChoice>
+        </message>
+        <message>
+            <id>15</id>
+            <content>
+                Mir auch nicht...
+            </content>
+            <firstChoice>17</firstChoice>
+            <secondChoice>-1</secondChoice>
+        </message>
+        <message>
+            <id>16</id>
+            <content>
+                Okay.
+            </content>
+            <firstChoice>18</firstChoice>
+            <secondChoice>-1</secondChoice>
+        </message>
+        <message>
+            <id>17</id>
+            <content>
+                Es sind einfach nur Türrahmen. Da sind Symbole.
+            </content>
+            <firstChoice>19</firstChoice>
+            <secondChoice>-1</secondChoice>
+        </message>
+        <message>
+            <id>18</id>
+            <content>
+                A -> D \n
+                Sagt dir das was?
+            </content>
+            <firstChoice>20</firstChoice>
+            <secondChoice>21</secondChoice>
+        </message>
+        <message>
+            <id>19</id>
+            <content>
+                Toll. Was soll ich denn jetzt tun?
+            </content>
+            <firstChoice>22</firstChoice>
+            <secondChoice>23</secondChoice>
+        </message>
+        <message>
+            <id>20</id>
+            <content>
+                Was denn?
+            </content>
+            <firstChoice>28</firstChoice>
+            <secondChoice>29</secondChoice>
+        </message>
+        <message>
+            <id>21</id>
+            <content>
+                Super... Danke für nichts.
+            </content>
+            <firstChoice>24</firstChoice>
+            <secondChoice>25</secondChoice>
+        </message>
+        <message>
+            <id>22</id>
+            <content>
+                Du meinst eine Art Verschlüsselung?
+            </content>
+            <firstChoice>26</firstChoice>
+            <secondChoice>-1</secondChoice>
+        </message>
+        <message>
+            <id>23</id>
+            <content>
+                Hab wohl keine andere Wahl.
+            </content>
+            <firstChoice>27</firstChoice>
+            <secondChoice>-1</secondChoice>
+        </message>
+        <message>
+            <id>24</id>
+            <content>
+                Du bist genial! Jetzt müssen wir den Code nur noch
+                entschlüsseln...
+            </content>
+            <firstChoice>30</firstChoice>
+            <secondChoice>31</secondChoice>
+        </message>
+        <message>
+            <id>25</id>
+            <content>
+                Wow! Dann nehm ich die linke Tür! Danke!!
+            </content>
+            <firstChoice>32</firstChoice>
+            <secondChoice>-1</secondChoice>
+        </message>
+        <message>
+            <id>26</id>
+            <content>
+                Wow! Dann nehm ich die rechte Tür! Danke!!
+            </content>
+            <firstChoice>33</firstChoice>
+            <secondChoice>-1</secondChoice>
+        </message>
+        <message>
+            <id>27</id>
+            <content>
+                Ich seh da vorne die Freiheit! Danke!!!!
+            </content>
+            <firstChoice>34</firstChoice>
+            <secondChoice>-1</secondChoice>
+        </message>
+        <message>
+            <id>28</id>
+            <content>
+                Die Tür ist hinter mir zugegangen!
+            </content>
+            <firstChoice>35</firstChoice>
+            <secondChoice>-1</secondChoice>
+        </message>
+        <message>
+            <id>29</id>
+            <content>
+                Ich höre ein Zischen... Es riecht komisch...
+            </content>
+            <firstChoice>36</firstChoice>
+            <secondChoice>37</secondChoice>
+        </message>
+    </messages>
+    <choices>
+        <choice>
+            <id>0</id>
+            <content>
+                Hallo, wer ist da?
+            </content>
+            <nextMessage>1</nextMessage>
+            <valueChange>1</valueChange>
+            <minValue>0</minValue>
+        </choice>
+        <choice>
+            <id>1</id>
+            <content>
+                Ich glaube du hast die falsche Nummer! Sorry!
+            </content>
+            <nextMessage>2</nextMessage>
+            <valueChange>-1</valueChange>
+            <minValue>0</minValue>
+        </choice>
+        <choice>
+            <id>2</id>
+            <content>
+                Was ist denn passiert?
+            </content>
+            <nextMessage>3</nextMessage>
+            <valueChange>1</valueChange>
+            <minValue>0</minValue>
+        </choice>
+        <choice>
+            <id>3</id>
+            <content>
+                Nicht mein Problem! Nerv wen anders!
+            </content>
+            <nextMessage>-1</nextMessage>
+            <valueChange>-1</valueChange>
+            <minValue>0</minValue>
+        </choice>
+        <choice>
+            <id>4</id>
+            <content>
+                Okay, ich helfe dir.
+            </content>
+            <nextMessage>4</nextMessage>
+            <valueChange>1</valueChange>
+            <minValue>4</minValue>
+        </choice>
+        <choice>
+            <id>5</id>
+            <content>
+                Kein Problem.
+            </content>
+            <nextMessage>5</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>4</minValue>
+        </choice>
+        <choice>
+            <id>6</id>
+            <content>
+                Hast du dich schonmal genauer umgesehen?
+            </content>
+            <nextMessage>6</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>4</minValue>
+        </choice>
+        <choice>
+            <id>7</id>
+            <content>
+                Vielleicht die Wände?
+            </content>
+            <nextMessage>7</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>4</minValue>
+        </choice>
+        <choice>
+            <id>8</id>
+            <content>
+                Und? Was gefunden?
+            </content>
+            <nextMessage>8</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>4</minValue>
+        </choice>
+        <choice>
+            <id>9</id>
+            <content>
+                Nutzlos...
+            </content>
+            <nextMessage>9</nextMessage>
+            <valueChange>-1</valueChange>
+            <minValue>4</minValue>
+        </choice>
+        <choice>
+            <id>10</id>
+            <content>
+                Sonst noch was?
+            </content>
+            <nextMessage>10</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>3</minValue>
+        </choice>
+        <choice>
+            <id>11</id>
+            <content>
+                Tu das!
+            </content>
+            <nextMessage>11</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>3</minValue>
+        </choice>
+        <choice>
+            <id>12</id>
+            <content>
+                Was?
+            </content>
+            <nextMessage>12</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>3</minValue>
+        </choice>
+        <choice>
+            <id>13</id>
+            <content>
+                Jetzt nicht die Hoffnung verlieren!
+            </content>
+            <nextMessage>13</nextMessage>
+            <valueChange>1</valueChange>
+            <minValue>3</minValue>
+        </choice>
+        <choice>
+            <id>14</id>
+            <content>
+                Heulen bringt dich nicht weiter!
+            </content>
+            <nextMessage>13</nextMessage>
+            <valueChange>-1</valueChange>
+            <minValue>3</minValue>
+        </choice>
+        <choice>
+            <id>15</id>
+            <content>
+                Was genau?
+            </content>
+            <nextMessage>14</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>2</minValue>
+        </choice>
+        <choice>
+            <id>16</id>
+            <content>
+                Okay... Das sagt mir nichts.
+            </content>
+            <nextMessage>15</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>2</minValue>
+        </choice>
+        <choice>
+            <id>17</id>
+            <content>
+                Schau dir die Türen an!
+            </content>
+            <nextMessage>16</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>2</minValue>
+        </choice>
+        <choice>
+            <id>18</id>
+            <content>
+                Was siehst du?
+            </content>
+            <nextMessage>17</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>2</minValue>
+        </choice>
+        <choice>
+            <id>19</id>
+            <content>
+                Welche denn jetzt?
+            </content>
+            <nextMessage>18</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>2</minValue>
+        </choice>
+        <choice>
+            <id>20</id>
+            <content>
+                Ja
+            </content>
+            <nextMessage>20</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>2</minValue>
+        </choice>
+        <choice>
+            <id>21</id>
+            <content>
+                Nein
+            </content>
+            <nextMessage>19</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>2</minValue>
+        </choice>
+        <choice>
+            <id>22</id>
+            <content>
+                Warte... Ich habs!
+            </content>
+            <nextMessage>20</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>2</minValue>
+        </choice>
+        <choice>
+            <id>23</id>
+            <content>
+                Keine Ahnung...
+            </content>
+            <nextMessage>21</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>2</minValue>
+        </choice>
+        <choice>
+            <id>24</id>
+            <content>
+                Vielleicht haben die Symbole miteinander zu tun.
+            </content>
+            <nextMessage>22</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>5</minValue>
+        </choice>
+        <choice>
+            <id>25</id>
+            <content>
+                Nimm einfach irgendeine Tür...
+            </content>
+            <nextMessage>23</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>2</minValue>
+        </choice>
+        <choice>
+            <id>26</id>
+            <content>
+                Genau! Jedes A ist ein D oder sowas.
+            </content>
+            <nextMessage>24</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>5</minValue>
+        </choice>
+        <choice>
+            <id>27</id>
+            <content>
+                ...
+            </content>
+            <nextMessage>-1</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>2</minValue>
+        </choice>
+        <choice>
+            <id>28</id>
+            <content>
+                Ein Code! Jedes A ist ein D!
+            </content>
+            <nextMessage>24</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>2</minValue>
+        </choice>
+        <choice>
+            <id>29</id>
+            <content>
+                Keine Ahnung...
+            </content>
+            <nextMessage>21</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>2</minValue>
+        </choice>
+        <choice>
+            <id>30</id>
+            <content>
+                LINKS IST FREIHEIT
+            </content>
+            <nextMessage>25</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>2</minValue>
+        </choice>
+        <choice>
+            <id>31</id>
+            <content>
+                RECHTS IST FREIHEIT
+            </content>
+            <nextMessage>26</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>2</minValue>
+        </choice>
+        <choice>
+            <id>32</id>
+            <content>
+                Keine Ursache!
+            </content>
+            <nextMessage>27</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>2</minValue>
+        </choice>
+        <choice>
+            <id>33</id>
+            <content>
+                Keine Ursache!
+            </content>
+            <nextMessage>28</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>2</minValue>
+        </choice>
+        <choice>
+            <id>34</id>
+            <content>
+                Ich helfe immer gern!
+            </content>
+            <nextMessage>-1</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>2</minValue>
+        </choice>
+        <choice>
+            <id>35</id>
+            <content>
+                Was jetzt?
+            </content>
+            <nextMessage>29</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>2</minValue>
+        </choice>
+        <choice>
+            <id>36</id>
+            <content>
+                Oh nein...
+            </content>
+            <nextMessage>-1</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>2</minValue>
+        </choice>
+        <choice>
+            <id>37</id>
+            <content>
+                Viel Spaß
+            </content>
+            <nextMessage>-1</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>2</minValue>
+        </choice>
+    </choices>
+</tree>
