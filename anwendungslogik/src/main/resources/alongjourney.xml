@@ -1,1 +1,514 @@
-<hallo></hallo>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<tree>
+    <messages>
+        <message>
+            <id>0</id>
+            <content>
+                Hallo?! Kann jemand diese Nachricht empfangen?!
+            </content>
+            <firstChoice>0</firstChoice>
+            <secondChoice>1</secondChoice>
+        </message>
+		<message>
+            <id>1</id>
+            <content>
+                Mein Name ist Jerry. Ich bin ein Passagier auf dem Raumschiff Constelation.
+            </content>
+            <firstChoice>2</firstChoice>
+            <secondChoice>3</secondChoice>
+        </message>
+		<message>
+            <id>2</id>
+            <content>
+                Meine Hyperschlafkapsel hatte wohl eine Fehlfunktion. Ich bin der einzige, der aufgewacht ist.
+				Alle anderen Schlafen noch und ich weiß nicht was ich tun soll.
+            </content>
+            <firstChoice>4</firstChoice>
+            <secondChoice>5</secondChoice>
+        </message>
+		<message>
+            <id>3</id>
+            <content>
+                Ich habe garnichts getan! Ich habe sogar extra wenig geschlafen vor dem Flug, 
+				damit ich richtig müde werde und durchschalfen kann!
+            </content>
+            <firstChoice>6</firstChoice>
+            <secondChoice>-1</secondChoice>
+        </message>
+		<message>
+            <id>4</id>
+            <content>
+                Ich bin auf meinem Quartier.
+            </content>
+            <firstChoice>7</firstChoice>
+            <secondChoice>-1</secondChoice>
+        </message>
+		<message>
+            <id>5</id>
+            <content>
+                Ich bin bei meiner Kapsel angekommen. Was soll ich jetzt tun?
+            </content>
+            <firstChoice>8</firstChoice>
+            <secondChoice>9</secondChoice>
+        </message>
+		<message>
+            <id>6</id>
+            <content>
+                Wie denn? Ich bin kein Techniker!
+            </content>
+            <firstChoice>8</firstChoice>
+            <secondChoice>9</secondChoice>
+        </message>
+		<message>
+            <id>7</id>
+            <content>
+				Es scheitn alle ausgeschaltet zu sein und der Microship in der Mitte sieht verbrannt aus.
+            </content>
+            <firstChoice>10</firstChoice>
+            <secondChoice>11</secondChoice>
+        </message>
+		<message>
+            <id>8</id>
+            <content>
+				Und was mache ich jetzt? Ich kann sowas doch nicht reparieren.
+            </content>
+            <firstChoice>12</firstChoice>
+            <secondChoice>-1</secondChoice>
+        </message>
+		<message>
+            <id>9</id>
+            <content>
+				Und wo bekomme ich den her?
+            </content>
+            <firstChoice>13</firstChoice>
+            <secondChoice>14</secondChoice>
+        </message>	
+		<message>
+            <id>20</id>
+            <content>
+				Ich bin in der Cafeteria angekommen. Ein paar der Staubsaugroboter scheinen durchgedreht zu sein 
+				und greifen sich gegenseitig an. Was soll ich jetzt tun?
+            </content>
+            <firstChoice>20</firstChoice>
+            <secondChoice>21</secondChoice>
+        </message>
+		<message>
+            <id>21</id>
+            <content>
+				Sieht nicht so aus als könnte ich hier etwas entfernen. 
+				Die ganze Maschine ist mit dicken Platten versiegelt.
+				Aber ich habe einen Schockoriegel gefunden :D.
+				Was soll ich jetzt tun?
+            </content>
+            <firstChoice>21</firstChoice>
+            <secondChoice>-1</secondChoice>
+        </message>
+		<message>
+            <id>22</id>
+            <content>
+				Die Küche ist komplett leer und die Schränke scheinen abgeschlossen zu sein.
+				Etwas weiter hinten ist noch eine weitere Tür.
+            </content>
+            <firstChoice>22</firstChoice>
+            <secondChoice>-1</secondChoice>
+        </message>
+		<message>
+            <id>23</id>
+            <content>
+				Ich habe versucht in den Raum zu kommen, aber dort ist ein alter aggressiver Staubsaugroboter, der mich nicht vorbeilässt... :.(
+            </content>
+            <firstChoice>23</firstChoice>
+            <secondChoice>24</secondChoice>
+        </message>
+		<message>
+            <id>24</id>
+            <content>
+				Der Roboter hat mich angegriffen ... aber nach einem langen und blutigen Kampf (Blut hauptsächlich auf meiner Seite) 
+				ist ein Sack Reis auf den Roboter gefallen und hat ihn gestoppt.
+            </content>
+            <firstChoice>25</firstChoice>
+            <secondChoice>-1</secondChoice>
+        </message>
+		<message>
+            <id>25</id>
+            <content>
+				Ich habe den Roboter abgelenkt und einen Mixxer in einem der Kartons gefunden.
+            </content>
+            <firstChoice>25</firstChoice>
+            <secondChoice>-1</secondChoice>
+        </message>
+		<message>
+            <id>40</id>
+            <content>
+				Ich hab den Chip!
+            </content>
+            <firstChoice>40</firstChoice>
+            <secondChoice>41</secondChoice>
+        </message>
+		<message>
+            <id>50</id>
+            <content>
+				Ich bin im Lager angekommen, aber es ist stock duster. Das Licht ist anscheind ausgefallen.
+            </content>
+            <firstChoice>50</firstChoice>
+            <secondChoice>51</secondChoice>
+        </message>
+		<message>
+            <id>51</id>
+            <content>
+				Der Lichtschalter funktioniert nicht.
+            </content>
+            <firstChoice>50</firstChoice>
+            <secondChoice>-1</secondChoice>
+        </message>
+		<message>
+            <id>52</id>
+            <content>
+				Ich hab mir im Dunkeln den Zeh gestoßen und als ich ganz Tapfer auf dem Boden lag und nicht geweint habe,
+				habe ich eine Taschenlampe auf dem Boden gefunden.
+            </content>
+            <firstChoice>52</firstChoice>
+            <secondChoice>53</secondChoice>
+        </message>
+		<message>
+            <id>53</id>
+            <content>
+				Wo muss ich jetzt lang?
+            </content>
+            <firstChoice>54</firstChoice>
+            <secondChoice>55</secondChoice>
+        </message>
+		<message>
+            <id>54</id>
+            <content>
+				Ich habe das Terminal gefunden. Hier ist die Postion das Container beschrieben. 
+				Ich mach mich auf den Weg.
+            </content>
+            <firstChoice>56</firstChoice>
+            <secondChoice>-1</secondChoice>
+        </message>
+		<message>
+            <id>55</id>
+            <content>
+				Ich hab den Container gefunden.
+            </content>
+            <firstChoice>57</firstChoice>
+            <secondChoice>58</secondChoice>
+        </message>
+		<message>
+            <id>100</id>
+            <content>
+				Ich habe den Chip ausgetauscht und das System hat sich anscheinend neu gestartet. Aber auf der anzeige steht etwas von einem Fehler Code.
+				"Fehler. Vitalsensor nicht gefuden." 
+            </content>
+            <firstChoice>100</firstChoice>
+            <secondChoice>-1</secondChoice>
+        </message>
+    </messages>	
+    <choices>
+        <choice>
+            <id>0</id>
+            <content>
+                Hallo, hier ist die Bodenkontrolle des Raumschiffes Constelation. 
+				Wer sind sie? (Gute Antworten steigern die geistige Gesundheit)
+            </content>
+            <nextMessage>1</nextMessage>
+            <valueChange>1</valueChange>
+            <minValue>0</minValue>
+        </choice>
+        <choice>
+            <id>1</id>
+            <content>
+                Jo, was geht ab?! (Schlechte Antworten senken die geistige Gesundheit)
+            </content>
+            <nextMessage>1</nextMessage>
+            <valueChange>-1</valueChange>
+            <minValue>0</minValue>
+        </choice>	
+		<choice>
+            <id>2</id>
+            <content>
+                Aber Ihr Raumschiff sollte noch 70 Jahre lang unterwegs sein. Wie ist das möglich?
+            </content>
+            <nextMessage>2</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>0</minValue>
+        </choice>	
+		<choice>
+            <id>3</id>
+            <content>
+                Das ist unmöglich!
+            </content>
+            <nextMessage>2</nextMessage>
+            <valueChange>-1</valueChange>
+            <minValue>0</minValue>
+        </choice>		
+		<choice>
+            <id>4</id>
+            <content>
+                Was haben sie getan?! Diese Kapseln sollten so gut wie unzerstörbar sein.
+            </content>
+            <nextMessage>3</nextMessage>
+            <valueChange>-1</valueChange>
+            <minValue>0</minValue>
+        </choice>
+		<choice>
+            <id>5</id>
+            <content>
+                Das ist noch nie passiert. Wo sind sie gerade genau?
+            </content>
+            <nextMessage>4</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>0</minValue>
+        </choice>
+		<choice>
+            <id>6</id>
+            <content>
+                Ihr Schlafrhythmus hat auf diese Verfahren keinen Einfluss ... Wo sind sie gerade genau?
+            </content>
+            <nextMessage>4</nextMessage>
+            <valueChange>+2</valueChange>
+            <minValue>0</minValue>
+        </choice>
+		<choice>
+            <id>7</id>
+            <content>
+                Jerry gehen sie auf das Schlafdeck und dann zu ihrer Kapsel.
+				Ich schalte die Terminals von hier aus frei, 
+				dann können sie von jedem Raum aus mit mir kommunizieren.
+            </content>
+            <nextMessage>5</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>0</minValue>
+        </choice>
+		<choice>
+            <id>8</id>
+            <content>
+                Untersuch die Kapsel.
+            </content>
+            <nextMessage>6</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>0</minValue>
+        </choice>
+		<choice>
+            <id>9</id>
+            <content>
+                Entferne die Abdeckung an der Rechten Seite und sag mir was du siehst.
+            </content>
+            <nextMessage>7</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>0</minValue>
+        </choice>
+		<choice>
+		    <id>10</id>
+            <content>
+                Die Stromversorgung muss defekt sein. Wahrscheinlich ist der Spannungschip durchgebrannt...
+            </content>
+            <nextMessage>8</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>0</minValue>
+        </choice>
+		<choice>
+		    <id>11</id>
+            <content>
+                Geht es noch ungenauer?! ... Aber es ist wahrscheinlich der Spannungschip.
+            </content>
+            <nextMessage>8</nextMessage>
+            <valueChange>-5</valueChange>
+            <minValue>0</minValue>
+        </choice>
+		<choice>
+		    <id>12</id>
+            <content>
+				Reparieren kannst du das auch nicht. Wir brauchen einen neuen Chip.
+            </content>
+            <nextMessage>9</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>0</minValue>
+        </choice>
+		<choice>
+		    <id>13</id>
+            <content>
+				Die Geräte in der Cafeteria benutzen ein ähnliches Modell, das in das System passen sollte.
+				Geh in die Cafeteria und melde dich dann wieder.
+            </content>
+            <nextMessage>20</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>0</minValue>
+        </choice>
+		<choice>
+		    <id>20</id>
+            <content>
+				Untersuch erst einmal die Essensausgabe.
+            </content>
+            <nextMessage>21</nextMessage>
+            <valueChange>+5</valueChange>
+            <minValue>80</minValue>
+        </choice>
+		<choice>
+		    <id>21</id>
+            <content>
+				Geh in die Küche.
+            </content>
+            <nextMessage>22</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>0</minValue>
+        </choice>
+		<choice>
+		    <id>22</id>
+            <content>
+				Das muss die Abstellkammer sein. Vieleicht sind dort ein paar Maschinen gelagert. Sie einfach mal nach.
+            </content>
+            <nextMessage>23</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>0</minValue>
+        </choice>
+		<choice>
+		    <id>23</id>
+            <content>
+				Das ist nur ein Roboter! Aber die alten Modelle haben die gleich Chips verwendet. Sieh nach ob du ihn entfernen kannst.
+            </content>
+            <nextMessage>24</nextMessage>
+            <valueChange>-5</valueChange>
+            <minValue>0</minValue>
+        </choice>
+		<choice>
+		    <id>24</id>
+            <content>
+				Diese Roboter reagieren auf Bewegungen. Wirf einfach etwas in die Ecke des Raumes und lenk ihn ab.
+            </content>
+            <nextMessage>25</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>0</minValue>
+        </choice>
+		<choice>
+		    <id>25</id>
+            <content>
+				Das passt schon. Entferne jetzt die Abdeckung. Gleich auf der obersten Platine sollte sich ein kleiner grüner Chip befinden.
+				Zieh diesen einfach ab.
+            </content>
+            <nextMessage>40</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>0</minValue>
+        </choice>
+		<choice>
+		    <id>40</id>
+            <content>
+				Super!! Jetzt geh zurück zur Kapsel und tausch den alten Chip aus.
+            </content>
+            <nextMessage>100</nextMessage>
+            <valueChange>+10</valueChange>
+            <minValue>0</minValue>
+        </choice>
+		<choice>
+		    <id>41</id>
+            <content>
+				Dann schnell zurück zur Kapsel.
+            </content>
+            <nextMessage>100</nextMessage>
+            <valueChange>+5</valueChange>
+            <minValue>0</minValue>
+        </choice>
+		<choice>
+		    <id>14</id>
+            <content>
+				Im Lager-Abteil sind mehrer Ersatzteile gelagert. Laut meinen Dokumenten auch mehrer passende Chips.
+				Geh ins Lager und melde dich dann wieder.
+            </content>
+            <nextMessage>50</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>0</minValue>
+        </choice>
+		<choice>
+		    <id>50</id>
+            <content>
+				Sieh dich mal um. Findest du vieleicht eine Taschenlampe?
+            </content>
+            <nextMessage>52</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>0</minValue>
+        </choice>
+		<choice>
+		    <id>51</id>
+            <content>
+				In der nähe müsste ein Lichtschalter sein.
+            </content>
+            <nextMessage>51</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>0</minValue>
+        </choice>
+		<choice>
+		    <id>52</id>
+            <content>
+				Hoffentlich funtioniert das beim nächsten Porblem auch so einfach...			
+            </content>
+            <nextMessage>53</nextMessage>
+            <valueChange>+2</valueChange>
+            <minValue>0</minValue>
+        </choice>
+		<choice>
+		    <id>53</id>
+            <content>
+				Du bist echt armselig ... 
+            </content>
+            <nextMessage>53</nextMessage>
+            <valueChange>-2</valueChange>
+            <minValue>0</minValue>
+        </choice>
+		<choice>
+		    <id>54</id>
+            <content>
+				Ich habe keine Informationen darüber wie die Waren gelagert sind du musst wohl suchen. 
+				Der Container sollte Blau sein mit der Aufschrift "NetztHardWare".
+            </content>
+            <nextMessage>55</nextMessage>
+            <valueChange>-5</valueChange>
+            <minValue>0</minValue>
+        </choice>
+		<choice>
+		    <id>55</id>
+            <content>
+				In der Nähe sollte sich ein Terminal mit dem Lagerregister befinden.
+            </content>
+            <nextMessage>54</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>70</minValue>
+        </choice>
+		<choice>
+		    <id>56</id>
+            <content>
+				Super! Bis gleich.
+            </content>
+            <nextMessage>55</nextMessage>
+            <valueChange>+2</valueChange>
+            <minValue>0</minValue>
+        </choice>
+		<choice>
+		    <id>57</id>
+            <content>
+				Geh in den Container und such nach einer Kiste mit kleinen grünen Chips.
+            </content>
+            <nextMessage>40</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>0</minValue>
+        </choice>
+		<choice>
+		    <id>58</id>
+            <content>
+				Worauf wartest du? Such nach einem klienen grünen Chip! 
+            </content>
+            <nextMessage>40</nextMessage>
+            <valueChange>-1</valueChange>
+            <minValue>0</minValue>
+        </choice>		
+		<choice>
+		    <id>100</id>
+            <content>
+				Tut mir Leid aber die Demo ist hier zu ende.
+            </content>
+            <nextMessage>-1</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>0</minValue>
+        </choice>
+    </choices>
+</tree>
