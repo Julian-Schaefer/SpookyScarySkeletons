@@ -22,11 +22,18 @@ public class AnwendungsLogikBean {
 
     @PostConstruct
     private void init() {
-        currentMessage = entscheidungsbaumParserBean.buildTree("/test.xml");
+        currentMessage = entscheidungsbaumParserBean.buildTree("/alongjourney.xml");
         lowValueStartMessage = entscheidungsbaumParserBean.buildTree("");
     }
 
-    public Message getNextMessage(Choice choice) {
+    public Message getNextMessage(int id) {
+        Choice choice;
+        if(currentMessage.getFirstChoice().getId() == id) {
+            choice = currentMessage.getFirstChoice();
+        } else {
+            choice = currentMessage.getSecondChoice();
+        }
+
         value += choice.getValueChange();
 
         Message nextMessage;
