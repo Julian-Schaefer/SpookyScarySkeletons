@@ -23,7 +23,7 @@ public class AnwendungsLogikBean {
     @PostConstruct
     private void init() {
         currentMessage = entscheidungsbaumParserBean.buildTree("/test.xml");
-        lowValueStartMessage = entscheidungsbaumParserBean.buildTree("");
+        //lowValueStartMessage = entscheidungsbaumParserBean.buildTree("");
     }
 
     public Message getNextMessage(Choice choice) {

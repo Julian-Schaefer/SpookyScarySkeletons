@@ -2,9 +2,9 @@ package SpookyScarySkeletons.anwendungslogik;
 
 import SpookyScarySkeletons.anwendungslogik.model.Choice;
 import SpookyScarySkeletons.anwendungslogik.model.Message;
-import SpookyScarySkeletons.anwendungslogik.xmlDtos.ChoiceDto;
-import SpookyScarySkeletons.anwendungslogik.xmlDtos.MessageDto;
-import SpookyScarySkeletons.anwendungslogik.xmlDtos.TreeDto;
+import SpookyScarySkeletons.anwendungslogik.xmlDtos.ChoiceXmlDTO;
+import SpookyScarySkeletons.anwendungslogik.xmlDtos.MessageXmlDTO;
+import SpookyScarySkeletons.anwendungslogik.xmlDtos.MessageTreeXmlDTO;
 
 import javax.ejb.Stateless;
 import javax.xml.bind.JAXBContext;
@@ -19,7 +19,7 @@ public class EntscheidungsbaumParserBean {
 
     private List<Message> messages = new LinkedList<>();
     private List<Choice> choices = new LinkedList<>();
-    private TreeDto tree = null;
+    private MessageTreeXmlDTO messageTreeXmlDTO = null;
 
     public Message buildTree(String path) {
         InputStream inputStream = getClass().getResourceAsStream(path);
@@ -27,33 +27,33 @@ public class EntscheidungsbaumParserBean {
         // parsen
         try {
             String xml = inputStreamToString(inputStream);
-            JAXBContext context = JAXBContext.newInstance(TreeDto.class);
+            JAXBContext context = JAXBContext.newInstance(MessageTreeXmlDTO.class);
             Unmarshaller um = context.createUnmarshaller();
-            tree = (TreeDto) um.unmarshal(new StringReader(xml));
+            messageTreeXmlDTO = (MessageTreeXmlDTO) um.unmarshal(new StringReader(xml));
         } catch (JAXBException e) {
             e.printStackTrace();
         }
-        if(tree == null)
+        if(messageTreeXmlDTO == null)
             return null;
 
         // Messages und Choices erstellen
-        tree.getChoices()
+        messageTreeXmlDTO.getChoices()
                 .stream()
-                .forEach(choiceDto -> choices.add(new Choice(choiceDto.getId(), choiceDto.getContent(), null, choiceDto.getValueChange(), choiceDto.getMinValue())));
-        tree.getMessages()
+                .forEach(choiceXmlDTO -> choices.add(new Choice(choiceXmlDTO.getId(), choiceXmlDTO.getContent(), null, choiceXmlDTO.getValueChange(), choiceXmlDTO.getMinValue())));
+        messageTreeXmlDTO.getMessages()
                 .stream()
-                .forEach(messageDto -> messages.add(new Message(messageDto.getId(), messageDto.getContent(), null, null)));
+                .forEach(messageXmlDTO -> messages.add(new Message(messageXmlDTO.getId(), messageXmlDTO.getContent(), null, null)));
 
         // Referenzen nachtragen
         messages.stream()
                 .forEach(message -> {
-                    MessageDto dto = findMessageDtoById(message.getId());
+                    MessageXmlDTO dto = findMessageDtoById(message.getId());
                     message.setFirstChoice(findChoiceById(dto.getFirstChoice()));
                     message.setSecondChoice(findChoiceById(dto.getSecondChoice()));
                 });
         choices.stream()
                 .forEach(choice -> {
-                    ChoiceDto dto = findChoiceDtoById(choice.getId());
+                    ChoiceXmlDTO dto = findChoiceDtoById(choice.getId());
                     choice.setNextMessage(findMessageById(dto.getNextMessage()));
                 });
         Message a = findMessageById(0);
@@ -92,16 +92,16 @@ public class EntscheidungsbaumParserBean {
         return null;
     }
 
-    private MessageDto findMessageDtoById(int id) {
-        for(MessageDto message: tree.getMessages()) {
+    private MessageXmlDTO findMessageDtoById(int id) {
+        for(MessageXmlDTO message: messageTreeXmlDTO.getMessages()) {
             if (message.getId() == id)
                 return message;
         }
         return null;
     }
 
-    private ChoiceDto findChoiceDtoById(int id) {
-        for(ChoiceDto choice: tree.getChoices()) {
+    private ChoiceXmlDTO findChoiceDtoById(int id) {
+        for(ChoiceXmlDTO choice: messageTreeXmlDTO.getChoices()) {
             if (choice.getId() == id)
                 return choice;
         }

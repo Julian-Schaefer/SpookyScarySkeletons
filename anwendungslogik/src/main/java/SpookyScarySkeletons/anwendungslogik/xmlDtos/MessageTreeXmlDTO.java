@@ -5,28 +5,28 @@ import java.util.List;
 
 @XmlRootElement(name = "tree")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class TreeDto {
+public class MessageTreeXmlDTO {
     @XmlElementWrapper(name = "messages")
     @XmlElement(name = "message")
-    private List<MessageDto> messages;
+    private List<MessageXmlDTO> messages;
 
     @XmlElementWrapper(name = "choices")
     @XmlElement(name = "choice")
-    private List<ChoiceDto> choices;
+    private List<ChoiceXmlDTO> choices;
 
-    public List<MessageDto> getMessages() {
+    public List<MessageXmlDTO> getMessages() {
         return messages;
     }
 
-    public void setMessages(List<MessageDto> messages) {
+    public void setMessages(List<MessageXmlDTO> messages) {
         this.messages = messages;
     }
 
-    public List<ChoiceDto> getChoices() {
+    public List<ChoiceXmlDTO> getChoices() {
         return choices;
     }
 
-    public void setChoices(List<ChoiceDto> choices) {
+    public void setChoices(List<ChoiceXmlDTO> choices) {
         this.choices = choices;
     }
 }
