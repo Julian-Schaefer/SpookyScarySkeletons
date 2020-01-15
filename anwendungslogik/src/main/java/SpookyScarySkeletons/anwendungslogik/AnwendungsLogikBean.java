@@ -15,6 +15,7 @@ public class AnwendungsLogikBean {
     @EJB
     private EntscheidungsbaumParserBean entscheidungsbaumParserBean;
 
+    private Message firstMessage;
     private Message currentMessage;
     private Message lowValueStartMessage;
     private int value = 5;
@@ -22,8 +23,13 @@ public class AnwendungsLogikBean {
 
     @PostConstruct
     private void init() {
-        currentMessage = entscheidungsbaumParserBean.buildTree("/test.xml");
+        firstMessage = entscheidungsbaumParserBean.buildTree("/test.xml");
         //lowValueStartMessage = entscheidungsbaumParserBean.buildTree("");
+    }
+
+    public Message getFirstMessage() {
+        currentMessage = firstMessage;
+        return firstMessage;
     }
 
     public Message getNextMessage(int id) {

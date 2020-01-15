@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:app/model/ChatMessage.dart';
+import 'package:app/model/Choice.dart';
 import 'package:app/model/Message.dart';
 import 'package:app/model/ScenarioEndpoint.dart';
 import 'package:flutter/material.dart';
@@ -22,8 +23,8 @@ class ChatScreen extends StatefulWidget {
 class _ChatScreenState extends State<ChatScreen>
     with SingleTickerProviderStateMixin {
   List<ChatMessage> _messages = createChatMessages();
-  String _firstChoice = "";
-  String _secondChoice = "";
+  Choice _firstChoice;
+  Choice _secondChoice;
 
   AnimationController _animationController;
   Animation<Offset> _outAnimation;
@@ -59,8 +60,8 @@ class _ChatScreenState extends State<ChatScreen>
       var message = Message.fromJSON(jsonDecode(response));
 
       setState(() {
-        _firstChoice = message.firstChoice.content;
-        _secondChoice = message.secondChoice.content;
+        _firstChoice = message.firstChoice;
+        _secondChoice = message.secondChoice;
 
         _messages.insert(0, ChatMessage(true, message.content, "now"));
         listScrollController.animateTo(0.0,
@@ -79,12 +80,12 @@ class _ChatScreenState extends State<ChatScreen>
     widget.webSocket.send(message);
   }
 
-  void onSendMessage(String message) {
+  void _onChoiceSelected(Choice choice) {
     setState(() {
-      _messages.insert(0, ChatMessage(false, message, "now"));
+      _messages.insert(0, ChatMessage(false, choice.content, "now"));
     });
 
-    sendToWebSocket(message);
+    sendToWebSocket(jsonEncode(choice.toJson()));
 
     textEditingController.clear();
     listScrollController.animateTo(0.0,
@@ -142,14 +143,14 @@ class _ChatScreenState extends State<ChatScreen>
                         Expanded(
                           child: FlatButton(
                             child: Text(
-                              _firstChoice,
+                              _firstChoice?.content ?? "",
                               style:
                                   TextStyle(color: Colors.white, fontSize: 15),
                             ),
                             color: Theme.of(context).primaryColorDark,
                             onPressed: () {
+                              _onChoiceSelected(_firstChoice);
                               _animationController.reverse();
-                              onSendMessage('hallo');
                             },
                           ),
                         ),
@@ -159,12 +160,13 @@ class _ChatScreenState extends State<ChatScreen>
                         Expanded(
                           child: FlatButton(
                             child: Text(
-                              _secondChoice,
+                              _secondChoice?.content ?? "",
                               style:
                                   TextStyle(color: Colors.white, fontSize: 15),
                             ),
                             color: Theme.of(context).primaryColorDark,
                             onPressed: () {
+                              _onChoiceSelected(_secondChoice);
                               _animationController.reverse();
                             },
                           ),
@@ -220,7 +222,8 @@ class _ChatScreenState extends State<ChatScreen>
               margin: new EdgeInsets.symmetric(horizontal: 8.0),
               child: new IconButton(
                 icon: new Icon(Icons.send),
-                onPressed: () => onSendMessage(textEditingController.text),
+                onPressed: () => print("Hallo"),
+                //onPressed: () => onSendMessage(textEditingController.text),
                 color: Theme.of(context).primaryColor,
               ),
             ),

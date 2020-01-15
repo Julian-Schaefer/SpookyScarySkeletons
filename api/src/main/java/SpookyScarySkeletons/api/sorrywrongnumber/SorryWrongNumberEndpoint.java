@@ -2,11 +2,10 @@ package SpookyScarySkeletons.api.sorrywrongnumber;
 
 import SpookyScarySkeletons.anwendungslogik.AnwendungsLogikBean;
 import SpookyScarySkeletons.anwendungslogik.ScenarioManagement;
-import SpookyScarySkeletons.anwendungslogik.model.Choice;
 import SpookyScarySkeletons.anwendungslogik.model.Message;
-import SpookyScarySkeletons.api.AvailableScenariosEndpoint;
 import SpookyScarySkeletons.api.ConnectedSessionsBean;
 import SpookyScarySkeletons.api.DTOMapperBean;
+import SpookyScarySkeletons.api.dto.ChoiceDTO;
 import SpookyScarySkeletons.api.dto.MessageDTO;
 
 import javax.ejb.*;
@@ -37,18 +36,10 @@ public class SorryWrongNumberEndpoint {
     @OnOpen
     public void open(Session session) throws IOException {
         connectedSessionsBean.addWrongNumberSession(session);
-        
-        Choice firstChoice = new Choice();
-        firstChoice.setContent("Antwort 1");
 
-        Choice secondChoice = new Choice();
-        secondChoice.setContent("Antwort 2");
-
-        Message message = new Message();
-        message.setContent("Hallo");
-        message.setFirstChoice(firstChoice);
-        message.setSecondChoice(secondChoice);
-        String messageJSON = JsonbBuilder.create().toJson(message);
+        Message message = anwendungsLogikBean.getFirstMessage();
+        MessageDTO messageDTO = dtoMapperBean.map(message, MessageDTO.class);
+        String messageJSON = JsonbBuilder.create().toJson(messageDTO);
 
         session.getBasicRemote().sendText(messageJSON);
     }
@@ -66,16 +57,9 @@ public class SorryWrongNumberEndpoint {
 
     @OnMessage
     public void handleMessage(String message, Session session) throws IOException {
-        Choice firstChoice = new Choice();
-        firstChoice.setContent("Antwort 1");
+        ChoiceDTO choiceDTO = ChoiceDTO.getChoiceDTOFromJSONString(message);
 
-        Choice secondChoice = new Choice();
-        secondChoice.setContent("Antwort 2");
-
-        Message replyMessage = new Message();
-        replyMessage.setContent("Hallo");
-        replyMessage.setFirstChoice(firstChoice);
-        replyMessage.setSecondChoice(secondChoice);
+        Message replyMessage = anwendungsLogikBean.getNextMessage(choiceDTO.getId());
         MessageDTO replyMessageDTO = dtoMapperBean.map(replyMessage, MessageDTO.class);
         String replyMessageJSON = JsonbBuilder.create().toJson(replyMessageDTO, MessageDTO.class);
 

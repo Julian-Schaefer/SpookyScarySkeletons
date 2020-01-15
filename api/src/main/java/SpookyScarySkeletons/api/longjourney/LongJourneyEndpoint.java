@@ -5,6 +5,7 @@ import SpookyScarySkeletons.anwendungslogik.longjourney.LongJourneyLogikBean;
 import SpookyScarySkeletons.anwendungslogik.model.Choice;
 import SpookyScarySkeletons.anwendungslogik.model.Message;
 import SpookyScarySkeletons.api.ConnectedSessionsBean;
+import SpookyScarySkeletons.api.dto.ChoiceDTO;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
