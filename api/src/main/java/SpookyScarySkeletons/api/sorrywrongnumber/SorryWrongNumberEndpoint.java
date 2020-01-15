@@ -6,6 +6,8 @@ import SpookyScarySkeletons.anwendungslogik.model.Choice;
 import SpookyScarySkeletons.anwendungslogik.model.Message;
 import SpookyScarySkeletons.api.AvailableScenariosEndpoint;
 import SpookyScarySkeletons.api.ConnectedSessionsBean;
+import SpookyScarySkeletons.api.DTOMapperBean;
+import SpookyScarySkeletons.api.dto.MessageDTO;
 
 import javax.ejb.*;
 import javax.json.bind.JsonbBuilder;
@@ -29,9 +31,13 @@ public class SorryWrongNumberEndpoint {
     @EJB
     private ConnectedSessionsBean connectedSessionsBean;
 
+    @EJB
+    private DTOMapperBean dtoMapperBean;
+
     @OnOpen
     public void open(Session session) throws IOException {
         connectedSessionsBean.addWrongNumberSession(session);
+        
         Choice firstChoice = new Choice();
         firstChoice.setContent("Antwort 1");
 
@@ -70,7 +76,8 @@ public class SorryWrongNumberEndpoint {
         replyMessage.setContent("Hallo");
         replyMessage.setFirstChoice(firstChoice);
         replyMessage.setSecondChoice(secondChoice);
-        String replyMessageJSON = JsonbBuilder.create().toJson(replyMessage);
+        MessageDTO replyMessageDTO = dtoMapperBean.map(replyMessage, MessageDTO.class);
+        String replyMessageJSON = JsonbBuilder.create().toJson(replyMessageDTO, MessageDTO.class);
 
         session.getBasicRemote().sendText(replyMessageJSON);
     }

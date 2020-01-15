@@ -1,11 +1,9 @@
 package SpookyScarySkeletons.api.longjourney;
 
-import SpookyScarySkeletons.anwendungslogik.AnwendungsLogikBean;
 import SpookyScarySkeletons.anwendungslogik.ScenarioManagement;
 import SpookyScarySkeletons.anwendungslogik.longjourney.LongJourneyLogikBean;
 import SpookyScarySkeletons.anwendungslogik.model.Choice;
 import SpookyScarySkeletons.anwendungslogik.model.Message;
-import SpookyScarySkeletons.api.AvailableScenariosEndpoint;
 import SpookyScarySkeletons.api.ConnectedSessionsBean;
 
 import javax.ejb.EJB;
