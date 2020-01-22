@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../App.dart';
 import '../model/Account.dart';
@@ -17,6 +18,32 @@ class _AccountScreenState extends State<AccountScreen> {
   final _usernameController = TextEditingController();
 
   Future<Account> _createdAccount;
+  bool userLoaded = false;
+
+  @protected
+  @mustCallSuper
+  void initState() {
+    super.initState();
+    loadAccount();
+  }
+
+  void loadAccount() async {
+    final prefs = await SharedPreferences.getInstance();
+    final username = prefs.getString('username') ?? null;
+    print('loaded account: ' + username);
+    if (username != null) {
+      setState(() {
+        _createdAccount = Future<Account>.value(Account(username));
+        userLoaded = true;
+      });
+    }
+  }
+
+  void saveAccount() async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString("username", _usernameController.text);
+    print('saved account: ' + _usernameController.text);
+  }
 
   Future<Account> _createAccount(String username) async {
     http.Response response;
@@ -47,9 +74,7 @@ class _AccountScreenState extends State<AccountScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Spooky Scary Skeletons'),
-      ),
+      appBar: AppBar(title: Text('Spooky Scary Skeletons')),
       body: Center(
         child: FutureBuilder<Account>(
             future: _createdAccount,
@@ -58,7 +83,7 @@ class _AccountScreenState extends State<AccountScreen> {
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Text(
+                    Text(userLoaded ? 'Account ${snapshot.data.username} has been successfully loaded!' :
                         'Account ${snapshot.data.username} has been successfully created!'),
                     Padding(
                       padding: EdgeInsets.only(top: 20),
@@ -104,6 +129,7 @@ class _AccountScreenState extends State<AccountScreen> {
                               onPressed: () {
                                 if (_formKey.currentState.validate()) {
                                   onCreateAccount();
+                                  saveAccount();
                                 }
                               },
                               child: Text('Create Account',
@@ -127,3 +153,6 @@ class _AccountScreenState extends State<AccountScreen> {
     );
   }
 }
+
+
+               

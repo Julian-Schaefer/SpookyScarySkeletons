@@ -14,7 +14,7 @@ class _AppState extends State<App> {
     return MaterialApp(
       title: 'SpookyScarySkeletons',
       theme: ThemeData(
-        primaryColor: Colors.red,
+        primaryColor: Colors.deepPurpleAccent,
         primarySwatch: Colors.red,
         primaryColorDark: Colors.red[800],
       ),
