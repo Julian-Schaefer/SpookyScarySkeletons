@@ -31,7 +31,7 @@ public class AccountService implements AccountServiceLocal {
         }
 
         entityManager.persist(account);
-//        entityManager.flush();
+        entityManager.flush();
         return account;
     }
 

@@ -40,7 +40,7 @@
         <port-number>5432</port-number>
         <database-name>postgres</database-name>
         <user>postgres</user>
-        <password>1234</password>
+        <password>docker</password>
         <property>
             <name>create</name>
             <value>true</value>
