@@ -38,12 +38,12 @@ class _AccountScreenState extends State<AccountScreen> {
       });
     }
   }
-
+/*
   void saveAccount() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setString("username", _usernameController.text);
     print('saved account: ' + _usernameController.text);
-  }
+  }*/
 
   Future<Account> _createAccount(String username) async {
     http.Response response;
@@ -56,6 +56,9 @@ class _AccountScreenState extends State<AccountScreen> {
 
     if (response.statusCode == 200) {
       Account account = Account.fromJSON(jsonDecode(response.body));
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setString("username", _usernameController.text);
+      print('saved account: ' + _usernameController.text);
       return account;
     } else if (response.statusCode == 409) {
       throw Exception('Selected Username is already in use.');
@@ -130,7 +133,7 @@ class _AccountScreenState extends State<AccountScreen> {
                               onPressed: () {
                                 if (_formKey.currentState.validate()) {
                                   onCreateAccount();
-                                  saveAccount();
+                                  //saveAccount();
                                 }
                               },
                               child: Text('Create Account',
