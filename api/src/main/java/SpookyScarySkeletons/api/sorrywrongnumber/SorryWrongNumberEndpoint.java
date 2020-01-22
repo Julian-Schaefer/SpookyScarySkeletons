@@ -1,6 +1,6 @@
 package SpookyScarySkeletons.api.sorrywrongnumber;
 
-import SpookyScarySkeletons.anwendungslogik.AnwendungsLogikBean;
+import SpookyScarySkeletons.anwendungslogik.AnwendungsLogikBeanSorryWrongNumber;
 import SpookyScarySkeletons.anwendungslogik.ScenarioManagement;
 import SpookyScarySkeletons.anwendungslogik.model.Message;
 import SpookyScarySkeletons.api.ConnectedSessionsBean;
@@ -8,13 +8,10 @@ import SpookyScarySkeletons.api.DTOMapperBean;
 import SpookyScarySkeletons.api.dto.ChoiceDTO;
 import SpookyScarySkeletons.api.dto.MessageDTO;
 
-import javax.ejb.*;
+import javax.ejb.EJB;
+import javax.ejb.Stateful;
 import javax.json.bind.JsonbBuilder;
-import javax.websocket.OnClose;
-import javax.websocket.OnError;
-import javax.websocket.OnMessage;
-import javax.websocket.OnOpen;
-import javax.websocket.Session;
+import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
 import java.io.IOException;
 
@@ -25,7 +22,7 @@ import java.io.IOException;
 public class SorryWrongNumberEndpoint {
 
     @EJB
-    private AnwendungsLogikBean anwendungsLogikBean;
+    private AnwendungsLogikBeanSorryWrongNumber anwendungsLogikBean;
 
     @EJB
     private ConnectedSessionsBean connectedSessionsBean;

@@ -7,25 +7,20 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import javax.ejb.Remove;
-import javax.ejb.Stateful;
 
-@Stateful
-public class AnwendungsLogikBean {
+public abstract class AnwendungsLogikBean {
 
     @EJB
-    private EntscheidungsbaumParserBean entscheidungsbaumParserBean;
+    protected EntscheidungsbaumParserBean entscheidungsbaumParserBean;
 
-    private Message firstMessage;
+    protected Message firstMessage;
     private Message currentMessage;
-    private Message lowValueStartMessage;
+    protected Message lowValueStartMessage = null;
     private int value = 5;
     private boolean lowValuePath = false;
 
     @PostConstruct
-    private void init() {
-        firstMessage = entscheidungsbaumParserBean.buildTree("/test.xml");
-        //lowValueStartMessage = entscheidungsbaumParserBean.buildTree("");
-    }
+    protected abstract void init();
 
     public Message getFirstMessage() {
         currentMessage = firstMessage;

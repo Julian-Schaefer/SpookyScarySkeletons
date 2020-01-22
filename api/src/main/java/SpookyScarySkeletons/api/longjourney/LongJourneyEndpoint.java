@@ -1,11 +1,10 @@
 package SpookyScarySkeletons.api.longjourney;
 
+import SpookyScarySkeletons.anwendungslogik.AnwendungsLogikBeanALongJourney;
 import SpookyScarySkeletons.anwendungslogik.ScenarioManagement;
-import SpookyScarySkeletons.anwendungslogik.longjourney.LongJourneyLogikBean;
 import SpookyScarySkeletons.anwendungslogik.model.Choice;
 import SpookyScarySkeletons.anwendungslogik.model.Message;
 import SpookyScarySkeletons.api.ConnectedSessionsBean;
-import SpookyScarySkeletons.api.dto.ChoiceDTO;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
@@ -21,7 +20,7 @@ import java.io.IOException;
 public class LongJourneyEndpoint {
 
     @EJB
-    private LongJourneyLogikBean longJourneyLogikBean;
+    private AnwendungsLogikBeanALongJourney longJourneyLogikBean;
 
     @EJB
     private ConnectedSessionsBean connectedSessionsBean;

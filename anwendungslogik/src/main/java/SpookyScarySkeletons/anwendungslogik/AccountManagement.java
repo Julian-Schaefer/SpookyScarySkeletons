@@ -6,6 +6,7 @@ import SpookyScarySkeletons.persistenzlogik.model.AccountAlreadyExistsException;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import java.util.List;
 
 @Stateless
 public class AccountManagement {
@@ -19,4 +20,7 @@ public class AccountManagement {
         return createdAccount;
     }
 
+    public List<Account> getAllAccounts() {
+        return accountService.getAllAccounts();
+    }
 }
