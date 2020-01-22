@@ -30,8 +30,8 @@ class _AccountScreenState extends State<AccountScreen> {
   void loadAccount() async {
     final prefs = await SharedPreferences.getInstance();
     final username = prefs.getString('username') ?? null;
-    print('loaded account: ' + username);
     if (username != null) {
+      print('loaded account: ' + username);
       setState(() {
         _createdAccount = Future<Account>.value(Account(username));
         userLoaded = true;
@@ -83,8 +83,9 @@ class _AccountScreenState extends State<AccountScreen> {
                 return Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Text(userLoaded ? 'Account ${snapshot.data.username} has been successfully loaded!' :
-                        'Account ${snapshot.data.username} has been successfully created!'),
+                    Text(userLoaded
+                        ? 'Account ${snapshot.data.username} has been successfully loaded!'
+                        : 'Account ${snapshot.data.username} has been successfully created!'),
                     Padding(
                       padding: EdgeInsets.only(top: 20),
                     ),
@@ -153,6 +154,3 @@ class _AccountScreenState extends State<AccountScreen> {
     );
   }
 }
-
-
-               

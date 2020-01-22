@@ -34,6 +34,11 @@ class _ChatScreenState extends State<ChatScreen>
       new TextEditingController();
   final ScrollController listScrollController = new ScrollController();
 
+  final ThemeData _themeData = ThemeData(
+    primaryColor: Colors.deepPurpleAccent,
+    primaryColorDark: Colors.deepPurpleAccent[800],
+  );
+
   @override
   void initState() {
     super.initState();
@@ -94,92 +99,95 @@ class _ChatScreenState extends State<ChatScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Unknown number"),
-      ),
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: NetworkImage(
-                baseUrl + widget.scenarioEndpoint.backgroundImageUrl),
-            fit: BoxFit.fill,
-          ),
+    return Theme(
+      data: _themeData,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("Unknown number"),
         ),
-        child: Column(
-          children: <Widget>[
-            // List of messages
-            buildListMessage(),
-            Stack(
-              alignment: Alignment.bottomCenter,
-              children: <Widget>[
-                SlideTransition(
-                  position: _outAnimation,
-                  child: Container(
-                    width: double.infinity,
-                    height: 100,
-                    child: FlatButton(
-                      child: Text(
-                        'Antworten',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                        ),
-                      ),
-                      color: Theme.of(context).primaryColorDark,
-                      onPressed: () {
-                        _animationController.forward();
-                      },
-                    ),
-                  ),
-                ),
-                SlideTransition(
-                  position: _inAnimation,
-                  child: Container(
-                    width: double.infinity,
-                    padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
-                    child: Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: FlatButton(
-                            child: Text(
-                              _firstChoice?.content ?? "",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 15),
-                            ),
-                            color: Theme.of(context).primaryColorDark,
-                            onPressed: () {
-                              _onChoiceSelected(_firstChoice);
-                              _animationController.reverse();
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.all(5),
-                        ),
-                        Expanded(
-                          child: FlatButton(
-                            child: Text(
-                              _secondChoice?.content ?? "",
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 15),
-                            ),
-                            color: Theme.of(context).primaryColorDark,
-                            onPressed: () {
-                              _onChoiceSelected(_secondChoice);
-                              _animationController.reverse();
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage(
+                  baseUrl + widget.scenarioEndpoint.backgroundImageUrl),
+              fit: BoxFit.fill,
             ),
-            // Input content
-            //buildInput(),
-          ],
+          ),
+          child: Column(
+            children: <Widget>[
+              // List of messages
+              buildListMessage(),
+              Stack(
+                alignment: Alignment.bottomCenter,
+                children: <Widget>[
+                  SlideTransition(
+                    position: _outAnimation,
+                    child: Container(
+                      width: double.infinity,
+                      height: 100,
+                      child: FlatButton(
+                        child: Text(
+                          'Antworten',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                          ),
+                        ),
+                        color: _themeData.primaryColorDark,
+                        onPressed: () {
+                          _animationController.forward();
+                        },
+                      ),
+                    ),
+                  ),
+                  SlideTransition(
+                    position: _inAnimation,
+                    child: Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: FlatButton(
+                              child: Text(
+                                _firstChoice?.content ?? "",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 15),
+                              ),
+                              color: _themeData.primaryColorDark,
+                              onPressed: () {
+                                _onChoiceSelected(_firstChoice);
+                                _animationController.reverse();
+                              },
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.all(5),
+                          ),
+                          Expanded(
+                            child: FlatButton(
+                              child: Text(
+                                _secondChoice?.content ?? "",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 15),
+                              ),
+                              color: _themeData.primaryColorDark,
+                              onPressed: () {
+                                _onChoiceSelected(_secondChoice);
+                                _animationController.reverse();
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              // Input content
+              //buildInput(),
+            ],
+          ),
         ),
       ),
     );
@@ -224,7 +232,7 @@ class _ChatScreenState extends State<ChatScreen>
                 icon: new Icon(Icons.send),
                 onPressed: () => print("Hallo"),
                 //onPressed: () => onSendMessage(textEditingController.text),
-                color: Theme.of(context).primaryColor,
+                color: _themeData.primaryColor,
               ),
             ),
             color: Colors.white,
@@ -251,7 +259,7 @@ class _ChatScreenState extends State<ChatScreen>
                 Container(
                   child: Text(
                     message.content,
-                    style: TextStyle(color: Theme.of(context).primaryColor),
+                    style: TextStyle(color: _themeData.primaryColor),
                   ),
                   margin: EdgeInsets.only(left: 10.0),
                   width: 200.0,
@@ -260,7 +268,7 @@ class _ChatScreenState extends State<ChatScreen>
                   child: Text(
                     message.time,
                     style: TextStyle(
-                        color: Theme.of(context).primaryColor,
+                        color: _themeData.primaryColor,
                         fontSize: 12.0,
                         fontStyle: FontStyle.italic),
                     textAlign: TextAlign.end,
@@ -312,7 +320,7 @@ class _ChatScreenState extends State<ChatScreen>
               padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
               width: 200.0,
               decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColor,
+                  color: _themeData.primaryColor,
                   borderRadius: BorderRadius.circular(8.0)),
             )
           ],
