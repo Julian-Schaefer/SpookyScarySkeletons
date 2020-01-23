@@ -25,6 +25,7 @@ class _ChatScreenState extends State<ChatScreen>
   List<ChatMessage> _messages = createChatMessages();
   Choice _firstChoice;
   Choice _secondChoice;
+  int _trust = 100;
 
   AnimationController _animationController;
   Animation<Offset> _outAnimation;
@@ -105,89 +106,108 @@ class _ChatScreenState extends State<ChatScreen>
         appBar: AppBar(
           title: Text("Unknown number"),
         ),
-        body: Container(
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: NetworkImage(
-                  baseUrl + widget.scenarioEndpoint.backgroundImageUrl),
-              fit: BoxFit.fill,
-            ),
-          ),
-          child: Column(
-            children: <Widget>[
-              // List of messages
-              buildListMessage(),
-              Stack(
-                alignment: Alignment.bottomCenter,
+        body: Stack(
+          children: <Widget>[
+            Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: NetworkImage(
+                      baseUrl + widget.scenarioEndpoint.backgroundImageUrl),
+                  fit: BoxFit.fill,
+                ),
+              ),
+              child: Column(
                 children: <Widget>[
-                  SlideTransition(
-                    position: _outAnimation,
-                    child: Container(
-                      width: double.infinity,
-                      height: 100,
-                      child: FlatButton(
-                        child: Text(
-                          'Antworten',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
+                  // List of messages
+                  buildListMessage(),
+                  Stack(
+                    alignment: Alignment.bottomCenter,
+                    children: <Widget>[
+                      SlideTransition(
+                        position: _outAnimation,
+                        child: Container(
+                          width: double.infinity,
+                          height: 100,
+                          child: FlatButton(
+                            child: Text(
+                              'Antworten',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                              ),
+                            ),
+                            color: _themeData.primaryColorDark,
+                            onPressed: () {
+                              _animationController.forward();
+                            },
                           ),
                         ),
-                        color: _themeData.primaryColorDark,
-                        onPressed: () {
-                          _animationController.forward();
-                        },
                       ),
-                    ),
-                  ),
-                  SlideTransition(
-                    position: _inAnimation,
-                    child: Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
-                      child: Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: FlatButton(
-                              child: Text(
-                                _firstChoice?.content ?? "",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 15),
+                      SlideTransition(
+                        position: _inAnimation,
+                        child: Container(
+                          width: double.infinity,
+                          padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
+                          child: Row(
+                            children: <Widget>[
+                              Expanded(
+                                child: FlatButton(
+                                  child: Text(
+                                    _firstChoice?.content ?? "",
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 15),
+                                  ),
+                                  color: _themeData.primaryColorDark,
+                                  onPressed: () {
+                                    _onChoiceSelected(_firstChoice);
+                                    _animationController.reverse();
+                                  },
+                                ),
                               ),
-                              color: _themeData.primaryColorDark,
-                              onPressed: () {
-                                _onChoiceSelected(_firstChoice);
-                                _animationController.reverse();
-                              },
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(5),
-                          ),
-                          Expanded(
-                            child: FlatButton(
-                              child: Text(
-                                _secondChoice?.content ?? "",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 15),
+                              Padding(
+                                padding: EdgeInsets.all(5),
                               ),
-                              color: _themeData.primaryColorDark,
-                              onPressed: () {
-                                _onChoiceSelected(_secondChoice);
-                                _animationController.reverse();
-                              },
-                            ),
+                              Expanded(
+                                child: FlatButton(
+                                  child: Text(
+                                    _secondChoice?.content ?? "",
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 15),
+                                  ),
+                                  color: _themeData.primaryColorDark,
+                                  onPressed: () {
+                                    _onChoiceSelected(_secondChoice);
+                                    _animationController.reverse();
+                                  },
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
-                    ),
+                    ],
                   ),
+                  // Input content
+                  //buildInput(),
                 ],
               ),
-              // Input content
-              //buildInput(),
-            ],
-          ),
+            ),
+            Positioned(
+              top: 10,
+              right: 10,
+              child: Container(
+                color: Colors.redAccent[400],
+                width: 200,
+                height: 80,
+                child: Center(
+                  child: Text(
+                    "Vertrauen: $_trust",
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                ),
+              ),
+            )
+          ],
         ),
       ),
     );
