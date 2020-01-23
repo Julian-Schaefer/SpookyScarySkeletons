@@ -9,7 +9,6 @@ import javax.ejb.Startup;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import java.util.LinkedList;
 import java.util.List;
 
 @Singleton
@@ -37,8 +36,8 @@ public class AccountService implements AccountServiceLocal {
 
     @Override
     public List<Account> getAllAccounts() {
-        List<Account> accounts = new LinkedList<>();
-        Query query = entityManager.createQuery("SELECT '*' FROM Account");
+        Query query = entityManager.createQuery("SELECT DISTINCT a FROM Account a");
+        List<Account> accounts = (List<Account>) query.getResultList();
         return accounts;
     }
 
