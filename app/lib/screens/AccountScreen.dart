@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:app/Util.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -28,8 +29,7 @@ class _AccountScreenState extends State<AccountScreen> {
   }
 
   void loadAccount() async {
-    final prefs = await SharedPreferences.getInstance();
-    final username = prefs.getString('username') ?? null;
+    final username = await Util.loadUsername();
     if (username != null) {
       print('loaded account: ' + username);
       setState(() {
@@ -38,12 +38,6 @@ class _AccountScreenState extends State<AccountScreen> {
       });
     }
   }
-/*
-  void saveAccount() async {
-    final prefs = await SharedPreferences.getInstance();
-    prefs.setString("username", _usernameController.text);
-    print('saved account: ' + _usernameController.text);
-  }*/
 
   Future<Account> _createAccount(String username) async {
     http.Response response;
@@ -56,9 +50,7 @@ class _AccountScreenState extends State<AccountScreen> {
 
     if (response.statusCode == 200) {
       Account account = Account.fromJSON(jsonDecode(response.body));
-      final prefs = await SharedPreferences.getInstance();
-      prefs.setString("username", _usernameController.text);
-      print('saved account: ' + _usernameController.text);
+      await Util.saveUsername(account.username);
       return account;
     } else if (response.statusCode == 409) {
       throw Exception('Selected Username is already in use.');

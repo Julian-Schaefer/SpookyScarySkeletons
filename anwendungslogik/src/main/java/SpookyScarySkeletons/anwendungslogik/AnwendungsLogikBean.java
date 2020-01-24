@@ -3,7 +3,6 @@ package SpookyScarySkeletons.anwendungslogik;
 import SpookyScarySkeletons.anwendungslogik.model.Choice;
 import SpookyScarySkeletons.anwendungslogik.model.Message;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
 import javax.ejb.Remove;
@@ -18,9 +17,8 @@ public abstract class AnwendungsLogikBean {
     protected Message lowValueStartMessage = null;
     private int value = 5;
     private boolean lowValuePath = false;
-
-    @PostConstruct
-    protected abstract void init();
+    protected String username;
+    private ValueChangeListener valueChangeListener;
 
     public Message getFirstMessage() {
         currentMessage = firstMessage;
@@ -70,12 +68,29 @@ public abstract class AnwendungsLogikBean {
         return nextMessage;
     }
 
+    public void setUsername(String username) {
+        System.out.println("Setting username " + this.getClass().getName());
+        this.username = username;
+    }
+
+    public void setValueChangeListener(ValueChangeListener valueChangeListener) {
+        this.valueChangeListener = valueChangeListener;
+    }
+
+    protected void setValue(int value) {
+        this.value = value;
+        valueChangeListener.onValueChanged(username, value);
+    }
+
+    protected int getValue() {
+        return this.value;
+    }
+
     @Remove
     public void dispose() {
     }
 
-    @PreDestroy
-    public void onDestroy() {
-        System.out.println("Bean will be destroyed");
+    public interface ValueChangeListener {
+        void onValueChanged(String username, int newValue);
     }
 }

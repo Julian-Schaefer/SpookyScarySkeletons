@@ -56,7 +56,7 @@ public class EntscheidungsbaumParserBean {
                     ChoiceXmlDTO dto = findChoiceDtoById(choice.getId());
                     choice.setNextMessage(findMessageById(dto.getNextMessage()));
                 });
-        Message a = findMessageById(0);
+        
         return findMessageById(0);
     }
 
