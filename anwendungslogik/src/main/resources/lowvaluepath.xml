@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<tree>
+    <messages>
+        <message>
+            <id>0</id>
+            <content>
+                Ich glaube ich schaffe das nicht ... Das ist mir alles viel zu viel.
+				Ich kann das alles nicht. Ich ... sollte einfach aufgeben und mich mit meinem Schicksal abfinden.
+            </content>
+            <firstChoice>0</firstChoice>
+            <secondChoice>1</secondChoice>
+        </message>
+		<message>
+            <id>1</id>
+            <content>
+                Ach was hätte das denn für einen Sinn. Keiner braucht mich.
+            </content>
+            <firstChoice>2</firstChoice>
+            <secondChoice>3</secondChoice>
+        </message>
+		<message>
+            <id>2</id>
+            <content>
+                Aber ich mache allen nur Ärger. Ich bin nur eine Last...
+            </content>
+            <firstChoice>4</firstChoice>
+            <secondChoice>5</secondChoice>
+        </message>
+		<message>
+            <id>3</id>
+            <content>
+                Ach was soll ich nur machen ...?
+            </content>
+            <firstChoice>6</firstChoice>
+            <secondChoice>7</secondChoice>
+        </message>
+		<message>
+            <id>4</id>
+            <content>
+                Du hast Recht! Auch wenn es schwer ist muss ich weiter machen. Danke.
+            </content>
+            <firstChoice>8</firstChoice>
+            <secondChoice>-1</secondChoice>
+        </message>
+    </messages>
+    <choices>
+        <choice>
+            <id>0</id>
+            <content>
+                Jerry nicht aufgeben!
+            </content>
+            <nextMessage>1</nextMessage>
+            <valueChange>1</valueChange>
+            <minValue>0</minValue>
+        </choice>
+        <choice>
+            <id>1</id>
+            <content>
+                Komm schon. Bald hast du es geschafft.
+            </content>
+            <nextMessage>1</nextMessage>
+            <valueChange>3</valueChange>
+            <minValue>0</minValue>
+        </choice>
+		<choice>
+            <id>2</id>
+            <content>
+                Das Stimmt nicht Jerry... für irgendwas bist du bestimmt nützlich.
+            </content>
+            <nextMessage>2</nextMessage>
+            <valueChange>1</valueChange>
+            <minValue>0</minValue>
+        </choice>
+		<choice>
+            <id>3</id>
+            <content>
+                Du wirst noch gebraucht! Da bin ich mir sicher.
+            </content>
+            <nextMessage>2</nextMessage>
+            <valueChange>3</valueChange>
+            <minValue>0</minValue>
+        </choice>
+		<choice>
+            <id>4</id>
+            <content>
+                Die bist auf deinem eigenen Gebiet nützlich. Sonst wärst du garnicht erst an Bort.
+            </content>
+            <nextMessage>3</nextMessage>
+            <valueChange>3</valueChange>
+            <minValue>0</minValue>
+        </choice>
+		<choice>
+            <id>5</id>
+            <content>
+                Du kannst immernoch als Abschreckendes Beispiel für Andere dienen.
+            </content>
+            <nextMessage>3</nextMessage>
+            <valueChange>1</valueChange>
+            <minValue>0</minValue>
+        </choice>
+		<choice>
+            <id>6</id>
+            <content>
+                Aufhören hier rumzuheulen wäre schonmal ein Anfang.
+            </content>
+            <nextMessage>4</nextMessage>
+            <valueChange>1</valueChange>
+            <minValue>0</minValue>
+        </choice>
+		<choice>
+            <id>7</id>
+            <content>
+                Selbstmitleid wird dir nicht weiterhelfen. Steh auf und mach weiter nur so wirst du ans Ziel kommen.
+            </content>
+            <nextMessage>4</nextMessage>
+            <valueChange>3</valueChange>
+            <minValue>0</minValue>
+        </choice>
+		<choice>
+            <id>8</id>
+            <content>
+                Sehr gut! Also wo waren wir stehen geblieben?
+            </content>
+            <nextMessage>-1</nextMessage>
+            <valueChange>3</valueChange>
+            <minValue>0</minValue>
+        </choice>
+    </choices>
+</tree>
