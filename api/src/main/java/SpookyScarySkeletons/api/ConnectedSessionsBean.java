@@ -42,14 +42,28 @@ public class ConnectedSessionsBean {
     }
 
     public List<Session> getAllSessions() {
+        sessions = getOpenSessions(sessions);
         return sessions;
     }
 
     public List<Session> getWrongNumberSessions() {
+        wrongNumberSessions = getOpenSessions(wrongNumberSessions);
         return wrongNumberSessions;
     }
 
     public List<Session> getLongJourneySessions() {
+        longJourneySessions = getOpenSessions(longJourneySessions);
         return longJourneySessions;
+    }
+
+    private List<Session> getOpenSessions(List<Session> sessions) {
+        List<Session> openSessions = new LinkedList<>();
+        for(Session session: sessions) {
+            if(session.isOpen()) {
+                openSessions.add(session);
+            }
+        }
+
+        return openSessions;
     }
 }

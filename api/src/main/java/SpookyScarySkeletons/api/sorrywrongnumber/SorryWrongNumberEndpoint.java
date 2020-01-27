@@ -31,13 +31,13 @@ public class SorryWrongNumberEndpoint extends ScenarioEndpoint {
 
     @OnOpen
     public void open(@PathParam("username") String username, Session session) throws IOException {
-        connectedSessionsBean.addLongJourneySession(session);
+        connectedSessionsBean.addWrongNumberSession(session);
         super.open(username, session);
     }
 
     @OnClose
     public void close(Session session) {
-        connectedSessionsBean.removeLongJourneySession(session);
+        connectedSessionsBean.removeWrongNumberSession(session);
         super.close(session);
     }
 }

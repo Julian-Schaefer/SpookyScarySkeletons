@@ -4,6 +4,7 @@ import 'package:app/model/ChatMessage.dart';
 import 'package:app/model/Choice.dart';
 import 'package:app/model/Message.dart';
 import 'package:app/model/ScenarioEndpoint.dart';
+import 'package:app/widgets/AnswerSlider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:app/model/WebSocket.dart';
@@ -20,16 +21,11 @@ class ChatScreen extends StatefulWidget {
   _ChatScreenState createState() => _ChatScreenState();
 }
 
-class _ChatScreenState extends State<ChatScreen>
-    with SingleTickerProviderStateMixin {
+class _ChatScreenState extends State<ChatScreen> {
   List<ChatMessage> _messages = createChatMessages();
   Choice _firstChoice;
   Choice _secondChoice;
   int _trust = 100;
-
-  AnimationController _animationController;
-  Animation<Offset> _outAnimation;
-  Animation<Offset> _inAnimation;
 
   final TextEditingController textEditingController =
       new TextEditingController();
@@ -44,42 +40,23 @@ class _ChatScreenState extends State<ChatScreen>
   void initState() {
     super.initState();
 
-    _animationController = AnimationController(
-      duration: const Duration(milliseconds: 800),
-      vsync: this,
-    );
-
-    _outAnimation = Tween<Offset>(
-      begin: Offset.zero,
-      end: const Offset(0.0, 1.0),
-    ).animate(CurvedAnimation(
-        parent: _animationController, curve: new Interval(0, 0.4)));
-
-    _inAnimation = Tween<Offset>(
-      begin: const Offset(0.0, 1.0),
-      end: Offset.zero,
-    ).animate(CurvedAnimation(
-        parent: _animationController, curve: new Interval(0.6, 1)));
-
     widget.webSocket.connect(widget.scenarioEndpoint.websocketEndpoint);
     widget.webSocket.getStream().listen((response) {
-      var message = Message.fromJSON(jsonDecode(response));
+      try {
+        var message = Message.fromJSON(jsonDecode(response));
 
-      setState(() {
-        _firstChoice = message.firstChoice;
-        _secondChoice = message.secondChoice;
+        setState(() {
+          _firstChoice = message.firstChoice;
+          _secondChoice = message.secondChoice;
 
-        _messages.insert(0, ChatMessage(true, message.content, "now"));
-        listScrollController.animateTo(0.0,
-            duration: Duration(milliseconds: 300), curve: Curves.easeOut);
-      });
+          _messages.insert(0, ChatMessage(true, message.content, "now"));
+          listScrollController.animateTo(0.0,
+              duration: Duration(milliseconds: 300), curve: Curves.easeOut);
+        });
+      } catch (error) {
+        print("Could not convert from JSON: " + error);
+      }
     });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _animationController.dispose();
   }
 
   void sendToWebSocket(String message) {
@@ -120,72 +97,13 @@ class _ChatScreenState extends State<ChatScreen>
                 children: <Widget>[
                   // List of messages
                   buildListMessage(),
-                  Stack(
-                    alignment: Alignment.bottomCenter,
-                    children: <Widget>[
-                      SlideTransition(
-                        position: _outAnimation,
-                        child: Container(
-                          width: double.infinity,
-                          height: 100,
-                          child: FlatButton(
-                            child: Text(
-                              'Antworten',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                              ),
-                            ),
-                            color: _themeData.primaryColorDark,
-                            onPressed: () {
-                              _animationController.forward();
-                            },
-                          ),
-                        ),
-                      ),
-                      SlideTransition(
-                        position: _inAnimation,
-                        child: Container(
-                          width: double.infinity,
-                          padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
-                          child: Row(
-                            children: <Widget>[
-                              Expanded(
-                                child: FlatButton(
-                                  child: Text(
-                                    _firstChoice?.content ?? "",
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 15),
-                                  ),
-                                  color: _themeData.primaryColorDark,
-                                  onPressed: () {
-                                    _onChoiceSelected(_firstChoice);
-                                    _animationController.reverse();
-                                  },
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.all(5),
-                              ),
-                              Expanded(
-                                child: FlatButton(
-                                  child: Text(
-                                    _secondChoice?.content ?? "",
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 15),
-                                  ),
-                                  color: _themeData.primaryColorDark,
-                                  onPressed: () {
-                                    _onChoiceSelected(_secondChoice);
-                                    _animationController.reverse();
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
+                  AnswerSlider(
+                    themeData: _themeData,
+                    firstChoice: _firstChoice,
+                    secondChoice: _secondChoice,
+                    onChoiceSelected: (choice) {
+                      _onChoiceSelected(choice);
+                    },
                   ),
                   // Input content
                   //buildInput(),
