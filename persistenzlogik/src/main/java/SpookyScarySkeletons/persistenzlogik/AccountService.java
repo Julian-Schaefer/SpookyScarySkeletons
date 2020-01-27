@@ -8,6 +8,8 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import java.util.List;
 
 @Singleton
 @Startup
@@ -30,6 +32,13 @@ public class AccountService implements AccountServiceLocal {
         entityManager.persist(account);
         entityManager.flush();
         return account;
+    }
+
+    @Override
+    public List<Account> getAllAccounts() {
+        Query query = entityManager.createQuery("SELECT DISTINCT a FROM Account a");
+        List<Account> accounts = (List<Account>) query.getResultList();
+        return accounts;
     }
 
     @Override

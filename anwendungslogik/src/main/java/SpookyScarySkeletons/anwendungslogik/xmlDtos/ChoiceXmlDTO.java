@@ -1,16 +1,16 @@
 package SpookyScarySkeletons.anwendungslogik.xmlDtos;
 
-public class ChoiceDto {
+public class ChoiceXmlDTO {
     private int id;
     private String content;
     private int nextMessage;
     private int valueChange;
     private int minValue;
 
-    public ChoiceDto() {
+    public ChoiceXmlDTO() {
     }
 
-    public ChoiceDto(int id, String content, int nextMessage, int valueChange, int minValue) {
+    public ChoiceXmlDTO(int id, String content, int nextMessage, int valueChange, int minValue) {
         this.id = id;
         this.content = content;
         this.nextMessage = nextMessage;

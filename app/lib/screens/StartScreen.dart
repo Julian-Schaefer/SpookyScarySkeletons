@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:app/Util.dart';
 import 'package:app/model/ScenarioEndpoint.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -17,14 +18,15 @@ class _StartScreenState extends State<StartScreen> {
   Future<List<ScenarioEndpoint>> _scenarioEndpoints;
 
   Future<List<ScenarioEndpoint>> getAvailableScenarios() async {
-    http.Response response;
-
-    response = await http.get(baseUrl + '/api/scenarios');
+    String username = await Util.loadUsername();
+    http.Response response = await http.get(baseUrl + '/api/scenarios');
 
     var scenarioEndpoints = new List<ScenarioEndpoint>();
     if (response.statusCode == 200) {
       for (var jsonObject in jsonDecode(response.body)) {
         var scenarioEndpoint = ScenarioEndpoint.fromJSON(jsonObject);
+        scenarioEndpoint.websocketEndpoint =
+            scenarioEndpoint.websocketEndpoint + "/" + username;
         scenarioEndpoints.add(scenarioEndpoint);
       }
 

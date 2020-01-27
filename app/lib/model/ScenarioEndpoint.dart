@@ -1,6 +1,6 @@
 class ScenarioEndpoint {
   final String name;
-  final String websocketEndpoint;
+  String websocketEndpoint;
   final String backgroundImageUrl;
 
   ScenarioEndpoint(this.name, this.websocketEndpoint, this.backgroundImageUrl);
