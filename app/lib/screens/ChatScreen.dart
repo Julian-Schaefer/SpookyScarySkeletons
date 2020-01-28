@@ -5,6 +5,7 @@ import 'package:app/model/Choice.dart';
 import 'package:app/model/Message.dart';
 import 'package:app/model/ScenarioEndpoint.dart';
 import 'package:app/widgets/AnswerSlider.dart';
+import 'package:app/widgets/TrustWidget.dart';
 import 'package:flutter/material.dart';
 
 import 'package:app/model/WebSocket.dart';
@@ -25,7 +26,7 @@ class _ChatScreenState extends State<ChatScreen> {
   List<ChatMessage> _messages = createChatMessages();
   Choice _firstChoice;
   Choice _secondChoice;
-  int _trust = 100;
+  int _trust = 50;
 
   final TextEditingController textEditingController =
       new TextEditingController();
@@ -113,16 +114,18 @@ class _ChatScreenState extends State<ChatScreen> {
             Positioned(
               top: 10,
               right: 10,
-              child: Container(
-                color: Colors.redAccent[400],
-                width: 200,
-                height: 80,
-                child: Center(
-                  child: Text(
+              child: Column(
+                children: <Widget>[
+                  CustomPaint(
+                    size: Size(80, 280),
+                    // Values reach from 100 to -100!
+                    foregroundPainter: TrustPainter(value: _trust),
+                  ),
+                  Text(
                     "Vertrauen: $_trust",
                     style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
-                ),
+                ],
               ),
             )
           ],
