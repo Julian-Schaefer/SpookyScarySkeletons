@@ -1,23 +1,23 @@
 import 'package:app/model/Choice.dart';
 import 'package:flutter/material.dart';
 
-class AnswerSlider extends StatefulWidget {
+class InformationSlider extends StatefulWidget {
   final ThemeData themeData;
   final Choice firstChoice;
   final Choice secondChoice;
   final Function(Choice) onChoiceSelected;
 
-  const AnswerSlider(
+  const InformationSlider(
       {this.themeData,
       @required this.firstChoice,
       @required this.secondChoice,
       @required this.onChoiceSelected});
 
   @override
-  _AnswerSliderState createState() => _AnswerSliderState();
+  _InformationSliderState createState() => _InformationSliderState();
 }
 
-class _AnswerSliderState extends State<AnswerSlider>
+class _InformationSliderState extends State<InformationSlider>
     with SingleTickerProviderStateMixin {
   Animation<Offset> _outAnimation;
   Animation<Offset> _inAnimation;
@@ -45,6 +45,8 @@ class _AnswerSliderState extends State<AnswerSlider>
     ).animate(CurvedAnimation(
         parent: _animationController, curve: new Interval(0.6, 1)));
   }
+
+  
 
   @override
   Widget build(BuildContext context) {

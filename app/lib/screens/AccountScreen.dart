@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:app/Util.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../App.dart';
 import '../model/Account.dart';
@@ -44,7 +43,7 @@ class _AccountScreenState extends State<AccountScreen> {
 
     Account account = Account(username);
 
-    response = await http.post(baseUrl + '/api/account',
+    response = await http.post(getBaseUrlAPI() + '/api/account',
         headers: {"Content-Type": "application/json"},
         body: json.encode(account.toJson()));
 

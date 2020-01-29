@@ -1,4 +1,6 @@
-class Choice {
+import 'package:app/model/JsonConvertible.dart';
+
+class Choice implements JsonConvertible<Choice> {
   final int id;
   final String content;
 
@@ -8,7 +10,7 @@ class Choice {
       : id = json['id'],
         content = json['content'];
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJSON() => {
         'id': id,
         'content': content,
       };

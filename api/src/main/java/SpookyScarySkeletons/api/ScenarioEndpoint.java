@@ -5,6 +5,7 @@ import SpookyScarySkeletons.anwendungslogik.AnwendungsLogikBeanSorryWrongNumber;
 import SpookyScarySkeletons.anwendungslogik.model.Message;
 import SpookyScarySkeletons.api.dto.ChoiceDTO;
 import SpookyScarySkeletons.api.dto.MessageDTO;
+import SpookyScarySkeletons.api.model.Response;
 
 import javax.ejb.EJB;
 import javax.json.bind.JsonbBuilder;
@@ -27,7 +28,7 @@ public abstract class ScenarioEndpoint {
 
         Message message = anwendungsLogikBean.getFirstMessage();
         MessageDTO messageDTO = dtoMapperBean.map(message, MessageDTO.class);
-        String messageJSON = JsonbBuilder.create().toJson(messageDTO);
+        String messageJSON = JsonbBuilder.create().toJson(new Response<>(Response.Type.MESSAGE, messageDTO));
 
         session.getBasicRemote().sendText(messageJSON);
     }
@@ -55,5 +56,9 @@ public abstract class ScenarioEndpoint {
     public void onValueChanged(String username, int newValue) {
         //TODO
         System.out.println("Sending new value to Username: " + username + ", " + newValue);
+    }
+
+    protected void sendMessage(Message message) {
+
     }
 }

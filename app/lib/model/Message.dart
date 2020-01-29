@@ -1,23 +1,30 @@
+import 'package:app/model/JsonConvertible.dart';
+
 import 'Choice.dart';
 
-class Message {
+class Message implements JsonConvertible<Message> {
   final int id;
   final String content;
-  final Choice firstChoice;
-  final Choice secondChoice;
+  Choice firstChoice;
+  Choice secondChoice;
 
   Message(this.id, this.content, this.firstChoice, this.secondChoice);
 
   Message.fromJSON(Map<String, dynamic> json)
       : id = json['id'],
-        content = json['content'],
-        firstChoice = Choice.fromJSON(json['firstChoice']),
-        secondChoice = Choice.fromJSON(json['secondChoice']);
+        content = json['content'] {
+    if (json['firstChoice'] != null) {
+      firstChoice = Choice.fromJSON(json['firstChoice']);
+    }
+    if (json['secondChoice'] != null) {
+      secondChoice = Choice.fromJSON(json['secondChoice']);
+    }
+  }
 
-  Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJSON() => {
         'id': id,
         'content': content,
-        'firstChoice': firstChoice,
-        'secondChoice': secondChoice
+        'firstChoice': firstChoice.toJSON(),
+        'secondChoice': secondChoice.toJSON()
       };
 }

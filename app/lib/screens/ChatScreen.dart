@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:app/model/ChatMessage.dart';
 import 'package:app/model/Choice.dart';
 import 'package:app/model/Message.dart';
+import 'package:app/model/Response.dart';
 import 'package:app/model/ScenarioEndpoint.dart';
 import 'package:app/widgets/AnswerSlider.dart';
 import 'package:app/widgets/TrustWidget.dart';
@@ -28,6 +29,7 @@ class _ChatScreenState extends State<ChatScreen> {
   Choice _secondChoice;
   int _trust = 50;
 
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController textEditingController =
       new TextEditingController();
   final ScrollController listScrollController = new ScrollController();
@@ -42,9 +44,10 @@ class _ChatScreenState extends State<ChatScreen> {
     super.initState();
 
     widget.webSocket.connect(widget.scenarioEndpoint.websocketEndpoint);
-    widget.webSocket.getStream().listen((response) {
-      try {
-        var message = Message.fromJSON(jsonDecode(response));
+    widget.webSocket.getStream().listen((responseString) {
+      var response = Response.fromJSON(jsonDecode(responseString));
+      if (response.type == ResponseType.MESSAGE) {
+        var message = response.getMessage();
 
         setState(() {
           _firstChoice = message.firstChoice;
@@ -54,8 +57,13 @@ class _ChatScreenState extends State<ChatScreen> {
           listScrollController.animateTo(0.0,
               duration: Duration(milliseconds: 300), curve: Curves.easeOut);
         });
-      } catch (error) {
-        print("Could not convert from JSON: " + error);
+      } else if (response.type == ResponseType.INFORMATION) {
+        if (_scaffoldKey.currentState != null) {
+          final snackBar = SnackBar(
+            content: Text(response.getInformation()),
+          );
+          _scaffoldKey.currentState.showSnackBar(snackBar);
+        }
       }
     });
   }
@@ -69,7 +77,7 @@ class _ChatScreenState extends State<ChatScreen> {
       _messages.insert(0, ChatMessage(false, choice.content, "now"));
     });
 
-    sendToWebSocket(jsonEncode(choice.toJson()));
+    sendToWebSocket(jsonEncode(choice.toJSON()));
 
     textEditingController.clear();
     listScrollController.animateTo(0.0,
@@ -81,6 +89,7 @@ class _ChatScreenState extends State<ChatScreen> {
     return Theme(
       data: _themeData,
       child: Scaffold(
+        key: _scaffoldKey,
         appBar: AppBar(
           title: Text("Unknown number"),
         ),
@@ -89,26 +98,28 @@ class _ChatScreenState extends State<ChatScreen> {
             Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: NetworkImage(
-                      baseUrl + widget.scenarioEndpoint.backgroundImageUrl),
+                  image: NetworkImage(getBaseUrlAPI() +
+                      widget.scenarioEndpoint.backgroundImageUrl),
                   fit: BoxFit.fill,
                 ),
               ),
-              child: Column(
-                children: <Widget>[
-                  // List of messages
-                  buildListMessage(),
-                  AnswerSlider(
-                    themeData: _themeData,
-                    firstChoice: _firstChoice,
-                    secondChoice: _secondChoice,
-                    onChoiceSelected: (choice) {
-                      _onChoiceSelected(choice);
-                    },
-                  ),
-                  // Input content
-                  //buildInput(),
-                ],
+              child: SafeArea(
+                child: Column(
+                  children: <Widget>[
+                    // List of messages
+                    buildListMessage(),
+                    AnswerSlider(
+                      themeData: _themeData,
+                      firstChoice: _firstChoice,
+                      secondChoice: _secondChoice,
+                      onChoiceSelected: (choice) {
+                        _onChoiceSelected(choice);
+                      },
+                    ),
+                    // Input content
+                    //buildInput(),
+                  ],
+                ),
               ),
             ),
             Positioned(

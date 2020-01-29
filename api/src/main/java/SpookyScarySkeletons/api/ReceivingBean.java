@@ -1,6 +1,7 @@
 package SpookyScarySkeletons.api;
 
 import SpookyScarySkeletons.anwendungslogik.model.Choice;
+import SpookyScarySkeletons.api.model.Response;
 
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.EJB;
@@ -23,18 +24,7 @@ public class ReceivingBean implements MessageListener {
     public void onMessage(Message message) {
         try{
             String receivedMessage = "Received Message" + message.getDoubleProperty("asd");
-
-            Choice firstChoice = new Choice();
-            firstChoice.setContent("Antwort 1");
-
-            Choice secondChoice = new Choice();
-            secondChoice.setContent("Antwort 2");
-
-            SpookyScarySkeletons.anwendungslogik.model.Message replyMessage = new SpookyScarySkeletons.anwendungslogik.model.Message();
-            replyMessage.setContent(receivedMessage);
-            replyMessage.setFirstChoice(firstChoice);
-            replyMessage.setSecondChoice(secondChoice);
-            String replyMessageJSON = JsonbBuilder.create().toJson(replyMessage);
+            String replyMessageJSON = JsonbBuilder.create().toJson(new Response<>(Response.Type.INFORMATION, receivedMessage));
 
             for(Session session: connectedSessionsBean.getAllSessions()) {
                 System.out.println("Sending to session: " + session.getId());

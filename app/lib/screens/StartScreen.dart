@@ -19,7 +19,7 @@ class _StartScreenState extends State<StartScreen> {
 
   Future<List<ScenarioEndpoint>> getAvailableScenarios() async {
     String username = await Util.loadUsername();
-    http.Response response = await http.get(baseUrl + '/api/scenarios');
+    http.Response response = await http.get(getBaseUrlAPI() + '/api/scenarios');
 
     var scenarioEndpoints = new List<ScenarioEndpoint>();
     if (response.statusCode == 200) {
@@ -63,8 +63,8 @@ class _StartScreenState extends State<StartScreen> {
                       child: Container(
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: NetworkImage(
-                                baseUrl + scenarioEndpoint.backgroundImageUrl),
+                            image: NetworkImage(getBaseUrlAPI() +
+                                scenarioEndpoint.backgroundImageUrl),
                             fit: BoxFit.fill,
                           ),
                         ),
