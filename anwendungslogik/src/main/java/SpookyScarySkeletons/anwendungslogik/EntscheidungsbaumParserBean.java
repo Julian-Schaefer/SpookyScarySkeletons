@@ -39,10 +39,10 @@ public class EntscheidungsbaumParserBean {
         // Messages und Choices erstellen
         messageTreeXmlDTO.getChoices()
                 .stream()
-                .forEach(choiceXmlDTO -> choices.add(new Choice(choiceXmlDTO.getId(), choiceXmlDTO.getContent(), null, choiceXmlDTO.getValueChange(), choiceXmlDTO.getMinValue())));
+                .forEach(choiceXmlDTO -> choices.add(new Choice(choiceXmlDTO.getId(), choiceXmlDTO.getContent().trim(), null, choiceXmlDTO.getValueChange(), choiceXmlDTO.getMinValue())));
         messageTreeXmlDTO.getMessages()
                 .stream()
-                .forEach(messageXmlDTO -> messages.add(new Message(messageXmlDTO.getId(), messageXmlDTO.getContent(), null, null)));
+                .forEach(messageXmlDTO -> messages.add(new Message(messageXmlDTO.getId(), messageXmlDTO.getContent().trim(), null, null)));
 
         // Referenzen nachtragen
         messages.stream()

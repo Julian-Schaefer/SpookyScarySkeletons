@@ -9,12 +9,12 @@ import '../App.dart';
 import 'ChatScreen.dart';
 import 'package:app/model/WebSocket.dart';
 
-class StartScreen extends StatefulWidget {
+class ScenarioScreen extends StatefulWidget {
   @override
-  _StartScreenState createState() => _StartScreenState();
+  _ScenarioScreenState createState() => _ScenarioScreenState();
 }
 
-class _StartScreenState extends State<StartScreen> {
+class _ScenarioScreenState extends State<ScenarioScreen> {
   Future<List<ScenarioEndpoint>> _scenarioEndpoints;
 
   Future<List<ScenarioEndpoint>> getAvailableScenarios() async {

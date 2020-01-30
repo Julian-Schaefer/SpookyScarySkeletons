@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:io' show Platform;
 
@@ -24,15 +25,17 @@ class _AppState extends State<App> {
 }
 
 String getBaseUrlAPI() {
-  if (Platform.isAndroid) {
+  if (!kIsWeb && Platform.isAndroid) {
     return "http://10.0.2.2:8080";
   }
+
   return "http://localhost:8080";
 }
 
 String getBaseUrlWS() {
-  if (Platform.isAndroid) {
+  if (!kIsWeb && Platform.isAndroid) {
     return "ws://10.0.2.2:8080";
   }
+
   return "ws://localhost:8080";
 }

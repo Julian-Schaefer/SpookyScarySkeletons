@@ -92,7 +92,7 @@ class _AccountScreenState extends State<AccountScreen> {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => StartScreen()));
+                                builder: (context) => ScenarioScreen()));
                       },
                       color: Theme.of(context).primaryColorDark,
                     ),
@@ -100,48 +100,55 @@ class _AccountScreenState extends State<AccountScreen> {
                 );
               } else {
                 // By default, show a loading spinner.
-                return Form(
-                    key: _formKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        TextFormField(
-                          decoration: const InputDecoration(
-                            hintText: 'Please select a Username',
-                          ),
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Username cannot be empty.';
-                            }
-                            return null;
-                          },
-                          controller: _usernameController,
-                        ),
-                        if (snapshot.connectionState != ConnectionState.waiting)
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 16.0),
-                            child: MaterialButton(
-                              onPressed: () {
-                                if (_formKey.currentState.validate()) {
-                                  onCreateAccount();
-                                  //saveAccount();
-                                }
-                              },
-                              child: Text('Create Account',
-                                  style: TextStyle(color: Colors.white)),
-                              color: Theme.of(context).primaryColorDark,
+                return Container(
+                  constraints: BoxConstraints(maxWidth: 500),
+                  padding: EdgeInsets.all(20),
+                  child: Form(
+                      key: _formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          TextFormField(
+                            decoration: const InputDecoration(
+                              hintText: 'Please select a Username',
                             ),
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'Username cannot be empty.';
+                              }
+                              return null;
+                            },
+                            controller: _usernameController,
                           ),
-                        if (snapshot.connectionState == ConnectionState.waiting)
-                          Center(
-                            child: Container(
-                              margin: EdgeInsets.only(top: 20),
-                              child: CircularProgressIndicator(),
+                          if (snapshot.connectionState !=
+                              ConnectionState.waiting)
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 16.0),
+                              child: MaterialButton(
+                                onPressed: () {
+                                  if (_formKey.currentState.validate()) {
+                                    onCreateAccount();
+                                    //saveAccount();
+                                  }
+                                },
+                                child: Text('Create Account',
+                                    style: TextStyle(color: Colors.white)),
+                                color: Theme.of(context).primaryColorDark,
+                              ),
                             ),
-                          ),
-                        if (snapshot.hasError) Text("${snapshot.error}"),
-                      ],
-                    ));
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting)
+                            Center(
+                              child: Container(
+                                margin: EdgeInsets.only(top: 20),
+                                child: CircularProgressIndicator(),
+                              ),
+                            ),
+                          if (snapshot.hasError) Text("${snapshot.error}"),
+                        ],
+                      )),
+                );
               }
             }),
       ),
