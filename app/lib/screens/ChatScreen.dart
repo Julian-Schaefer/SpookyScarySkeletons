@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:app/model/ChatMessage.dart';
 import 'package:app/model/Choice.dart';
-import 'package:app/model/Message.dart';
 import 'package:app/model/Response.dart';
 import 'package:app/model/ScenarioEndpoint.dart';
 import 'package:app/widgets/AnswerSlider.dart';
@@ -24,7 +23,7 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  List<ChatMessage> _messages = createChatMessages();
+  List<ChatMessage> _messages = new List();
   Choice _firstChoice;
   Choice _secondChoice;
   int _trust = 50;

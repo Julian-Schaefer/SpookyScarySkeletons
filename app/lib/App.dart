@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:io' show Platform;
+import '.env.dart';
 
 import 'screens/AccountScreen.dart';
 
@@ -25,6 +26,10 @@ class _AppState extends State<App> {
 }
 
 String getBaseUrlAPI() {
+  if (environment != null) {
+    return "http://" + environment["baseUrl"];
+  }
+
   if (!kIsWeb && Platform.isAndroid) {
     return "http://10.0.2.2:8080";
   }
@@ -33,6 +38,10 @@ String getBaseUrlAPI() {
 }
 
 String getBaseUrlWS() {
+  if (environment != null) {
+    return "ws://" + environment["baseUrl"];
+  }
+
   if (!kIsWeb && Platform.isAndroid) {
     return "ws://10.0.2.2:8080";
   }
