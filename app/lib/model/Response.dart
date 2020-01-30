@@ -1,7 +1,7 @@
 import 'package:app/model/JsonConvertible.dart';
 import 'package:app/model/Message.dart';
 
-enum ResponseType { MESSAGE, INFORMATION }
+enum ResponseType { MESSAGE, INFORMATION, VALUE_CHANGE }
 
 class Response {
   ResponseType type;
@@ -19,6 +19,10 @@ class Response {
         break;
       case "INFORMATION":
         type = ResponseType.INFORMATION;
+        content = json['content'];
+        break;
+      case "VALUE_CHANGE":
+        type = ResponseType.VALUE_CHANGE;
         content = json['content'];
         break;
     }
@@ -51,6 +55,14 @@ class Response {
       return content as String;
     } else {
       throw new Exception('Is not an Info');
+    }
+  }
+
+  int getValueChange() {
+    if (type == ResponseType.VALUE_CHANGE) {
+      return content as int;
+    } else {
+      throw new Exception('Is not a Value Change');
     }
   }
 }

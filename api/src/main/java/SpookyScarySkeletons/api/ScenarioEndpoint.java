@@ -22,15 +22,17 @@ public abstract class ScenarioEndpoint {
     @EJB
     protected DTOMapperBean dtoMapperBean;
 
-    public void open(String username, Session session) throws IOException {
+    private Session session;
+
+    public void open(String username, Session session) {
+        this.session = session;
+
         anwendungsLogikBean.setUsername(username);
         anwendungsLogikBean.setValueChangeListener(this::onValueChanged);
 
         Message message = anwendungsLogikBean.getFirstMessage();
         MessageDTO messageDTO = dtoMapperBean.map(message, MessageDTO.class);
-        String messageJSON = JsonbBuilder.create().toJson(new Response<>(Response.Type.MESSAGE, messageDTO));
-
-        session.getBasicRemote().sendText(messageJSON);
+        sendMessage(messageDTO);
     }
 
     public void close(Session session) {
@@ -43,22 +45,25 @@ public abstract class ScenarioEndpoint {
     }
 
     @OnMessage
-    public void handleMessage(String message, Session session) throws IOException {
+    public void handleMessage(String message, Session session) {
         ChoiceDTO choiceDTO = ChoiceDTO.getChoiceDTOFromJSONString(message);
 
         Message replyMessage = anwendungsLogikBean.getNextMessage(choiceDTO.getId());
         MessageDTO replyMessageDTO = dtoMapperBean.map(replyMessage, MessageDTO.class);
-        String replyMessageJSON = JsonbBuilder.create().toJson(replyMessageDTO, MessageDTO.class);
-
-        session.getBasicRemote().sendText(replyMessageJSON);
+        sendMessage(replyMessageDTO);
     }
 
     public void onValueChanged(String username, int newValue) {
-        //TODO
+        sendMessage(newValue);
         System.out.println("Sending new value to Username: " + username + ", " + newValue);
     }
 
-    protected void sendMessage(Message message) {
-
+    protected <T> void sendMessage(T content) {
+        try {
+            String replyMessageJSON = JsonbBuilder.create().toJson(new Response<>(Response.Type.VALUE_CHANGE, content));
+            session.getBasicRemote().sendText(replyMessageJSON);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

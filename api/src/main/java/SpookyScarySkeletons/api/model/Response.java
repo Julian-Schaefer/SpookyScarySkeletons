@@ -4,7 +4,8 @@ public class Response<T> {
 
     public enum Type {
         MESSAGE,
-        INFORMATION
+        INFORMATION,
+        VALUE_CHANGE
     }
 
     private Type type;

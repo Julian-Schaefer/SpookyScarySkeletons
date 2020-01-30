@@ -64,6 +64,10 @@ class _ChatScreenState extends State<ChatScreen> {
           );
           _scaffoldKey.currentState.showSnackBar(snackBar);
         }
+      } else if (response.type == ResponseType.VALUE_CHANGE) {
+        setState(() {
+          _trust = response.getValueChange();
+        });
       }
     });
   }
