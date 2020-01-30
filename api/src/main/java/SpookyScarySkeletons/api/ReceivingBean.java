@@ -24,7 +24,7 @@ public class ReceivingBean implements MessageListener {
     public void onMessage(Message message) {
         try{
             String receivedMessage = "Received Message" + message.getDoubleProperty("asd");
-            String replyMessageJSON = JsonbBuilder.create().toJson(new Response<>(Response.Type.INFORMATION, receivedMessage));
+            String replyMessageJSON = JsonbBuilder.create().toJson(Response.information(receivedMessage));
 
             for(Session session: connectedSessionsBean.getAllSessions()) {
                 System.out.println("Sending to session: " + session.getId());

@@ -8,10 +8,12 @@ import SpookyScarySkeletons.api.dto.MessageDTO;
 import SpookyScarySkeletons.api.model.Response;
 
 import javax.ejb.EJB;
+import javax.ejb.Stateful;
 import javax.json.bind.JsonbBuilder;
 import javax.websocket.*;
 import java.io.IOException;
 
+@Stateful
 public abstract class ScenarioEndpoint {
 
     protected AnwendungsLogikBean anwendungsLogikBean;
@@ -32,7 +34,7 @@ public abstract class ScenarioEndpoint {
 
         Message message = anwendungsLogikBean.getFirstMessage();
         MessageDTO messageDTO = dtoMapperBean.map(message, MessageDTO.class);
-        sendMessage(messageDTO);
+        sendMessage(Response.message(messageDTO));
     }
 
     public void close(Session session) {
@@ -50,17 +52,17 @@ public abstract class ScenarioEndpoint {
 
         Message replyMessage = anwendungsLogikBean.getNextMessage(choiceDTO.getId());
         MessageDTO replyMessageDTO = dtoMapperBean.map(replyMessage, MessageDTO.class);
-        sendMessage(replyMessageDTO);
+        sendMessage(Response.message(replyMessageDTO));
     }
 
     public void onValueChanged(String username, int newValue) {
-        sendMessage(newValue);
+        sendMessage(Response.valueChanged(newValue));
         System.out.println("Sending new value to Username: " + username + ", " + newValue);
     }
 
-    protected <T> void sendMessage(T content) {
+    protected <T> void sendMessage(Response<T> response) {
         try {
-            String replyMessageJSON = JsonbBuilder.create().toJson(new Response<>(Response.Type.VALUE_CHANGE, content));
+            String replyMessageJSON = JsonbBuilder.create().toJson(response);
             session.getBasicRemote().sendText(replyMessageJSON);
         } catch (IOException e) {
             e.printStackTrace();

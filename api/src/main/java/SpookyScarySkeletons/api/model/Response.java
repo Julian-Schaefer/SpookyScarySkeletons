@@ -1,5 +1,7 @@
 package SpookyScarySkeletons.api.model;
 
+import SpookyScarySkeletons.api.dto.MessageDTO;
+
 public class Response<T> {
 
     public enum Type {
@@ -14,9 +16,21 @@ public class Response<T> {
     public Response() {
     }
 
-    public Response(Type type, T content) {
+    private Response(Type type, T content) {
         this.type = type;
         this.content = content;
+    }
+
+    public static Response<MessageDTO> message(MessageDTO content) {
+        return new Response<>(Type.MESSAGE, content);
+    }
+
+    public static Response<String> information(String content) {
+        return new Response<>(Type.INFORMATION, content);
+    }
+
+    public static Response<Integer> valueChanged(int content) {
+        return new Response<>(Type.VALUE_CHANGE, content);
     }
 
     public Type getType() {

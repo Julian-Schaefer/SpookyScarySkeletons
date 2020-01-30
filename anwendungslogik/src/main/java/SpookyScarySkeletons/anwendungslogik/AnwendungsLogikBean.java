@@ -26,6 +26,12 @@ public abstract class AnwendungsLogikBean {
     }
 
     public Message getNextMessage(int id) {
+        try{
+            Thread.sleep(2000);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
         Choice choice;
         if(currentMessage.getFirstChoice().getId() == id) {
             choice = currentMessage.getFirstChoice();
@@ -36,34 +42,35 @@ public abstract class AnwendungsLogikBean {
         value += choice.getValueChange();
 
         Message nextMessage;
-        if (value >= 0 && !lowValuePath) {
+        //Commented out logik for now to test communication with frontend
+//        if (value >= 0 && !lowValuePath) {
             //normal
             nextMessage = choice.getNextMessage();
             currentMessage = nextMessage;
-        } else if (lowValuePath) {
-            if (value < 0)
-                nextMessage = choice.getNextMessage();
-            else {
-                //lowValuePath beenden
-                nextMessage = currentMessage;
-                lowValuePath = false;
-            }
-        } else {
-            // !lowValuePath && value < 0; lowValuePath starten
-            nextMessage = lowValueStartMessage;
-            lowValuePath = true;
-        }
-
-        if (nextMessage.getFirstChoice() != null) {
-            if (nextMessage.getFirstChoice().getMinValue() >= value) {
-                nextMessage.setFirstChoice(null);
-            }
-        }
-        if (nextMessage.getSecondChoice()!= null) {
-            if (nextMessage.getSecondChoice().getMinValue() >= value) {
-                nextMessage.setSecondChoice(null);
-            }
-        }
+//        } else if (lowValuePath) {
+//            if (value < 0)
+//                nextMessage = choice.getNextMessage();
+//            else {
+//                //lowValuePath beenden
+//                nextMessage = currentMessage;
+//                lowValuePath = false;
+//            }
+//        } else {
+//            // !lowValuePath && value < 0; lowValuePath starten
+//            nextMessage = lowValueStartMessage;
+//            lowValuePath = true;
+//        }
+//
+//        if (nextMessage.getFirstChoice() != null) {
+//            if (nextMessage.getFirstChoice().getMinValue() >= value) {
+//                nextMessage.setFirstChoice(null);
+//            }
+//        }
+//        if (nextMessage.getSecondChoice()!= null) {
+//            if (nextMessage.getSecondChoice().getMinValue() >= value) {
+//                nextMessage.setSecondChoice(null);
+//            }
+//        }
 
         return nextMessage;
     }

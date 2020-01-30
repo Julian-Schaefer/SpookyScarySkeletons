@@ -78,6 +78,8 @@ class _ChatScreenState extends State<ChatScreen> {
   void _onChoiceSelected(Choice choice) {
     setState(() {
       _messages.insert(0, ChatMessage(false, choice.content, "now"));
+      _firstChoice = null;
+      _secondChoice = null;
     });
 
     sendToWebSocket(jsonEncode(choice.toJSON()));

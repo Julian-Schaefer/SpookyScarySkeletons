@@ -48,6 +48,10 @@ class _AnswerSliderState extends State<AnswerSlider>
 
   @override
   Widget build(BuildContext context) {
+    if (widget.firstChoice == null && widget.secondChoice == null) {
+      return SizedBox.shrink();
+    }
+
     return Stack(
       alignment: Alignment.bottomCenter,
       children: <Widget>[
@@ -81,7 +85,7 @@ class _AnswerSliderState extends State<AnswerSlider>
                 Expanded(
                   child: FlatButton(
                     child: Text(
-                      widget.firstChoice?.content ?? "",
+                      widget.firstChoice.content,
                       style: TextStyle(color: Colors.white, fontSize: 15),
                     ),
                     color: widget.themeData.primaryColorDark,
@@ -99,7 +103,7 @@ class _AnswerSliderState extends State<AnswerSlider>
                   Expanded(
                     child: FlatButton(
                       child: Text(
-                        widget.secondChoice?.content ?? "",
+                        widget.secondChoice.content,
                         style: TextStyle(color: Colors.white, fontSize: 15),
                       ),
                       color: widget.themeData.primaryColorDark,
