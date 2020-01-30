@@ -29,7 +29,7 @@ public class LongJourneyEndpoint extends ScenarioEndpoint {
     }
 
     @OnOpen
-    public void open(@PathParam("username") String username, Session session) throws IOException {
+    public void open(@PathParam("username") String username, Session session) {
         connectedSessionsBean.addLongJourneySession(session);
         super.open(username, session);
     }

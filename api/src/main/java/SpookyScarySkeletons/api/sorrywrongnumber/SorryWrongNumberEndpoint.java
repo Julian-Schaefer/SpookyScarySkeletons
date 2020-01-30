@@ -30,7 +30,7 @@ public class SorryWrongNumberEndpoint extends ScenarioEndpoint {
     }
 
     @OnOpen
-    public void open(@PathParam("username") String username, Session session) throws IOException {
+    public void open(@PathParam("username") String username, Session session) {
         connectedSessionsBean.addWrongNumberSession(session);
         super.open(username, session);
     }
