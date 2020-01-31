@@ -1,7 +1,6 @@
 package SpookyScarySkeletons.api;
 
 import SpookyScarySkeletons.anwendungslogik.AnwendungsLogikBean;
-import SpookyScarySkeletons.anwendungslogik.AnwendungsLogikBeanSorryWrongNumber;
 import SpookyScarySkeletons.anwendungslogik.model.Message;
 import SpookyScarySkeletons.api.dto.ChoiceDTO;
 import SpookyScarySkeletons.api.dto.MessageDTO;
@@ -14,7 +13,7 @@ import javax.websocket.*;
 import java.io.IOException;
 
 @Stateful
-public abstract class ScenarioEndpoint {
+public abstract class ScenarioEndpoint implements AnwendungsLogikBean.AnwendungslogikListener {
 
     protected AnwendungsLogikBean anwendungsLogikBean;
 
@@ -30,7 +29,7 @@ public abstract class ScenarioEndpoint {
         this.session = session;
 
         anwendungsLogikBean.setUsername(username);
-        anwendungsLogikBean.setValueChangeListener(this::onValueChanged);
+        anwendungsLogikBean.setAnwendungslogikListener(this);
 
         Message message = anwendungsLogikBean.getFirstMessage();
         MessageDTO messageDTO = dtoMapperBean.map(message, MessageDTO.class);
@@ -49,12 +48,24 @@ public abstract class ScenarioEndpoint {
     @OnMessage
     public void handleMessage(String message, Session session) {
         ChoiceDTO choiceDTO = ChoiceDTO.getChoiceDTOFromJSONString(message);
-
-        Message replyMessage = anwendungsLogikBean.getNextMessage(choiceDTO.getId());
-        MessageDTO replyMessageDTO = dtoMapperBean.map(replyMessage, MessageDTO.class);
-        sendMessage(Response.message(replyMessageDTO));
+        anwendungsLogikBean.getNextMessage(choiceDTO.getId());
     }
 
+    @Override
+    public void onNewMessage(Message message) {
+        MessageDTO messageDTO = dtoMapperBean.map(message, MessageDTO.class);
+        sendMessage(Response.message(messageDTO));
+    }
+
+    @Override
+    public void onGameOver() {
+        MessageDTO messageDTO = new MessageDTO();
+        messageDTO.setId(-1);
+        messageDTO.setContent("Game Over!");
+        sendMessage(Response.message(messageDTO));
+    }
+
+    @Override
     public void onValueChanged(String username, int newValue) {
         sendMessage(Response.valueChanged(newValue));
         System.out.println("Sending new value to Username: " + username + ", " + newValue);

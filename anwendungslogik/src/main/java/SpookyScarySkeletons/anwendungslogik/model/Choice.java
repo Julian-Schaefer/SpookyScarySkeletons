@@ -1,6 +1,8 @@
 package SpookyScarySkeletons.anwendungslogik.model;
 
-public class Choice {
+import java.io.Serializable;
+
+public class Choice implements Serializable {
 
     private int id;
     private String content;
@@ -57,5 +59,20 @@ public class Choice {
 
     public void setMinValue(int minValue) {
         this.minValue = minValue;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj != null && obj instanceof Choice) {
+            Choice choice = (Choice) obj;
+            if(choice.getId() == id && choice.getContent().equals(content) &&
+                    choice.getNextMessage().equals(nextMessage) &&
+                    choice.getValueChange() ==valueChange &&
+                    choice.getMinValue() == minValue) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

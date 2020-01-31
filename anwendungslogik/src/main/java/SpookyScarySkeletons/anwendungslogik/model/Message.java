@@ -1,6 +1,8 @@
 package SpookyScarySkeletons.anwendungslogik.model;
 
-public class Message {
+import java.io.Serializable;
+
+public class Message implements Serializable {
 
     private int id;
     private String content;
@@ -47,6 +49,20 @@ public class Message {
 
     public void setSecondChoice(Choice secondChoice) {
         this.secondChoice = secondChoice;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj != null && obj instanceof Message) {
+            Message message = (Message) obj;
+            if(message.getId() == id && message.getContent().equals(content) &&
+                    (message.getFirstChoice() != null && message.getFirstChoice().equals(firstChoice)) &&
+                    (message.getSecondChoice() != null && message.getSecondChoice().equals(secondChoice))) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
 
