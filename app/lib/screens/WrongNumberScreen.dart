@@ -15,6 +15,7 @@ class WrongNumberScreen extends StatelessWidget {
         data: ThemeData(
           primaryColor: Colors.deepPurpleAccent,
           primaryColorDark: Colors.deepPurple,
+          cardColor: Colors.white,
         ),
         child: ChatScreenWidget(
           scenarioEndpoint: scenarioEndpoint,

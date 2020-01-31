@@ -15,6 +15,7 @@ class LongJourneyScreen extends StatelessWidget {
         data: ThemeData(
           primaryColor: Colors.orange,
           primaryColorDark: Colors.deepOrangeAccent,
+          cardColor: Colors.white,
         ),
         child: ChatScreenWidget(
           scenarioEndpoint: scenarioEndpoint,

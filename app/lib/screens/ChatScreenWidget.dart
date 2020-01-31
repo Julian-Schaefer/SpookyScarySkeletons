@@ -103,7 +103,10 @@ class _ChatScreenWidgetState extends State<ChatScreenWidget> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
-        title: Text("Unknown number", ),
+        title: Text(
+          "Unknown number",
+          style: TextStyle(color: Theme.of(context).cardColor),
+        ),
       ),
       body: Stack(
         children: <Widget>[
