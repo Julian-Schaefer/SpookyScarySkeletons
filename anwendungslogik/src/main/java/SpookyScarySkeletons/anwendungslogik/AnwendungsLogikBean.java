@@ -15,7 +15,7 @@ public abstract class AnwendungsLogikBean {
     protected TimerManagementBean timerManagementBean;
 
     protected Message firstMessage;
-    private Message currentMessage;
+    protected Message currentMessage;
     protected Message lowValueStartMessage = null;
     private int value = 5;
     private boolean lowValuePath = false;
@@ -28,20 +28,9 @@ public abstract class AnwendungsLogikBean {
     }
 
     public void getNextMessage(int id) {
-        try{
-            Thread.sleep(2000);
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-
-        Choice choice;
-        if(currentMessage.getFirstChoice().getId() == id) {
-            choice = currentMessage.getFirstChoice();
-        } else {
-            choice = currentMessage.getSecondChoice();
-        }
-
-        value += choice.getValueChange();
+        Choice choice = currentMessage.getFirstChoice().getId() == id ?
+                currentMessage.getFirstChoice():
+                currentMessage.getSecondChoice();
 
         Message nextMessage;
         //Commented out logik for now to test communication with frontend
@@ -77,12 +66,6 @@ public abstract class AnwendungsLogikBean {
         timerManagementBean.addMessageTimer(username, nextMessage);
     }
 
-    public void onChangeSanity(TimerManagementBean.TimerRequest timerRequest) {
-        if(timerRequest.getType() == TimerManagementBean.Type.SANITY) {
-            this.setValue(this.getValue() - 5);
-        }
-    }
-
     public void setUsername(String username) {
         System.out.println("Setting username " + this.getClass().getName());
         timerManagementBean.addTimerRequestListener(username, this::onTimerExired);
@@ -104,9 +87,11 @@ public abstract class AnwendungsLogikBean {
         this.anwendungslogikListener = anwendungslogikListener;
     }
 
-    protected void setValue(int value) {
+    protected void setValue(int value, boolean callListener) {
         this.value = value;
-        anwendungslogikListener.onValueChanged(username, value);
+        if(callListener) {
+            anwendungslogikListener.onValueChanged(username, value);
+        }
     }
 
     protected int getValue() {

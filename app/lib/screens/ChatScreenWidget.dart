@@ -6,39 +6,36 @@ import 'package:app/model/Response.dart';
 import 'package:app/model/ScenarioEndpoint.dart';
 import 'package:app/widgets/AnswerSlider.dart';
 import 'package:app/widgets/GameOverWidget.dart';
-import 'package:app/widgets/TrustWidget.dart';
+import 'package:app/widgets/ScaleWidget.dart';
 import 'package:flutter/material.dart';
 
 import 'package:app/model/WebSocket.dart';
 
 import '../App.dart';
 
-class ChatScreen extends StatefulWidget {
+class ChatScreenWidget extends StatefulWidget {
   final ScenarioEndpoint scenarioEndpoint;
   final WebSocket webSocket;
+  final String valueText;
 
-  const ChatScreen({this.scenarioEndpoint, this.webSocket});
+  const ChatScreenWidget(
+      {this.scenarioEndpoint, this.webSocket, this.valueText});
 
   @override
-  _ChatScreenState createState() => _ChatScreenState();
+  _ChatScreenWidgetState createState() => _ChatScreenWidgetState();
 }
 
-class _ChatScreenState extends State<ChatScreen> {
+class _ChatScreenWidgetState extends State<ChatScreenWidget> {
   List<ChatMessage> _messages = new List();
   bool _gameOver = false;
   Choice _firstChoice;
   Choice _secondChoice;
-  int _trust = 50;
+  int _value = 0;
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController textEditingController =
       new TextEditingController();
   final ScrollController listScrollController = new ScrollController();
-
-  final ThemeData _themeData = ThemeData(
-    primaryColor: Colors.deepPurpleAccent,
-    primaryColorDark: Colors.deepPurple,
-  );
 
   @override
   void initState() {
@@ -67,7 +64,7 @@ class _ChatScreenState extends State<ChatScreen> {
         }
       } else if (response.type == ResponseType.VALUE_CHANGE) {
         setState(() {
-          _trust = response.getValueChange();
+          _value = response.getValueChange();
         });
       } else if (response.type == ResponseType.GAME_OVER) {
         setState(() {
@@ -103,64 +100,52 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Theme(
-      data: _themeData,
-      child: Scaffold(
-          key: _scaffoldKey,
-          appBar: AppBar(
-            title: Text("Unknown number"),
-          ),
-          body: Stack(
-            children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: NetworkImage(getBaseUrlAPI() +
-                        widget.scenarioEndpoint.backgroundImageUrl),
-                    fit: BoxFit.fill,
-                  ),
-                ),
-                child: SafeArea(
-                  child: !_gameOver
-                      ? Column(
-                          children: <Widget>[
-                            // List of messages
-                            buildListMessage(),
-                            AnswerSlider(
-                              themeData: _themeData,
-                              firstChoice: _firstChoice,
-                              secondChoice: _secondChoice,
-                              onChoiceSelected: (choice) {
-                                _onChoiceSelected(choice);
-                              },
-                            ),
-                            // Input content
-                            //buildInput(),
-                          ],
-                        )
-                      : GameOverWidget(),
-                ),
+    return Scaffold(
+      key: _scaffoldKey,
+      appBar: AppBar(
+        title: Text("Unknown number", ),
+      ),
+      body: Stack(
+        children: <Widget>[
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: NetworkImage(getBaseUrlAPI() +
+                    widget.scenarioEndpoint.backgroundImageUrl),
+                fit: BoxFit.fill,
               ),
-              if (!_gameOver)
-                Positioned(
-                  top: 10,
-                  right: 10,
-                  child: Column(
-                    children: <Widget>[
-                      CustomPaint(
-                        size: Size(80, 280),
-                        // Values reach from 100 to -100!
-                        foregroundPainter: TrustPainter(value: _trust),
-                      ),
-                      Text(
-                        "Vertrauen: $_trust",
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      ),
-                    ],
-                  ),
-                )
-            ],
-          )),
+            ),
+            child: SafeArea(
+              child: !_gameOver
+                  ? Column(
+                      children: <Widget>[
+                        // List of messages
+                        buildListMessage(),
+                        AnswerSlider(
+                          themeData: Theme.of(context),
+                          firstChoice: _firstChoice,
+                          secondChoice: _secondChoice,
+                          onChoiceSelected: (choice) {
+                            _onChoiceSelected(choice);
+                          },
+                        ),
+                        // Input content
+                        //buildInput(),
+                      ],
+                    )
+                  : GameOverWidget(),
+            ),
+          ),
+          if (!_gameOver)
+            Positioned(
+                top: 10,
+                right: 10,
+                child: ScaleWidget(
+                  text: widget.valueText,
+                  value: _value,
+                ))
+        ],
+      ),
     );
   }
 
@@ -176,48 +161,48 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
-  Widget buildInput() {
-    return Container(
-      child: Row(
-        children: <Widget>[
-          // Edit text
-          Flexible(
-            child: Container(
-              child: TextField(
-                style: TextStyle(fontSize: 15.0),
-                controller: textEditingController,
-                decoration: InputDecoration.collapsed(
-                  hintText: 'Type your message...',
-                  hintStyle: TextStyle(color: Colors.grey),
-                ),
-              ),
-              padding: EdgeInsets.only(left: 15),
-            ),
-          ),
+  // Widget buildInput() {
+  //   return Container(
+  //     child: Row(
+  //       children: <Widget>[
+  //         // Edit text
+  //         Flexible(
+  //           child: Container(
+  //             child: TextField(
+  //               style: TextStyle(fontSize: 15.0),
+  //               controller: textEditingController,
+  //               decoration: InputDecoration.collapsed(
+  //                 hintText: 'Type your message...',
+  //                 hintStyle: TextStyle(color: Colors.grey),
+  //               ),
+  //             ),
+  //             padding: EdgeInsets.only(left: 15),
+  //           ),
+  //         ),
 
-          // Button send message
-          Material(
-            child: new Container(
-              margin: new EdgeInsets.symmetric(horizontal: 8.0),
-              child: new IconButton(
-                icon: new Icon(Icons.send),
-                onPressed: () => print("Hallo"),
-                //onPressed: () => onSendMessage(textEditingController.text),
-                color: _themeData.primaryColor,
-              ),
-            ),
-            color: Colors.white,
-          ),
-        ],
-      ),
-      width: double.infinity,
-      height: 50.0,
-      decoration: new BoxDecoration(
-          border:
-              new Border(top: new BorderSide(color: Colors.grey, width: 0.5)),
-          color: Colors.white),
-    );
-  }
+  //         // Button send message
+  //         Material(
+  //           child: new Container(
+  //             margin: new EdgeInsets.symmetric(horizontal: 8.0),
+  //             child: new IconButton(
+  //               icon: new Icon(Icons.send),
+  //               onPressed: () => print("Hallo"),
+  //               //onPressed: () => onSendMessage(textEditingController.text),
+  //               color: _themeData.primaryColor,
+  //             ),
+  //           ),
+  //           color: Colors.white,
+  //         ),
+  //       ],
+  //     ),
+  //     width: double.infinity,
+  //     height: 50.0,
+  //     decoration: new BoxDecoration(
+  //         border:
+  //             new Border(top: new BorderSide(color: Colors.grey, width: 0.5)),
+  //         color: Colors.white),
+  //   );
+  // }
 
   Widget buildItem(int index, ChatMessage message) {
     if (!message.isIncoming) {
@@ -230,7 +215,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 Container(
                   child: Text(
                     message.content,
-                    style: TextStyle(color: _themeData.primaryColor),
+                    style: TextStyle(color: Theme.of(context).primaryColor),
                   ),
                   margin: EdgeInsets.only(left: 10.0),
                   width: 200.0,
@@ -239,7 +224,7 @@ class _ChatScreenState extends State<ChatScreen> {
                   child: Text(
                     message.time,
                     style: TextStyle(
-                        color: _themeData.primaryColor,
+                        color: Theme.of(context).primaryColor,
                         fontSize: 12.0,
                         fontStyle: FontStyle.italic),
                     textAlign: TextAlign.end,
@@ -291,7 +276,7 @@ class _ChatScreenState extends State<ChatScreen> {
               padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
               width: 200.0,
               decoration: BoxDecoration(
-                  color: _themeData.primaryColor,
+                  color: Theme.of(context).primaryColor,
                   borderRadius: BorderRadius.circular(8.0)),
             )
           ],

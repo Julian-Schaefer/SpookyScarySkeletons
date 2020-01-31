@@ -2,11 +2,12 @@ import 'dart:convert';
 
 import 'package:app/Util.dart';
 import 'package:app/model/ScenarioEndpoint.dart';
+import 'package:app/screens/LongJourneyScreen.dart';
+import 'package:app/screens/WrongNumberScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import '../App.dart';
-import 'ChatScreen.dart';
 import 'package:app/model/WebSocket.dart';
 
 class ScenarioScreen extends StatefulWidget {
@@ -83,7 +84,17 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
                                 Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => ChatScreen(
+                                      builder: (context) => WrongNumberScreen(
+                                            scenarioEndpoint: scenarioEndpoint,
+                                            webSocket: webSocket,
+                                          )),
+                                );
+                                break;
+                              case 'A long journey.':
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => LongJourneyScreen(
                                             scenarioEndpoint: scenarioEndpoint,
                                             webSocket: webSocket,
                                           )),

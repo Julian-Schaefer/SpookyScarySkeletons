@@ -26,7 +26,7 @@ public class AnwendungsLogikBeanALongJourney extends AnwendungsLogikBean {
     @Override
     public void onTimerExired(TimerManagementBean.TimerRequest timerRequest) {
         if(timerRequest.getType() == TimerManagementBean.Type.SANITY) {
-            setValue(getValue() - 5);
+            setValue(getValue() - 5, true);
         } else {
             super.onTimerExired(timerRequest);
         }

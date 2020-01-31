@@ -16,12 +16,12 @@ import java.util.List;
 
 @Stateless
 public class EntscheidungsbaumParserBean {
-
-    private List<Message> messages = new LinkedList<>();
-    private List<Choice> choices = new LinkedList<>();
-    private MessageTreeXmlDTO messageTreeXmlDTO = null;
-
+    
     public Message buildTree(String path) {
+        List<Message> messages = new LinkedList<>();
+        List<Choice> choices = new LinkedList<>();
+        MessageTreeXmlDTO messageTreeXmlDTO = null;
+
         InputStream inputStream = getClass().getResourceAsStream(path);
 
         // parsen
@@ -45,19 +45,21 @@ public class EntscheidungsbaumParserBean {
                 .forEach(messageXmlDTO -> messages.add(new Message(messageXmlDTO.getId(), messageXmlDTO.getContent().trim(), null, null)));
 
         // Referenzen nachtragen
+        final MessageTreeXmlDTO finalMessageTreeXMLDTO = messageTreeXmlDTO;
+
         messages.stream()
                 .forEach(message -> {
-                    MessageXmlDTO dto = findMessageDtoById(message.getId());
-                    message.setFirstChoice(findChoiceById(dto.getFirstChoice()));
-                    message.setSecondChoice(findChoiceById(dto.getSecondChoice()));
+                    MessageXmlDTO dto = findMessageDtoById(message.getId(), finalMessageTreeXMLDTO);
+                    message.setFirstChoice(findChoiceById(dto.getFirstChoice(), choices));
+                    message.setSecondChoice(findChoiceById(dto.getSecondChoice(), choices));
                 });
         choices.stream()
                 .forEach(choice -> {
-                    ChoiceXmlDTO dto = findChoiceDtoById(choice.getId());
-                    choice.setNextMessage(findMessageById(dto.getNextMessage()));
+                    ChoiceXmlDTO dto = findChoiceDtoById(choice.getId(), finalMessageTreeXMLDTO);
+                    choice.setNextMessage(findMessageById(dto.getNextMessage(), messages));
                 });
         
-        return findMessageById(0);
+        return findMessageById(0, messages);
     }
 
     private String inputStreamToString(InputStream inputStream) {
@@ -76,7 +78,7 @@ public class EntscheidungsbaumParserBean {
         return sb.toString();
     }
 
-    private Choice findChoiceById(int id) {
+    private Choice findChoiceById(int id, List<Choice> choices) {
         for(Choice choice: choices) {
             if (choice.getId() == id)
                 return choice;
@@ -84,7 +86,7 @@ public class EntscheidungsbaumParserBean {
         return null;
     }
 
-    private Message findMessageById(int id) {
+    private Message findMessageById(int id, List<Message> messages) {
         for(Message message: messages) {
             if (message.getId() == id)
                 return message;
@@ -92,7 +94,7 @@ public class EntscheidungsbaumParserBean {
         return null;
     }
 
-    private MessageXmlDTO findMessageDtoById(int id) {
+    private MessageXmlDTO findMessageDtoById(int id, MessageTreeXmlDTO messageTreeXmlDTO) {
         for(MessageXmlDTO message: messageTreeXmlDTO.getMessages()) {
             if (message.getId() == id)
                 return message;
@@ -100,7 +102,7 @@ public class EntscheidungsbaumParserBean {
         return null;
     }
 
-    private ChoiceXmlDTO findChoiceDtoById(int id) {
+    private ChoiceXmlDTO findChoiceDtoById(int id, MessageTreeXmlDTO messageTreeXmlDTO) {
         for(ChoiceXmlDTO choice: messageTreeXmlDTO.getChoices()) {
             if (choice.getId() == id)
                 return choice;

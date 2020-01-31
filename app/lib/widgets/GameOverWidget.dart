@@ -1,4 +1,4 @@
-import 'package:app/screens/StartScreen.dart';
+import 'package:app/screens/ScenarioScreen.dart';
 import 'package:flutter/material.dart';
 
 class GameOverWidget extends StatelessWidget {

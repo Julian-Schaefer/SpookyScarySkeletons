@@ -1,10 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class TrustPainter extends CustomPainter {
+class ScaleWidget extends StatelessWidget {
+  final String text;
   final int value;
 
-  TrustPainter({@required this.value});
+  ScaleWidget({@required this.text, @required this.value});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        CustomPaint(
+          size: Size(80, 280),
+          // Values reach from 100 to -100!
+          foregroundPainter: ScaleWidgetPainter(value: value),
+        ),
+        Text(
+          "$text: $value",
+          style: TextStyle(color: Colors.white, fontSize: 20),
+        ),
+      ],
+    );
+  }
+}
+
+class ScaleWidgetPainter extends CustomPainter {
+  final int value;
+
+  ScaleWidgetPainter({@required this.value});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -33,7 +57,7 @@ class TrustPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(CustomPainter oldDelegate) {
-    if (value != (oldDelegate as TrustPainter).value) {
+    if (value != (oldDelegate as ScaleWidgetPainter).value) {
       return true;
     }
 
