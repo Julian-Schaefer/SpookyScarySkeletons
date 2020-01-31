@@ -84,6 +84,7 @@ class _AnswerSliderState extends State<AnswerSlider>
               children: <Widget>[
                 Expanded(
                   child: FlatButton(
+                    padding: EdgeInsets.all(10),
                     child: Text(
                       widget.firstChoice.content,
                       style: TextStyle(color: Colors.white, fontSize: 15),
@@ -102,6 +103,7 @@ class _AnswerSliderState extends State<AnswerSlider>
                 if (widget.secondChoice != null)
                   Expanded(
                     child: FlatButton(
+                      padding: EdgeInsets.all(10),
                       child: Text(
                         widget.secondChoice.content,
                         style: TextStyle(color: Colors.white, fontSize: 15),

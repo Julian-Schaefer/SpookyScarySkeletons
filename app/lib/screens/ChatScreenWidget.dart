@@ -51,7 +51,7 @@ class _ChatScreenWidgetState extends State<ChatScreenWidget> {
           _firstChoice = message.firstChoice;
           _secondChoice = message.secondChoice;
 
-          _messages.insert(0, ChatMessage(true, message.content, "now"));
+          _messages.insert(0, ChatMessage(true, message.content));
           listScrollController.animateTo(0.0,
               duration: Duration(milliseconds: 300), curve: Curves.easeOut);
         });
@@ -86,7 +86,7 @@ class _ChatScreenWidgetState extends State<ChatScreenWidget> {
 
   void _onChoiceSelected(Choice choice) {
     setState(() {
-      _messages.insert(0, ChatMessage(false, choice.content, "now"));
+      _messages.insert(0, ChatMessage(false, choice.content));
       _firstChoice = null;
       _secondChoice = null;
     });
@@ -223,6 +223,9 @@ class _ChatScreenWidgetState extends State<ChatScreenWidget> {
                   margin: EdgeInsets.only(left: 10.0),
                   width: 200.0,
                 ),
+                Padding(
+                  padding: EdgeInsets.only(top: 6),
+                ),
                 Container(
                   child: Text(
                     message.time,
@@ -262,6 +265,9 @@ class _ChatScreenWidgetState extends State<ChatScreenWidget> {
                     ),
                     margin: EdgeInsets.only(left: 10.0),
                     width: 200.0,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 6),
                   ),
                   Container(
                     child: Text(
