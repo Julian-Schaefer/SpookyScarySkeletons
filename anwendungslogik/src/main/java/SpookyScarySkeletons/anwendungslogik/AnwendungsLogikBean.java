@@ -20,7 +20,7 @@ public abstract class AnwendungsLogikBean {
     private int value = 5;
     private boolean lowValuePath = false;
     protected String username;
-    private AnwendungslogikListener anwendungslogikListener;
+    protected AnwendungslogikListener anwendungslogikListener;
 
     public Message getFirstMessage() {
         currentMessage = firstMessage;

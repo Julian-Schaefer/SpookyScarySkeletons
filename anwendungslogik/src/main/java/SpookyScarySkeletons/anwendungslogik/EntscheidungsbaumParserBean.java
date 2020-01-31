@@ -16,7 +16,7 @@ import java.util.List;
 
 @Stateless
 public class EntscheidungsbaumParserBean {
-    
+
     public Message buildTree(String path) {
         List<Message> messages = new LinkedList<>();
         List<Choice> choices = new LinkedList<>();

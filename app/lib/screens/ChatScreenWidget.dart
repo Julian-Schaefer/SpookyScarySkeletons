@@ -141,7 +141,7 @@ class _ChatScreenWidgetState extends State<ChatScreenWidget> {
           ),
           if (!_gameOver)
             Positioned(
-                top: 10,
+                top: 30,
                 right: 10,
                 child: ScaleWidget(
                   text: widget.valueText,

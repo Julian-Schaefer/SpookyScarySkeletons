@@ -11,10 +11,28 @@ class ScaleWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        CustomPaint(
-          size: Size(80, 280),
-          // Values reach from 100 to -100!
-          foregroundPainter: ScaleWidgetPainter(value: value),
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(Radius.circular(12)),
+            border: Border.all(color: Theme.of(context).primaryColor, width: 5),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.7),
+                spreadRadius: 4,
+                blurRadius: 4,
+                offset: Offset(0, 0), // changes position of shadow
+              ),
+            ],
+          ),
+          child: CustomPaint(
+            size: Size(60, 240),
+            // Values reach from 100 to -100!
+            foregroundPainter: ScaleWidgetPainter(value: value),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.all(6),
         ),
         Text(
           "$text: $value",
@@ -33,13 +51,14 @@ class ScaleWidgetPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final backgroundPaint = Paint()..color = Colors.grey;
-    canvas.drawRect(
-        Rect.fromLTRB(0, size.height, size.width, 0), backgroundPaint);
+    var backgroundRect = RRect.fromRectAndRadius(
+        Rect.fromLTWH(0, size.height, size.width, 0), Radius.circular(15.0));
+    canvas.drawRRect(backgroundRect, backgroundPaint);
 
     Paint foregroundPaint = Paint();
     double top;
     double bottom;
-    double halfSize = (size.height - 20) / 2;
+    double halfSize = (size.height) / 2;
     if (value > 0) {
       top = size.center(Offset.zero).dy - halfSize * (value / 100);
       bottom = size.center(Offset.zero).dy;
@@ -51,8 +70,7 @@ class ScaleWidgetPainter extends CustomPainter {
       foregroundPaint.color = Colors.red;
     }
 
-    canvas.drawRect(
-        Rect.fromLTRB(10, top, size.width - 10, bottom), foregroundPaint);
+    canvas.drawRect(Rect.fromLTRB(0, top, size.width, bottom), foregroundPaint);
   }
 
   @override
