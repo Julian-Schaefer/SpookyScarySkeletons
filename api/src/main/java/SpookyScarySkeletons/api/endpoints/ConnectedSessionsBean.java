@@ -1,14 +1,17 @@
-package SpookyScarySkeletons.api;
+package SpookyScarySkeletons.api.endpoints;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.*;
 import javax.websocket.Session;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
 @Singleton
 @Startup
 public class ConnectedSessionsBean {
+
+    private static final String USERNAME = "username";
 
     private List<Session> sessions;
     private List<Session> wrongNumberSessions;
@@ -19,6 +22,19 @@ public class ConnectedSessionsBean {
         sessions = new LinkedList<>();
         wrongNumberSessions = new LinkedList<>();
         longJourneySessions = new LinkedList<>();
+    }
+
+    public void sendToAllSessionsExceptOriginator(String usernameOriginator, String message) {
+        try {
+            for (Session session : getAllSessions()) {
+                String username = (String) session.getUserProperties().get(USERNAME);
+                if (!usernameOriginator.equals(username)) {
+                    session.getBasicRemote().sendText(message);
+                }
+            }
+        } catch (IOException e){
+            e.printStackTrace();
+        }
     }
 
     public void addWrongNumberSession(Session session) {

@@ -2,6 +2,7 @@ package SpookyScarySkeletons.anwendungslogik;
 
 import SpookyScarySkeletons.anwendungslogik.model.Choice;
 import SpookyScarySkeletons.anwendungslogik.model.Message;
+import SpookyScarySkeletons.messaging.TopicMessagingBean;
 
 import javax.ejb.EJB;
 import javax.ejb.Remove;
@@ -14,13 +15,16 @@ public abstract class AnwendungsLogikBean {
     @EJB
     protected TimerManagementBean timerManagementBean;
 
+    @EJB
+    private TopicMessagingBean topicMessagingBean;
+
     protected Message firstMessage;
     protected Message currentMessage;
     protected Message lowValueStartMessage = null;
     private int value = 5;
     private boolean lowValuePath = false;
     protected String username;
-    protected AnwendungslogikListener anwendungslogikListener;
+    private AnwendungslogikListener anwendungslogikListener;
 
     public Message getFirstMessage() {
         currentMessage = firstMessage;
@@ -66,17 +70,18 @@ public abstract class AnwendungsLogikBean {
         timerManagementBean.addMessageTimer(username, nextMessage);
     }
 
-    public void setUsername(String username) {
-        System.out.println("Setting username " + this.getClass().getName());
+    public void startGame(String username) {
+        System.out.println("Starting game for Username: " + username);
         timerManagementBean.addTimerRequestListener(username, this::onTimerExired);
         this.username = username;
+        topicMessagingBean.sendGameStartedMessage(username);
     }
 
     public void onTimerExired(TimerManagementBean.TimerRequest timerRequest) {
         if(timerRequest.getType() == TimerManagementBean.Type.MESSAGE) {
             Message message = (Message) timerRequest.getContent();
             if(message == null || (message.getFirstChoice() == null && message.getSecondChoice() == null)) {
-                anwendungslogikListener.onGameOver();
+                gameOver();
             } else {
                 anwendungslogikListener.onNewMessage((Message) timerRequest.getContent());
             }
@@ -85,6 +90,11 @@ public abstract class AnwendungsLogikBean {
 
     public void setAnwendungslogikListener(AnwendungslogikListener anwendungslogikListener) {
         this.anwendungslogikListener = anwendungslogikListener;
+    }
+
+    protected void gameOver() {
+        anwendungslogikListener.onGameOver();
+        topicMessagingBean.sendGameOverMessage(username);
     }
 
     protected void setValue(int value, boolean callListener) {

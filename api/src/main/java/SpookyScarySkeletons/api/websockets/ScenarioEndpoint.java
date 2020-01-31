@@ -1,10 +1,12 @@
-package SpookyScarySkeletons.api;
+package SpookyScarySkeletons.api.websockets;
 
 import SpookyScarySkeletons.anwendungslogik.AnwendungsLogikBean;
 import SpookyScarySkeletons.anwendungslogik.model.Message;
+import SpookyScarySkeletons.api.endpoints.ConnectedSessionsBean;
 import SpookyScarySkeletons.api.dto.ChoiceDTO;
 import SpookyScarySkeletons.api.dto.MessageDTO;
 import SpookyScarySkeletons.api.model.Response;
+import SpookyScarySkeletons.api.util.DTOMapperBean;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
@@ -14,6 +16,8 @@ import java.io.IOException;
 
 @Stateful
 public abstract class ScenarioEndpoint implements AnwendungsLogikBean.AnwendungslogikListener {
+
+    private static final String USERNAME = "username";
 
     protected AnwendungsLogikBean anwendungsLogikBean;
 
@@ -27,8 +31,9 @@ public abstract class ScenarioEndpoint implements AnwendungsLogikBean.Anwendungs
 
     public void open(String username, Session session) {
         this.session = session;
+        session.getUserProperties().put(USERNAME, username);
 
-        anwendungsLogikBean.setUsername(username);
+        anwendungsLogikBean.startGame(username);
         anwendungsLogikBean.setAnwendungslogikListener(this);
 
         Message message = anwendungsLogikBean.getFirstMessage();

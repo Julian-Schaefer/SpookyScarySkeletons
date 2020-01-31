@@ -1,4 +1,4 @@
-package SpookyScarySkeletons.api;
+package SpookyScarySkeletons.api.endpoints;
 
 import SpookyScarySkeletons.anwendungslogik.ScenarioManagement;
 import SpookyScarySkeletons.anwendungslogik.ScenarioManagementLocal;

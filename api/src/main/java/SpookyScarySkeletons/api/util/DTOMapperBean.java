@@ -1,4 +1,4 @@
-package SpookyScarySkeletons.api;
+package SpookyScarySkeletons.api.util;
 
 import org.modelmapper.ModelMapper;
 

@@ -1,4 +1,4 @@
-package SpookyScarySkeletons.api;
+package SpookyScarySkeletons.api.endpoints;
 
 import SpookyScarySkeletons.anwendungslogik.AccountManagement;
 import SpookyScarySkeletons.persistenzlogik.model.Account;

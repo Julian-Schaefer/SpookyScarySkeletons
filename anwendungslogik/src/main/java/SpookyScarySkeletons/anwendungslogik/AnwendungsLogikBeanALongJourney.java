@@ -18,8 +18,8 @@ public class AnwendungsLogikBeanALongJourney extends AnwendungsLogikBean {
     }
 
     @Override
-    public void setUsername(String username) {
-        super.setUsername(username);
+    public void startGame(String username) {
+        super.startGame(username);
         timerManagementBean.addSanityTimer(username);
     }
 
@@ -30,7 +30,7 @@ public class AnwendungsLogikBeanALongJourney extends AnwendungsLogikBean {
             if(newValue >= -100) {
                 setValue(getValue() - 5, true);
             } else {
-                anwendungslogikListener.onGameOver();
+               gameOver();
             }
         } else {
             super.onTimerExired(timerRequest);

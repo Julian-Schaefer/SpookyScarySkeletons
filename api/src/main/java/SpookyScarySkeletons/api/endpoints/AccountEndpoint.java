@@ -1,4 +1,4 @@
-package SpookyScarySkeletons.api;
+package SpookyScarySkeletons.api.endpoints;
 
 import SpookyScarySkeletons.anwendungslogik.AccountManagement;
 import SpookyScarySkeletons.persistenzlogik.model.Account;
@@ -19,17 +19,18 @@ public class AccountEndpoint {
 
     @POST
     public Response createUser(Account account) {
+        // Emulate Latency
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-
         try {
             Account createdAccount = accountManagement.createAccount(account);
             return Response.ok(createdAccount).build();
         } catch (RuntimeException e) {
+            // Account already exists
             return Response.status(Response.Status.CONFLICT).build();
         }
     }

@@ -1,4 +1,4 @@
-package SpookyScarySkeletons.api;
+package SpookyScarySkeletons.api.util;
 
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerResponseContext;

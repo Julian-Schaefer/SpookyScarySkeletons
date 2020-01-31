@@ -1,21 +1,13 @@
-package SpookyScarySkeletons.api.longjourney;
+package SpookyScarySkeletons.api.websockets;
 
-import SpookyScarySkeletons.anwendungslogik.AnwendungsLogikBean;
 import SpookyScarySkeletons.anwendungslogik.AnwendungsLogikBeanALongJourney;
 import SpookyScarySkeletons.anwendungslogik.ScenarioManagement;
-import SpookyScarySkeletons.anwendungslogik.model.Choice;
-import SpookyScarySkeletons.anwendungslogik.model.Message;
-import SpookyScarySkeletons.api.ConnectedSessionsBean;
-import SpookyScarySkeletons.api.DTOMapperBean;
-import SpookyScarySkeletons.api.ScenarioEndpoint;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
-import javax.json.bind.JsonbBuilder;
 import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
-import java.io.IOException;
 
 // URL zum Testen: ws://localhost:8080/api/longjourney
 

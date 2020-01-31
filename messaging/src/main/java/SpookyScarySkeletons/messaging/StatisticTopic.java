@@ -7,5 +7,5 @@ import javax.jms.JMSDestinationDefinition;
         interfaceName = "javax.jms.Topic",
         destinationName = "Statistic Topic"
 )
-public class Config {
+public class StatisticTopic {
 }

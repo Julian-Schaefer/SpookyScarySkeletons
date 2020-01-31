@@ -1,22 +1,13 @@
-package SpookyScarySkeletons.api.sorrywrongnumber;
+package SpookyScarySkeletons.api.websockets;
 
-import SpookyScarySkeletons.anwendungslogik.AnwendungsLogikBeanALongJourney;
 import SpookyScarySkeletons.anwendungslogik.AnwendungsLogikBeanSorryWrongNumber;
 import SpookyScarySkeletons.anwendungslogik.ScenarioManagement;
-import SpookyScarySkeletons.anwendungslogik.model.Message;
-import SpookyScarySkeletons.api.ConnectedSessionsBean;
-import SpookyScarySkeletons.api.DTOMapperBean;
-import SpookyScarySkeletons.api.ScenarioEndpoint;
-import SpookyScarySkeletons.api.dto.ChoiceDTO;
-import SpookyScarySkeletons.api.dto.MessageDTO;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateful;
-import javax.json.bind.JsonbBuilder;
 import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
-import java.io.IOException;
 
 // URL zum Testen: ws://localhost:8080/api/websocket
 
