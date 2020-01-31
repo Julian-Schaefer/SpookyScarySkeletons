@@ -17,12 +17,6 @@ public class AnwendungsLogikBeanALongJourney extends AnwendungsLogikBean {
 //        lowValueStartMessage = entscheidungsbaumParserBean.buildTree("");
     }
 
-    @PreDestroy
-    public void onDestroy() {
-        System.out.println("Bean will be destroyed");
-        timerManagementBean.removeTimerRequestListener(username);
-    }
-
     @Override
     public void setUsername(String username) {
         super.setUsername(username);
@@ -36,5 +30,16 @@ public class AnwendungsLogikBeanALongJourney extends AnwendungsLogikBean {
         } else {
             super.onTimerExired(timerRequest);
         }
+    }
+
+    @PreDestroy
+    public void onDestroy() {
+        System.out.println("Bean will be destroyed");
+        timerManagementBean.removeTimerRequestListener(username);
+    }
+
+    @Remove
+    @Override
+    public void dispose() {
     }
 }

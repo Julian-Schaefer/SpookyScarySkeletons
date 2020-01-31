@@ -5,6 +5,7 @@ import 'package:app/model/Choice.dart';
 import 'package:app/model/Response.dart';
 import 'package:app/model/ScenarioEndpoint.dart';
 import 'package:app/widgets/AnswerSlider.dart';
+import 'package:app/widgets/GameOverWidget.dart';
 import 'package:app/widgets/TrustWidget.dart';
 import 'package:flutter/material.dart';
 
@@ -24,6 +25,7 @@ class ChatScreen extends StatefulWidget {
 
 class _ChatScreenState extends State<ChatScreen> {
   List<ChatMessage> _messages = new List();
+  bool _gameOver = false;
   Choice _firstChoice;
   Choice _secondChoice;
   int _trust = 50;
@@ -35,7 +37,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   final ThemeData _themeData = ThemeData(
     primaryColor: Colors.deepPurpleAccent,
-    primaryColorDark: Colors.deepPurpleAccent[800],
+    primaryColorDark: Colors.deepPurple,
   );
 
   @override
@@ -67,8 +69,18 @@ class _ChatScreenState extends State<ChatScreen> {
         setState(() {
           _trust = response.getValueChange();
         });
+      } else if (response.type == ResponseType.GAME_OVER) {
+        setState(() {
+          _gameOver = true;
+        });
       }
     });
+  }
+
+  @override
+  void dispose() {
+    widget.webSocket.close();
+    super.dispose();
   }
 
   void sendToWebSocket(String message) {
@@ -94,59 +106,61 @@ class _ChatScreenState extends State<ChatScreen> {
     return Theme(
       data: _themeData,
       child: Scaffold(
-        key: _scaffoldKey,
-        appBar: AppBar(
-          title: Text("Unknown number"),
-        ),
-        body: Stack(
-          children: <Widget>[
-            Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(getBaseUrlAPI() +
-                      widget.scenarioEndpoint.backgroundImageUrl),
-                  fit: BoxFit.fill,
+          key: _scaffoldKey,
+          appBar: AppBar(
+            title: Text("Unknown number"),
+          ),
+          body: Stack(
+            children: <Widget>[
+              Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(getBaseUrlAPI() +
+                        widget.scenarioEndpoint.backgroundImageUrl),
+                    fit: BoxFit.fill,
+                  ),
+                ),
+                child: SafeArea(
+                  child: !_gameOver
+                      ? Column(
+                          children: <Widget>[
+                            // List of messages
+                            buildListMessage(),
+                            AnswerSlider(
+                              themeData: _themeData,
+                              firstChoice: _firstChoice,
+                              secondChoice: _secondChoice,
+                              onChoiceSelected: (choice) {
+                                _onChoiceSelected(choice);
+                              },
+                            ),
+                            // Input content
+                            //buildInput(),
+                          ],
+                        )
+                      : GameOverWidget(),
                 ),
               ),
-              child: SafeArea(
-                child: Column(
-                  children: <Widget>[
-                    // List of messages
-                    buildListMessage(),
-                    AnswerSlider(
-                      themeData: _themeData,
-                      firstChoice: _firstChoice,
-                      secondChoice: _secondChoice,
-                      onChoiceSelected: (choice) {
-                        _onChoiceSelected(choice);
-                      },
-                    ),
-                    // Input content
-                    //buildInput(),
-                  ],
-                ),
-              ),
-            ),
-            Positioned(
-              top: 10,
-              right: 10,
-              child: Column(
-                children: <Widget>[
-                  CustomPaint(
-                    size: Size(80, 280),
-                    // Values reach from 100 to -100!
-                    foregroundPainter: TrustPainter(value: _trust),
+              if (!_gameOver)
+                Positioned(
+                  top: 10,
+                  right: 10,
+                  child: Column(
+                    children: <Widget>[
+                      CustomPaint(
+                        size: Size(80, 280),
+                        // Values reach from 100 to -100!
+                        foregroundPainter: TrustPainter(value: _trust),
+                      ),
+                      Text(
+                        "Vertrauen: $_trust",
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
+                    ],
                   ),
-                  Text(
-                    "Vertrauen: $_trust",
-                    style: TextStyle(color: Colors.white, fontSize: 20),
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
+                )
+            ],
+          )),
     );
   }
 

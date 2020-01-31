@@ -15,6 +15,10 @@ class BrowserWebSocket implements WebSocket {
   void send(dynamic data) {
     _channel.sink.add(data);
   }
+
+  void close() {
+    _channel.sink.close();
+  }
 }
 
 WebSocket getWebSocket() => new BrowserWebSocket();

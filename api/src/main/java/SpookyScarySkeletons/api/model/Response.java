@@ -6,8 +6,9 @@ public class Response<T> {
 
     public enum Type {
         MESSAGE,
+        GAME_OVER,
         INFORMATION,
-        VALUE_CHANGE
+        VALUE_CHANGE,
     }
 
     private Type type;
@@ -23,6 +24,10 @@ public class Response<T> {
 
     public static Response<MessageDTO> message(MessageDTO content) {
         return new Response<>(Type.MESSAGE, content);
+    }
+
+    public static Response<Void> gameOver() {
+        return new Response<>(Type.GAME_OVER, null);
     }
 
     public static Response<String> information(String content) {

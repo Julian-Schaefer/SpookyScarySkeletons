@@ -1,7 +1,7 @@
 import 'package:app/model/JsonConvertible.dart';
 import 'package:app/model/Message.dart';
 
-enum ResponseType { MESSAGE, INFORMATION, VALUE_CHANGE }
+enum ResponseType { MESSAGE, GAME_OVER, INFORMATION, VALUE_CHANGE }
 
 class Response {
   ResponseType type;
@@ -16,6 +16,9 @@ class Response {
       case "MESSAGE":
         type = ResponseType.MESSAGE;
         content = Message.fromJSON(json['content']);
+        break;
+      case "GAME_OVER":
+        type = ResponseType.GAME_OVER;
         break;
       case "INFORMATION":
         type = ResponseType.INFORMATION;

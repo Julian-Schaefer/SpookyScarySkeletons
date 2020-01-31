@@ -92,7 +92,7 @@ public abstract class AnwendungsLogikBean {
     public void onTimerExired(TimerManagementBean.TimerRequest timerRequest) {
         if(timerRequest.getType() == TimerManagementBean.Type.MESSAGE) {
             Message message = (Message) timerRequest.getContent();
-            if(message.getFirstChoice() == null && message.getSecondChoice() == null) {
+            if(message == null || (message.getFirstChoice() == null && message.getSecondChoice() == null)) {
                 anwendungslogikListener.onGameOver();
             } else {
                 anwendungslogikListener.onNewMessage((Message) timerRequest.getContent());
@@ -113,9 +113,7 @@ public abstract class AnwendungsLogikBean {
         return this.value;
     }
 
-    @Remove
-    public void dispose() {
-    }
+    public abstract void dispose();
 
     public interface AnwendungslogikListener {
         void onValueChanged(String username, int newValue);

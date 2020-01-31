@@ -38,6 +38,12 @@ public abstract class ScenarioEndpoint implements AnwendungsLogikBean.Anwendungs
 
     public void close(Session session) {
         anwendungsLogikBean.dispose();
+
+        try {
+            session.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @OnError
@@ -59,10 +65,9 @@ public abstract class ScenarioEndpoint implements AnwendungsLogikBean.Anwendungs
 
     @Override
     public void onGameOver() {
-        MessageDTO messageDTO = new MessageDTO();
-        messageDTO.setId(-1);
-        messageDTO.setContent("Game Over!");
-        sendMessage(Response.message(messageDTO));
+        System.out.println("Game Over!");
+        sendMessage(Response.gameOver());
+        close(session);
     }
 
     @Override

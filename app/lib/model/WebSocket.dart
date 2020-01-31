@@ -11,6 +11,8 @@ abstract class WebSocket {
 
   void send(dynamic data);
 
+  void close();
+
   /// factory constructor to return the correct implementation.
   factory WebSocket() => getWebSocket();
 }
