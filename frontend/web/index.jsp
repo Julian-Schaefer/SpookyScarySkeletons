@@ -9,6 +9,11 @@
 <html>
 <head>
     <title>Spooky Scary Skeletons</title>
+    <style>
+    * {
+        text-align:center
+    }
+</style>
 </head>
 <body>
     <h1>Welcome to Spooky Scary Skeletons!</h1>
@@ -18,5 +23,10 @@
     <p>or:</p>
 
     <a href="http://spookyscaryskeletons.northeurope.cloudapp.azure.com/SpookyScarySkeletons.apk">Download the Android .apk</a>
+
+    <br>
+    <p>QR Code to this Website:</p>
+
+    <img align="middle" src="images/SpookyQR.png" />
 </body>
 </html>
