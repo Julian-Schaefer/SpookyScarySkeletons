@@ -8,13 +8,13 @@ import SpookyScarySkeletons.api.dto.MessageDTO;
 import SpookyScarySkeletons.api.model.Response;
 import SpookyScarySkeletons.api.util.DTOMapperBean;
 
+import javax.annotation.PreDestroy;
 import javax.ejb.EJB;
-import javax.ejb.Stateful;
+import javax.ejb.Remove;
 import javax.json.bind.JsonbBuilder;
 import javax.websocket.*;
 import java.io.IOException;
 
-@Stateful
 public abstract class ScenarioEndpoint implements AnwendungsLogikBean.AnwendungslogikListener {
 
     private static final String USERNAME = "username";
@@ -41,16 +41,6 @@ public abstract class ScenarioEndpoint implements AnwendungsLogikBean.Anwendungs
         sendMessage(Response.message(messageDTO));
     }
 
-    public void close(Session session) {
-        anwendungsLogikBean.dispose();
-
-        try {
-            session.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     @OnError
     public void onError(Throwable error) {
         error.printStackTrace();
@@ -69,10 +59,9 @@ public abstract class ScenarioEndpoint implements AnwendungsLogikBean.Anwendungs
     }
 
     @Override
-    public void onGameOver() {
+    public void onGameOver(String message) {
         System.out.println("Game Over!");
-        sendMessage(Response.gameOver());
-        close(session);
+        sendMessage(Response.gameOver(message));
     }
 
     @Override
@@ -81,10 +70,23 @@ public abstract class ScenarioEndpoint implements AnwendungsLogikBean.Anwendungs
         System.out.println("Sending new value to Username: " + username + ", " + newValue);
     }
 
+    @Remove
+    public void dispose() {
+        System.out.println("Closing Scenario Endpoint");
+        anwendungsLogikBean.dispose();
+    }
+
+    @PreDestroy
+    public void onDestroy() {
+        System.out.println("ScenarioEndpoint gets destroyed");
+    }
+
     protected <T> void sendMessage(Response<T> response) {
         try {
-            String replyMessageJSON = JsonbBuilder.create().toJson(response);
-            session.getBasicRemote().sendText(replyMessageJSON);
+            if(session.isOpen()) {
+                String replyMessageJSON = JsonbBuilder.create().toJson(response);
+                session.getBasicRemote().sendText(replyMessageJSON);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

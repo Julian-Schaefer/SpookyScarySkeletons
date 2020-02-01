@@ -34,7 +34,7 @@ public class TimerManagementBean {
             try {
                 TimerRequest activeTimerRequest = (TimerRequest) timer.getInfo();
 
-                if(activeTimerRequest.getType() == Type.SANITY && activeTimerRequest.getUsername() == activeTimerRequest.getUsername()) {
+                if(activeTimerRequest.getType() == Type.SANITY && activeTimerRequest.getUsername() == timerRequest.getUsername()) {
                     timer.cancel();
                 }
             } catch(Exception e) {

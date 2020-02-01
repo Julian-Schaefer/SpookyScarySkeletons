@@ -32,14 +32,15 @@ public class AnwendungsLogikBeanSorryWrongNumber extends AnwendungsLogikBean {
         setValue(getValue(), true);
     }
 
-    @PreDestroy
-    public void onDestroy() {
-        System.out.println("Bean will be destroyed");
-        timerManagementBean.removeTimerRequestListener(username);
-    }
-
     @Remove
     @Override
     public void dispose() {
+    }
+
+    @PreDestroy
+    @Override
+    public void onDestroy() {
+        System.out.println("Bean will be destroyed");
+        timerManagementBean.removeTimerRequestListener(username);
     }
 }

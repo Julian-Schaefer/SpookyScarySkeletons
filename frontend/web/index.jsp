@@ -11,6 +11,12 @@
     <title>Spooky Scary Skeletons</title>
 </head>
 <body>
-    <p>Welcome to Spooky Scary Skeletons!</p>
+    <h1>Welcome to Spooky Scary Skeletons!</h1>
+
+    <a href="http://spookyscaryskeletons.northeurope.cloudapp.azure.com/">Go to Web Version</a>
+
+    <p>or:</p>
+
+    <a href="http://spookyscaryskeletons.northeurope.cloudapp.azure.com/SpookyScarySkeletons.apk">Download the Android .apk</a>
 </body>
 </html>

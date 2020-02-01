@@ -28,6 +28,7 @@ class ChatScreenWidget extends StatefulWidget {
 class _ChatScreenWidgetState extends State<ChatScreenWidget> {
   List<ChatMessage> _messages = new List();
   bool _gameOver = false;
+  String _gameOverMessage;
   Choice _firstChoice;
   Choice _secondChoice;
   int _value = 0;
@@ -69,6 +70,7 @@ class _ChatScreenWidgetState extends State<ChatScreenWidget> {
       } else if (response.type == ResponseType.GAME_OVER) {
         setState(() {
           _gameOver = true;
+          _gameOverMessage = response.getGameOverMessage();
         });
       }
     });
@@ -136,7 +138,7 @@ class _ChatScreenWidgetState extends State<ChatScreenWidget> {
                         //buildInput(),
                       ],
                     )
-                  : GameOverWidget(),
+                  : GameOverWidget(gameOverMessage: _gameOverMessage),
             ),
           ),
           if (!_gameOver)

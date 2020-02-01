@@ -4,6 +4,7 @@ import SpookyScarySkeletons.anwendungslogik.AnwendungsLogikBeanALongJourney;
 import SpookyScarySkeletons.anwendungslogik.ScenarioManagement;
 
 import javax.ejb.EJB;
+import javax.ejb.Remove;
 import javax.ejb.Stateful;
 import javax.websocket.*;
 import javax.websocket.server.PathParam;
@@ -27,8 +28,9 @@ public class LongJourneyEndpoint extends ScenarioEndpoint {
     }
 
     @OnClose
+    @Remove
     public void close(Session session) {
         connectedSessionsBean.removeLongJourneySession(session);
-        super.close(session);
+        super.dispose();
     }
 }

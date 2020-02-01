@@ -5,7 +5,8 @@ import SpookyScarySkeletons.anwendungslogik.model.Message;
 import SpookyScarySkeletons.messaging.TopicMessagingBean;
 
 import javax.ejb.EJB;
-import javax.ejb.Remove;
+import java.time.Duration;
+import java.time.LocalDateTime;
 
 public abstract class AnwendungsLogikBean {
 
@@ -20,11 +21,16 @@ public abstract class AnwendungsLogikBean {
 
     protected Message firstMessage;
     protected Message currentMessage;
-    protected Message lowValueStartMessage = null;
+
     private int value = 5;
-    private boolean lowValuePath = false;
     protected String username;
+
+    protected Message lowValueStartMessage = null;
+    private boolean lowValuePath = false;
+
     private AnwendungslogikListener anwendungslogikListener;
+
+    private LocalDateTime startTime;
 
     public Message getFirstMessage() {
         currentMessage = firstMessage;
@@ -37,7 +43,7 @@ public abstract class AnwendungsLogikBean {
                 currentMessage.getSecondChoice();
 
         Message nextMessage;
-        //Commented out logik for now to test communication with frontend
+        //Commented out logic for now to test communication with frontend
 //        if (value >= 0 && !lowValuePath) {
             //normal
             nextMessage = choice.getNextMessage();
@@ -75,6 +81,8 @@ public abstract class AnwendungsLogikBean {
         timerManagementBean.addTimerRequestListener(username, this::onTimerExired);
         this.username = username;
         topicMessagingBean.sendGameStartedMessage(username);
+
+        startTime = LocalDateTime.now();
     }
 
     public void onTimerExired(TimerManagementBean.TimerRequest timerRequest) {
@@ -93,7 +101,16 @@ public abstract class AnwendungsLogikBean {
     }
 
     protected void gameOver() {
-        anwendungslogikListener.onGameOver();
+        LocalDateTime endTime = LocalDateTime.now();
+
+        Duration duration = Duration.between(startTime, endTime);
+        long diff = Math.abs(duration.toMillis());
+        int minutes = (int) (diff/1000.0/60.0);
+        double lastMinute = (diff/1000.0/60.0) % 1;
+        int seconds = (int) (lastMinute * 60.0);
+        System.out.println("User " + username + " took " + minutes + " minutes and " + seconds + " seconds to complete a scenario");
+
+        anwendungslogikListener.onGameOver("You took " + minutes + " minutes and " + seconds + " seconds.");
         topicMessagingBean.sendGameOverMessage(username);
     }
 
@@ -110,9 +127,11 @@ public abstract class AnwendungsLogikBean {
 
     public abstract void dispose();
 
+    protected abstract void onDestroy();
+
     public interface AnwendungslogikListener {
         void onValueChanged(String username, int newValue);
         void onNewMessage(Message message);
-        void onGameOver();
+        void onGameOver(String message);
     }
 }

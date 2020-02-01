@@ -2,6 +2,10 @@ import 'package:app/screens/ScenarioScreen.dart';
 import 'package:flutter/material.dart';
 
 class GameOverWidget extends StatelessWidget {
+  final String gameOverMessage;
+
+  GameOverWidget({this.gameOverMessage});
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -26,6 +30,12 @@ class GameOverWidget extends StatelessWidget {
             Text(
               "Game Over!",
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 10),
+            ),
+            Text(
+              gameOverMessage,
             ),
             Padding(
               padding: EdgeInsets.only(top: 10),

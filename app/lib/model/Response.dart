@@ -19,6 +19,7 @@ class Response {
         break;
       case "GAME_OVER":
         type = ResponseType.GAME_OVER;
+        content = json['content'];
         break;
       case "INFORMATION":
         type = ResponseType.INFORMATION;
@@ -66,6 +67,14 @@ class Response {
       return content as int;
     } else {
       throw new Exception('Is not a Value Change');
+    }
+  }
+
+  String getGameOverMessage() {
+    if (type == ResponseType.GAME_OVER) {
+      return content as String;
+    } else {
+      throw new Exception('Is not a Game Over Response');
     }
   }
 }

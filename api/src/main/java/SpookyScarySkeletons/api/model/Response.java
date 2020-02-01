@@ -26,8 +26,8 @@ public class Response<T> {
         return new Response<>(Type.MESSAGE, content);
     }
 
-    public static Response<Void> gameOver() {
-        return new Response<>(Type.GAME_OVER, null);
+    public static Response<String> gameOver(String message) {
+        return new Response<>(Type.GAME_OVER, message);
     }
 
     public static Response<String> information(String content) {
