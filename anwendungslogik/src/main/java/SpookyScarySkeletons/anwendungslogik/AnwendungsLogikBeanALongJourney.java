@@ -1,5 +1,8 @@
 package SpookyScarySkeletons.anwendungslogik;
 
+import SpookyScarySkeletons.anwendungslogik.model.Choice;
+import SpookyScarySkeletons.anwendungslogik.model.Message;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.*;
@@ -27,9 +30,9 @@ public class AnwendungsLogikBeanALongJourney extends AnwendungsLogikBean {
     @Override
     public void onTimerExired(TimerManagementBean.TimerRequest timerRequest) {
         if(timerRequest.getType() == TimerManagementBean.Type.SANITY) {
-            int newValue = getValue() - 5;
-            if(newValue >= -100) {
-                setValue(getValue() - 5, true);
+            int newValue = getValue() - 1;
+            if(newValue > 0) {
+                setValue(getValue() - 1, true);
             } else {
                gameOver();
             }
@@ -56,5 +59,21 @@ public class AnwendungsLogikBeanALongJourney extends AnwendungsLogikBean {
     public void onDestroy() {
         System.out.println("AnwendungslogikBean for User " + username + " will be destroyed");
         timerManagementBean.removeTimerRequestListener(username);
+    }
+
+    @Override
+    public void getNextMessage(int id) {
+        Choice choice = currentMessage.getFirstChoice().getId() == id ?
+                currentMessage.getFirstChoice():
+                currentMessage.getSecondChoice();
+
+        setValue(getValue() + choice.getValueChange(), false);
+        super.getNextMessage(id);
+    }
+
+    @Override
+    public Message getFirstMessage() {
+        setValue(90, false);
+        return super.getFirstMessage();
     }
 }
