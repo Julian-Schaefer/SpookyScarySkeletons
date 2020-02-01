@@ -1,11 +1,11 @@
-class ScenarioEndpoint {
+class Scenario {
   final String name;
   String websocketEndpoint;
   final String backgroundImageUrl;
 
-  ScenarioEndpoint(this.name, this.websocketEndpoint, this.backgroundImageUrl);
+  Scenario(this.name, this.websocketEndpoint, this.backgroundImageUrl);
 
-  ScenarioEndpoint.fromJSON(Map<String, dynamic> json)
+  Scenario.fromJSON(Map<String, dynamic> json)
       : name = json['name'],
         websocketEndpoint = json['websocketEndpoint'],
         backgroundImageUrl = json['backgroundImageUrl'];

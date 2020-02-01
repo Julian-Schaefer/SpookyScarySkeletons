@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:app/Util.dart';
-import 'package:app/model/ScenarioEndpoint.dart';
+import 'package:app/model/Scenario.dart';
 import 'package:app/screens/LongJourneyScreen.dart';
 import 'package:app/screens/WrongNumberScreen.dart';
 import 'package:flutter/material.dart';
@@ -16,22 +16,22 @@ class ScenarioScreen extends StatefulWidget {
 }
 
 class _ScenarioScreenState extends State<ScenarioScreen> {
-  Future<List<ScenarioEndpoint>> _scenarioEndpoints;
+  Future<List<Scenario>> _scenarios;
 
-  Future<List<ScenarioEndpoint>> getAvailableScenarios() async {
+  Future<List<Scenario>> getAvailableScenarios() async {
     String username = await Util.loadUsername();
     http.Response response = await http.get(getBaseUrlAPI() + '/api/scenarios');
 
-    var scenarioEndpoints = new List<ScenarioEndpoint>();
+    var scenarios = new List<Scenario>();
     if (response.statusCode == 200) {
       for (var jsonObject in jsonDecode(response.body)) {
-        var scenarioEndpoint = ScenarioEndpoint.fromJSON(jsonObject);
-        scenarioEndpoint.websocketEndpoint =
-            scenarioEndpoint.websocketEndpoint + "/" + username;
-        scenarioEndpoints.add(scenarioEndpoint);
+        var scenario = Scenario.fromJSON(jsonObject);
+        scenario.websocketEndpoint =
+            scenario.websocketEndpoint + "/" + username;
+        scenarios.add(scenario);
       }
 
-      return scenarioEndpoints;
+      return scenarios;
     } else {
       // If that response was not OK, throw an error.
       throw Exception('Failed to load post');
@@ -41,7 +41,7 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
   @override
   void initState() {
     super.initState();
-    _scenarioEndpoints = getAvailableScenarios();
+    _scenarios = getAvailableScenarios();
   }
 
   @override
@@ -51,8 +51,8 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
         title: Text('Spooky Scary Skeletons'),
       ),
       body: Center(
-        child: FutureBuilder<List<ScenarioEndpoint>>(
-          future: _scenarioEndpoints,
+        child: FutureBuilder<List<Scenario>>(
+          future: _scenarios,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               WebSocket webSocket = WebSocket();
@@ -85,7 +85,7 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => WrongNumberScreen(
-                                            scenarioEndpoint: scenarioEndpoint,
+                                            scenario: scenarioEndpoint,
                                             webSocket: webSocket,
                                           )),
                                 );
@@ -95,7 +95,7 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => LongJourneyScreen(
-                                            scenarioEndpoint: scenarioEndpoint,
+                                            scenario: scenarioEndpoint,
                                             webSocket: webSocket,
                                           )),
                                 );

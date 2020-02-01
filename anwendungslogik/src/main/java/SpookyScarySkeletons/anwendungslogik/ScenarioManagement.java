@@ -1,6 +1,6 @@
 package SpookyScarySkeletons.anwendungslogik;
 
-import SpookyScarySkeletons.anwendungslogik.model.ScenarioEndpoint;
+import SpookyScarySkeletons.anwendungslogik.model.Scenario;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
@@ -10,6 +10,8 @@ import java.util.List;
 @Stateless
 public class ScenarioManagement implements ScenarioManagementLocal {
 
+    public static final String NAME_SORRY_WRONG_NUMBER = "Sorry, wrong number.";
+    public static final String NAME_LONG_JOURNEY = "A long journey.";
     public static final String ENDPOINT_SORRY_WRONG_NUMBER = "/sorryWrongNumber";
     public static final String ENDPOINT_LONG_JOURNEY = "/longJourney";
 
@@ -19,20 +21,20 @@ public class ScenarioManagement implements ScenarioManagementLocal {
     }
 
     @Override
-    public List<ScenarioEndpoint> getScenarioEndpoints() {
-        List<ScenarioEndpoint> scenarioEndpoints = new LinkedList<>();
+    public List<Scenario> getScenarios() {
+        List<Scenario> scenarios = new LinkedList<>();
 
-        ScenarioEndpoint sorryWrongNumberEndpoint = new ScenarioEndpoint();
-        sorryWrongNumberEndpoint.setName("Sorry, wrong number.");
-        sorryWrongNumberEndpoint.setWebsocketEndpoint("/api" + ENDPOINT_SORRY_WRONG_NUMBER);
-        sorryWrongNumberEndpoint.setBackgroundImageUrl("/frontend/images/wrongnumber_background.jpg");
-        scenarioEndpoints.add(sorryWrongNumberEndpoint);
+        Scenario sorryWrongNumberScenario = new Scenario();
+        sorryWrongNumberScenario.setName(NAME_SORRY_WRONG_NUMBER);
+        sorryWrongNumberScenario.setWebsocketEndpoint("/api" + ENDPOINT_SORRY_WRONG_NUMBER);
+        sorryWrongNumberScenario.setBackgroundImageUrl("/frontend/images/wrongnumber_background.jpg");
+        scenarios.add(sorryWrongNumberScenario);
 
-        ScenarioEndpoint longJourneyEndpoint = new ScenarioEndpoint();
-        longJourneyEndpoint.setName("A long journey.");
-        longJourneyEndpoint.setWebsocketEndpoint("/api" + ENDPOINT_LONG_JOURNEY);
-        longJourneyEndpoint.setBackgroundImageUrl("/frontend/images/longjourney_background.jpg");
-        scenarioEndpoints.add(longJourneyEndpoint);
-        return scenarioEndpoints;
+        Scenario longJourneyScenario = new Scenario();
+        longJourneyScenario.setName(NAME_LONG_JOURNEY);
+        longJourneyScenario.setWebsocketEndpoint("/api" + ENDPOINT_LONG_JOURNEY);
+        longJourneyScenario.setBackgroundImageUrl("/frontend/images/longjourney_background.jpg");
+        scenarios.add(longJourneyScenario);
+        return scenarios;
     }
 }

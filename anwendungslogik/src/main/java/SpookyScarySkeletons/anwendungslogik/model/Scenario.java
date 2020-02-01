@@ -1,6 +1,6 @@
 package SpookyScarySkeletons.anwendungslogik.model;
 
-public class ScenarioEndpoint {
+public class Scenario {
 
     private String name;
     private String websocketEndpoint;

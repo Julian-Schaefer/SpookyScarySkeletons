@@ -1,6 +1,6 @@
 package SpookyScarySkeletons.anwendungslogik;
 
-import SpookyScarySkeletons.anwendungslogik.model.ScenarioEndpoint;
+import SpookyScarySkeletons.anwendungslogik.model.Scenario;
 
 import javax.ejb.Local;
 import java.util.List;
@@ -8,6 +8,6 @@ import java.util.List;
 @Local
 public interface ScenarioManagementLocal {
 
-    List<ScenarioEndpoint> getScenarioEndpoints();
+    List<Scenario> getScenarios();
 
 }

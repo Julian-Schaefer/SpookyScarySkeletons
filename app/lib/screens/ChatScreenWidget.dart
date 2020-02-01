@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:app/model/ChatMessage.dart';
 import 'package:app/model/Choice.dart';
 import 'package:app/model/Response.dart';
-import 'package:app/model/ScenarioEndpoint.dart';
+import 'package:app/model/Scenario.dart';
 import 'package:app/widgets/AnswerSlider.dart';
 import 'package:app/widgets/GameOverWidget.dart';
 import 'package:app/widgets/ScaleWidget.dart';
@@ -14,12 +14,11 @@ import 'package:app/model/WebSocket.dart';
 import '../App.dart';
 
 class ChatScreenWidget extends StatefulWidget {
-  final ScenarioEndpoint scenarioEndpoint;
+  final Scenario scenario;
   final WebSocket webSocket;
   final String valueText;
 
-  const ChatScreenWidget(
-      {this.scenarioEndpoint, this.webSocket, this.valueText});
+  const ChatScreenWidget({this.scenario, this.webSocket, this.valueText});
 
   @override
   _ChatScreenWidgetState createState() => _ChatScreenWidgetState();
@@ -42,7 +41,7 @@ class _ChatScreenWidgetState extends State<ChatScreenWidget> {
   void initState() {
     super.initState();
 
-    widget.webSocket.connect(widget.scenarioEndpoint.websocketEndpoint);
+    widget.webSocket.connect(widget.scenario.websocketEndpoint);
     widget.webSocket.getStream().listen((responseString) {
       var response = Response.fromJSON(jsonDecode(responseString));
       if (response.type == ResponseType.MESSAGE) {
@@ -115,8 +114,8 @@ class _ChatScreenWidgetState extends State<ChatScreenWidget> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: NetworkImage(getBaseUrlAPI() +
-                    widget.scenarioEndpoint.backgroundImageUrl),
+                image: NetworkImage(
+                    getBaseUrlAPI() + widget.scenario.backgroundImageUrl),
                 fit: BoxFit.fill,
               ),
             ),
