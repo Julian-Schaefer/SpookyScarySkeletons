@@ -9,7 +9,6 @@ import javax.ejb.MessageDriven;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.json.bind.JsonbBuilder;
-import javax.websocket.Session;
 
 @MessageDriven(mappedName = "Game Over Topic", activationConfig = {
         @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic"),
@@ -18,6 +17,9 @@ import javax.websocket.Session;
 public class GameOverReceivingBean implements MessageListener {
 
     private static final String USERNAME = "username";
+    private static final String SCENARIO = "scenario";
+    private static final String MINUTES = "minutes";
+    private static final String SECONDS = "seconds";
 
     @EJB
     private ConnectedSessionsBean connectedSessionsBean;
@@ -26,7 +28,11 @@ public class GameOverReceivingBean implements MessageListener {
     public void onMessage(Message message) {
         try{
             String username = message.getStringProperty(USERNAME);
-            String information = "Benutzer " + username + " hat gerade ein Spiel beendet!";
+            String scenario = message.getStringProperty(SCENARIO);
+            int minutes = message.getIntProperty(MINUTES);
+            int seconds = message.getIntProperty(SECONDS);
+            String information = "Benutzer " + username + " hat gerade das Szenario \"" + scenario + "\" in " + minutes
+                    + " Minuten und " + seconds + " Sekunden beendet!";
             String messageJSON = JsonbBuilder.create().toJson(Response.information(information));
 
             connectedSessionsBean.sendToAllSessionsExceptOriginator(username, messageJSON);

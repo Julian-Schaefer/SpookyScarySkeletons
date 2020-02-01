@@ -17,13 +17,14 @@ public abstract class AnwendungsLogikBean {
     protected TimerManagementBean timerManagementBean;
 
     @EJB
-    private TopicMessagingBean topicMessagingBean;
+    protected TopicMessagingBean topicMessagingBean;
 
     protected Message firstMessage;
     protected Message currentMessage;
 
     private int value = 5;
     protected String username;
+    protected String scenarioName;
 
     protected Message lowValueStartMessage = null;
     private boolean lowValuePath = false;
@@ -31,6 +32,7 @@ public abstract class AnwendungsLogikBean {
     private AnwendungslogikListener anwendungslogikListener;
 
     private LocalDateTime startTime;
+    private LocalDateTime endTime;
 
     public Message getFirstMessage() {
         currentMessage = firstMessage;
@@ -80,7 +82,6 @@ public abstract class AnwendungsLogikBean {
         System.out.println("Starting game for Username: " + username);
         timerManagementBean.addTimerRequestListener(username, this::onTimerExired);
         this.username = username;
-        topicMessagingBean.sendGameStartedMessage(username);
 
         startTime = LocalDateTime.now();
     }
@@ -101,17 +102,21 @@ public abstract class AnwendungsLogikBean {
     }
 
     protected void gameOver() {
-        LocalDateTime endTime = LocalDateTime.now();
+        endTime = LocalDateTime.now();
 
+        int[] minutesAndSeconds = getMinutesAndSeconds();
+        System.out.println("User " + username + " took " + minutesAndSeconds[0] + " minutes and " + minutesAndSeconds[1] + " seconds to complete a scenario");
+        anwendungslogikListener.onGameOver("You took " + minutesAndSeconds[0] + " minutes and " + minutesAndSeconds[1] + " seconds.");
+    }
+
+    protected int[] getMinutesAndSeconds() {
         Duration duration = Duration.between(startTime, endTime);
         long diff = Math.abs(duration.toMillis());
         int minutes = (int) (diff/1000.0/60.0);
         double lastMinute = (diff/1000.0/60.0) % 1;
         int seconds = (int) (lastMinute * 60.0);
-        System.out.println("User " + username + " took " + minutes + " minutes and " + seconds + " seconds to complete a scenario");
 
-        anwendungslogikListener.onGameOver("You took " + minutes + " minutes and " + seconds + " seconds.");
-        topicMessagingBean.sendGameOverMessage(username);
+        return new int[]{ minutes, seconds };
     }
 
     protected void setValue(int value, boolean callListener) {

@@ -21,6 +21,7 @@ public class AnwendungsLogikBeanALongJourney extends AnwendungsLogikBean {
     public void startGame(String username) {
         super.startGame(username);
         timerManagementBean.startSanityTimer(username);
+        topicMessagingBean.sendGameStartedMessage(username, ScenarioManagement.NAME_LONG_JOURNEY);
     }
 
     @Override
@@ -41,6 +42,8 @@ public class AnwendungsLogikBeanALongJourney extends AnwendungsLogikBean {
     protected void gameOver() {
         super.gameOver();
         timerManagementBean.stopSanityTimer(username);
+        int[] minutesAndSeconds = getMinutesAndSeconds();
+        topicMessagingBean.sendGameOverMessage(username, ScenarioManagement.NAME_LONG_JOURNEY, minutesAndSeconds[0], minutesAndSeconds[1]);
     }
 
     @Remove

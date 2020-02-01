@@ -17,6 +17,12 @@ public class AnwendungsLogikBeanSorryWrongNumber extends AnwendungsLogikBean {
     }
 
     @Override
+    public void startGame(String username) {
+        super.startGame(username);
+        topicMessagingBean.sendGameStartedMessage(username, ScenarioManagement.NAME_SORRY_WRONG_NUMBER);
+    }
+
+    @Override
     public void getNextMessage(int id) {
         Choice choice = currentMessage.getFirstChoice().getId() == id ?
                 currentMessage.getFirstChoice():
@@ -30,6 +36,13 @@ public class AnwendungsLogikBeanSorryWrongNumber extends AnwendungsLogikBean {
     public void onTimerExired(TimerManagementBean.TimerRequest timerRequest) {
         super.onTimerExired(timerRequest);
         setValue(getValue(), true);
+    }
+
+    @Override
+    protected void gameOver() {
+        super.gameOver();
+        int[] minutesAndSeconds = getMinutesAndSeconds();
+        topicMessagingBean.sendGameOverMessage(username, ScenarioManagement.NAME_SORRY_WRONG_NUMBER, minutesAndSeconds[0], minutesAndSeconds[1]);
     }
 
     @Remove

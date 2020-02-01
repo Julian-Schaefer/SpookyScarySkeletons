@@ -18,6 +18,7 @@ import javax.websocket.Session;
 public class GameStartedReceivingBean implements MessageListener {
 
     private static final String USERNAME = "username";
+    private static final String SCENARIO = "scenario";
 
     @EJB
     private ConnectedSessionsBean connectedSessionsBean;
@@ -26,7 +27,8 @@ public class GameStartedReceivingBean implements MessageListener {
     public void onMessage(Message message) {
         try{
             String username = message.getStringProperty(USERNAME);
-            String information = "Benutzer " + username + " hat gerade ein neues Spiel gestartet!";
+            String scenario = message.getStringProperty(SCENARIO);
+            String information = "Benutzer " + username + " hat gerade ein neues Spiel im Szenario \"" + scenario +"\" gestartet!";
             String messageJSON = JsonbBuilder.create().toJson(Response.information(information));
 
             connectedSessionsBean.sendToAllSessionsExceptOriginator(username, messageJSON);
