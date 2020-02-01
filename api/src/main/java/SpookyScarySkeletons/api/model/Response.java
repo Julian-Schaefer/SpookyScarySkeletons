@@ -1,5 +1,6 @@
 package SpookyScarySkeletons.api.model;
 
+import SpookyScarySkeletons.api.dto.GameOverDTO;
 import SpookyScarySkeletons.api.dto.MessageDTO;
 
 public class Response<T> {
@@ -26,8 +27,8 @@ public class Response<T> {
         return new Response<>(Type.MESSAGE, content);
     }
 
-    public static Response<String> gameOver(String message) {
-        return new Response<>(Type.GAME_OVER, message);
+    public static Response<GameOverDTO> gameOver(boolean won, String message) {
+        return new Response<>(Type.GAME_OVER, new GameOverDTO(won, message));
     }
 
     public static Response<String> information(String content) {

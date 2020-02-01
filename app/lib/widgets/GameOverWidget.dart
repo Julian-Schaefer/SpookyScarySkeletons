@@ -1,10 +1,11 @@
+import 'package:app/model/GameOver.dart';
 import 'package:app/screens/ScenarioScreen.dart';
 import 'package:flutter/material.dart';
 
 class GameOverWidget extends StatelessWidget {
-  final String gameOverMessage;
+  final GameOver gameOver;
 
-  GameOverWidget({this.gameOverMessage});
+  GameOverWidget({this.gameOver});
 
   @override
   Widget build(BuildContext context) {
@@ -28,14 +29,14 @@ class GameOverWidget extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Text(
-              "Game Over!",
+              gameOver.won ? "You won!" : "You lost!",
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             Padding(
               padding: EdgeInsets.only(top: 10),
             ),
             Text(
-              gameOverMessage,
+              gameOver.message,
             ),
             Padding(
               padding: EdgeInsets.only(top: 10),

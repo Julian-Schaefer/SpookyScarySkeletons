@@ -2,7 +2,7 @@ import 'package:app/model/JsonConvertible.dart';
 
 import 'Choice.dart';
 
-class Message implements JsonConvertible<Message> {
+class Message implements JsonConvertible {
   final int id;
   final String content;
   Choice firstChoice;

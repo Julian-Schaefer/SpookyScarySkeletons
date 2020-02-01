@@ -39,7 +39,8 @@ public class EntscheidungsbaumParserBean {
         // Messages und Choices erstellen
         messageTreeXmlDTO.getChoices()
                 .stream()
-                .forEach(choiceXmlDTO -> choices.add(new Choice(choiceXmlDTO.getId(), choiceXmlDTO.getContent().trim(), null, choiceXmlDTO.getValueChange(), choiceXmlDTO.getMinValue())));
+                .forEach(choiceXmlDTO -> choices.add(new Choice(choiceXmlDTO.getId(), choiceXmlDTO.getContent().trim(), null,
+                        choiceXmlDTO.getValueChange(), choiceXmlDTO.getMinValue(), getChoiceType(choiceXmlDTO))));
         messageTreeXmlDTO.getMessages()
                 .stream()
                 .forEach(messageXmlDTO -> messages.add(new Message(messageXmlDTO.getId(), messageXmlDTO.getContent().trim(), null, null)));
@@ -108,5 +109,14 @@ public class EntscheidungsbaumParserBean {
                 return choice;
         }
         return null;
+    }
+
+    //Anhand des Wertes des XML-Tags <nextMessage> wird entschieden, um was für einen Type Choice es sich handelt
+    private Choice.Type getChoiceType(ChoiceXmlDTO choiceXmlDTO) {
+        switch (choiceXmlDTO.getNextMessage()) {
+            case -1: return Choice.Type.LOST;
+            case -2: return Choice.Type.WON;
+            default: return Choice.Type.NORMAL;
+        }
     }
 }

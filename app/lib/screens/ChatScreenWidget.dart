@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:app/model/ChatMessage.dart';
 import 'package:app/model/Choice.dart';
+import 'package:app/model/GameOver.dart';
 import 'package:app/model/Response.dart';
 import 'package:app/model/Scenario.dart';
 import 'package:app/widgets/AnswerSlider.dart';
@@ -26,8 +27,7 @@ class ChatScreenWidget extends StatefulWidget {
 
 class _ChatScreenWidgetState extends State<ChatScreenWidget> {
   List<ChatMessage> _messages = new List();
-  bool _gameOver = false;
-  String _gameOverMessage;
+  GameOver _gameOver;
   Choice _firstChoice;
   Choice _secondChoice;
   int _value = 0;
@@ -68,8 +68,7 @@ class _ChatScreenWidgetState extends State<ChatScreenWidget> {
         });
       } else if (response.type == ResponseType.GAME_OVER) {
         setState(() {
-          _gameOver = true;
-          _gameOverMessage = response.getGameOverMessage();
+          _gameOver = response.getGameOver();
         });
       }
     });
@@ -120,7 +119,7 @@ class _ChatScreenWidgetState extends State<ChatScreenWidget> {
               ),
             ),
             child: SafeArea(
-              child: !_gameOver
+              child: _gameOver == null
                   ? Column(
                       children: <Widget>[
                         // List of messages
@@ -137,10 +136,10 @@ class _ChatScreenWidgetState extends State<ChatScreenWidget> {
                         //buildInput(),
                       ],
                     )
-                  : GameOverWidget(gameOverMessage: _gameOverMessage),
+                  : GameOverWidget(gameOver: _gameOver),
             ),
           ),
-          if (!_gameOver)
+          if (_gameOver == null)
             Positioned(
                 top: 30,
                 right: 10,

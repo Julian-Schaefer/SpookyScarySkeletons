@@ -39,8 +39,8 @@ public class AnwendungsLogikBeanSorryWrongNumber extends AnwendungsLogikBean {
     }
 
     @Override
-    protected void gameOver() {
-        super.gameOver();
+    protected void gameOver(boolean won) {
+        super.gameOver(won);
         int[] minutesAndSeconds = getMinutesAndSeconds();
         topicMessagingBean.sendGameOverMessage(username, ScenarioManagement.NAME_SORRY_WRONG_NUMBER, minutesAndSeconds[0], minutesAndSeconds[1]);
     }

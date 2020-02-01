@@ -2,23 +2,32 @@ package SpookyScarySkeletons.anwendungslogik.model;
 
 import java.io.Serializable;
 
+
 public class Choice implements Serializable {
+
+    public enum Type {
+        NORMAL,
+        WON,
+        LOST
+    }
 
     private int id;
     private String content;
     private Message nextMessage;
     private int valueChange;
     private int minValue;
+    private Type type;
 
     public Choice() {
     }
 
-    public Choice(int id, String content, Message nextMessage, int valueChange, int minValue) {
+    public Choice(int id, String content, Message nextMessage, int valueChange, int minValue, Type type) {
         this.id = id;
         this.content = content;
         this.nextMessage = nextMessage;
         this.valueChange = valueChange;
         this.minValue = minValue;
+        this.type = type;
     }
 
     public int getValueChange() {
@@ -61,6 +70,14 @@ public class Choice implements Serializable {
         this.minValue = minValue;
     }
 
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if(obj != null && obj instanceof Choice) {
@@ -68,7 +85,8 @@ public class Choice implements Serializable {
             if(choice.getId() == id && choice.getContent().equals(content) &&
                     choice.getNextMessage().equals(nextMessage) &&
                     choice.getValueChange() ==valueChange &&
-                    choice.getMinValue() == minValue) {
+                    choice.getMinValue() == minValue &&
+                    choice.getType() == type) {
                 return true;
             }
         }

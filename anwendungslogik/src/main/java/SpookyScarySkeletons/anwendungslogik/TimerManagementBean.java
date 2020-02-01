@@ -14,7 +14,8 @@ public class TimerManagementBean {
 
     public enum Type {
         SANITY,
-        MESSAGE
+        MESSAGE,
+        GAME_OVER
     }
 
     @Resource
@@ -68,6 +69,16 @@ public class TimerManagementBean {
         timerConfig.setInfo(timerRequest);
 
         System.out.println("Creating Message Timer for Username: " + timerRequest.getUsername());
+        timerService.createSingleActionTimer((long) (Math.random() * 10000.0), timerConfig);
+    }
+
+    public void addGameOverTimer(String username, boolean won) {
+        TimerRequest timerRequest = new TimerRequest(username, Type.GAME_OVER, won);
+
+        TimerConfig timerConfig = new TimerConfig();
+        timerConfig.setInfo(timerRequest);
+
+        System.out.println("Creating Game Over Timer for Username: " + timerRequest.getUsername());
         timerService.createSingleActionTimer((long) (Math.random() * 10000.0), timerConfig);
     }
 

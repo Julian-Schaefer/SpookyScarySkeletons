@@ -59,9 +59,9 @@ public abstract class ScenarioEndpoint implements AnwendungsLogikBean.Anwendungs
     }
 
     @Override
-    public void onGameOver(String message) {
+    public void onGameOver(boolean won, String message) {
         System.out.println("Game Over!");
-        sendMessage(Response.gameOver(message));
+        sendMessage(Response.gameOver(won, message));
     }
 
     @Override

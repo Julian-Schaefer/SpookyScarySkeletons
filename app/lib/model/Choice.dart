@@ -1,6 +1,6 @@
 import 'package:app/model/JsonConvertible.dart';
 
-class Choice implements JsonConvertible<Choice> {
+class Choice implements JsonConvertible {
   final int id;
   final String content;
 

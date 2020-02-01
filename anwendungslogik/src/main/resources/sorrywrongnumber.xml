@@ -567,7 +567,7 @@
             <content>
                 Ich helfe immer gern!
             </content>
-            <nextMessage>-1</nextMessage>
+            <nextMessage>-2</nextMessage>
             <valueChange>0</valueChange>
             <minValue>2</minValue>
         </choice>
@@ -594,7 +594,7 @@
             <content>
                 Viel Spaß
             </content>
-            <nextMessage>-1</nextMessage>
+            <nextMessage>-2</nextMessage>
             <valueChange>0</valueChange>
             <minValue>2</minValue>
         </choice>

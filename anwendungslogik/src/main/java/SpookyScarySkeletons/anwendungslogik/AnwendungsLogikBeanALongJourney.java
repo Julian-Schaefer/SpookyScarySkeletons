@@ -31,7 +31,7 @@ public class AnwendungsLogikBeanALongJourney extends AnwendungsLogikBean {
             if(newValue >= -100) {
                 setValue(getValue() - 5, true);
             } else {
-               gameOver();
+               gameOver(false);
             }
         } else {
             super.onTimerExired(timerRequest);
@@ -39,8 +39,8 @@ public class AnwendungsLogikBeanALongJourney extends AnwendungsLogikBean {
     }
 
     @Override
-    protected void gameOver() {
-        super.gameOver();
+    protected void gameOver(boolean won) {
+        super.gameOver(won);
         timerManagementBean.stopSanityTimer(username);
         int[] minutesAndSeconds = getMinutesAndSeconds();
         topicMessagingBean.sendGameOverMessage(username, ScenarioManagement.NAME_LONG_JOURNEY, minutesAndSeconds[0], minutesAndSeconds[1]);

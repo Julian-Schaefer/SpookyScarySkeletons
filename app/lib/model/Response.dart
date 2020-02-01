@@ -1,3 +1,4 @@
+import 'package:app/model/GameOver.dart';
 import 'package:app/model/JsonConvertible.dart';
 import 'package:app/model/Message.dart';
 
@@ -19,7 +20,7 @@ class Response {
         break;
       case "GAME_OVER":
         type = ResponseType.GAME_OVER;
-        content = json['content'];
+        content = GameOver.fromJSON(json['content']);
         break;
       case "INFORMATION":
         type = ResponseType.INFORMATION;
@@ -70,9 +71,9 @@ class Response {
     }
   }
 
-  String getGameOverMessage() {
+  GameOver getGameOver() {
     if (type == ResponseType.GAME_OVER) {
-      return content as String;
+      return content as GameOver;
     } else {
       throw new Exception('Is not a Game Over Response');
     }

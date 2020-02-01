@@ -1,3 +1,3 @@
-abstract class JsonConvertible<T> {
+abstract class JsonConvertible {
   Map<String, dynamic> toJSON();
 }

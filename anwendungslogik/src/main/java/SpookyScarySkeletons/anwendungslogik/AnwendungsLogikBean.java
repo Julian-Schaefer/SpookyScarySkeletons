@@ -44,12 +44,17 @@ public abstract class AnwendungsLogikBean {
                 currentMessage.getFirstChoice():
                 currentMessage.getSecondChoice();
 
-        Message nextMessage;
+        if(choice.getType() == Choice.Type.NORMAL) {
+            Message nextMessage = choice.getNextMessage();
+            currentMessage = nextMessage;
+            timerManagementBean.addMessageTimer(username, nextMessage);
+        } else {
+            boolean won = choice.getType() == Choice.Type.WON;
+            timerManagementBean.addGameOverTimer(username, won);
+        }
         //Commented out logic for now to test communication with frontend
 //        if (value >= 0 && !lowValuePath) {
             //normal
-            nextMessage = choice.getNextMessage();
-            currentMessage = nextMessage;
 //        } else if (lowValuePath) {
 //            if (value < 0)
 //                nextMessage = choice.getNextMessage();
@@ -74,8 +79,6 @@ public abstract class AnwendungsLogikBean {
 //                nextMessage.setSecondChoice(null);
 //            }
 //        }
-
-        timerManagementBean.addMessageTimer(username, nextMessage);
     }
 
     public void startGame(String username) {
@@ -89,11 +92,10 @@ public abstract class AnwendungsLogikBean {
     public void onTimerExired(TimerManagementBean.TimerRequest timerRequest) {
         if(timerRequest.getType() == TimerManagementBean.Type.MESSAGE) {
             Message message = (Message) timerRequest.getContent();
-            if(message == null || (message.getFirstChoice() == null && message.getSecondChoice() == null)) {
-                gameOver();
-            } else {
-                anwendungslogikListener.onNewMessage((Message) timerRequest.getContent());
-            }
+            anwendungslogikListener.onNewMessage(message);
+        } else if(timerRequest.getType() == TimerManagementBean.Type.GAME_OVER) {
+            boolean won = (boolean) timerRequest.getContent();
+            gameOver(won);
         }
     }
 
@@ -101,12 +103,12 @@ public abstract class AnwendungsLogikBean {
         this.anwendungslogikListener = anwendungslogikListener;
     }
 
-    protected void gameOver() {
+    protected void gameOver(boolean won) {
         endTime = LocalDateTime.now();
 
         int[] minutesAndSeconds = getMinutesAndSeconds();
         System.out.println("User " + username + " took " + minutesAndSeconds[0] + " minutes and " + minutesAndSeconds[1] + " seconds to complete a scenario");
-        anwendungslogikListener.onGameOver("You took " + minutesAndSeconds[0] + " minutes and " + minutesAndSeconds[1] + " seconds.");
+        anwendungslogikListener.onGameOver(won, "You took " + minutesAndSeconds[0] + " minutes and " + minutesAndSeconds[1] + " seconds.");
     }
 
     protected int[] getMinutesAndSeconds() {
@@ -137,6 +139,6 @@ public abstract class AnwendungsLogikBean {
     public interface AnwendungslogikListener {
         void onValueChanged(String username, int newValue);
         void onNewMessage(Message message);
-        void onGameOver(String message);
+        void onGameOver(boolean won, String message);
     }
 }

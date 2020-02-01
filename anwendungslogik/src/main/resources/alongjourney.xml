@@ -495,7 +495,7 @@
 		<choice>
 		    <id>58</id>
             <content>
-				Worauf wartest du? Such nach einem klienen grünen Chip! 
+				Worauf wartest du? Such nach einem kleinen grünen Chip!
             </content>
             <nextMessage>40</nextMessage>
             <valueChange>-1</valueChange>
