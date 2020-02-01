@@ -27,7 +27,7 @@ public class TimerManagementBean {
         timerRequestListeners = new LinkedHashMap<>();
     }
 
-    public void addSanityTimer(String username) {
+    public void startSanityTimer(String username) {
         TimerRequest timerRequest = new TimerRequest(username, Type.SANITY, null);
 
         for(Timer timer : timerService.getAllTimers()) {
@@ -46,6 +46,19 @@ public class TimerManagementBean {
 
         System.out.println("Creating Sanity Timer for Username: " + timerRequest.getUsername());
         timerService.createIntervalTimer(0, 5000, timerConfig);
+    }
+
+    public void stopSanityTimer(String username) {
+        for(Timer timer : timerService.getAllTimers()) {
+            try {
+                TimerRequest activeTimerRequest = (TimerRequest) timer.getInfo();
+
+                if(activeTimerRequest.getType() == Type.SANITY && activeTimerRequest.getUsername() == username) {
+                    timer.cancel();
+                }
+            } catch(Exception e) {
+            }
+        }
     }
 
     public void addMessageTimer(String username, Message message) {

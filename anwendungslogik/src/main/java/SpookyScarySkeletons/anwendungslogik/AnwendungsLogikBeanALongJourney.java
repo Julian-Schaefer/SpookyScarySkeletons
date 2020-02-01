@@ -20,7 +20,7 @@ public class AnwendungsLogikBeanALongJourney extends AnwendungsLogikBean {
     @Override
     public void startGame(String username) {
         super.startGame(username);
-        timerManagementBean.addSanityTimer(username);
+        timerManagementBean.startSanityTimer(username);
     }
 
     @Override
@@ -35,6 +35,12 @@ public class AnwendungsLogikBeanALongJourney extends AnwendungsLogikBean {
         } else {
             super.onTimerExired(timerRequest);
         }
+    }
+
+    @Override
+    protected void gameOver() {
+        super.gameOver();
+        timerManagementBean.stopSanityTimer(username);
     }
 
     @Remove
