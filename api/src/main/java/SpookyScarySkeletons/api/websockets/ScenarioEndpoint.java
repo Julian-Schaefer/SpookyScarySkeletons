@@ -2,7 +2,7 @@ package SpookyScarySkeletons.api.websockets;
 
 import SpookyScarySkeletons.anwendungslogik.AnwendungsLogikBean;
 import SpookyScarySkeletons.anwendungslogik.model.Message;
-import SpookyScarySkeletons.api.endpoints.ConnectedSessionsBean;
+import SpookyScarySkeletons.api.ConnectedSessionsBean;
 import SpookyScarySkeletons.api.dto.ChoiceDTO;
 import SpookyScarySkeletons.api.dto.MessageDTO;
 import SpookyScarySkeletons.api.model.Response;

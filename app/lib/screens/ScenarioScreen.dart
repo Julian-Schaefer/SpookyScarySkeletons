@@ -2,7 +2,10 @@ import 'dart:convert';
 
 import 'package:app/Util.dart';
 import 'package:app/model/Scenario.dart';
+import 'package:app/screens/AccountScreen.dart';
+import 'package:app/screens/HighScoreScreen.dart';
 import 'package:app/screens/LongJourneyScreen.dart';
+import 'package:app/screens/UserScoreScreen.dart';
 import 'package:app/screens/WrongNumberScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -50,6 +53,42 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
       appBar: AppBar(
         title: Text('Spooky Scary Skeletons'),
       ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              child: Center(
+                child: Text(''),
+              ),
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
+              ),
+            ),
+            ListTile(
+              title: Text('Highscores'),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => HighScoreScreen()));
+              },
+            ),
+            ListTile(
+              title: Text('Meine Scores'),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => UserScoreScreen()));
+              },
+            ),
+            ListTile(
+              title: Text('Mein Account'),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => AccountScreen()));
+              },
+            ),
+          ],
+        ),
+      ),
       body: Center(
         child: FutureBuilder<List<Scenario>>(
           future: _scenarios,
@@ -79,6 +118,9 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
                             ),
                           ),
                           onPressed: () {
+                            if (Navigator.canPop(context)) {
+                              Navigator.pop(context);
+                            }
                             switch (scenarioEndpoint.name) {
                               case 'Sorry, wrong number.':
                                 Navigator.pushReplacement(

@@ -1,6 +1,6 @@
 package SpookyScarySkeletons.api.messaging;
 
-import SpookyScarySkeletons.api.endpoints.ConnectedSessionsBean;
+import SpookyScarySkeletons.api.ConnectedSessionsBean;
 import SpookyScarySkeletons.api.model.Response;
 
 import javax.ejb.ActivationConfigProperty;
@@ -9,7 +9,6 @@ import javax.ejb.MessageDriven;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.json.bind.JsonbBuilder;
-import javax.websocket.Session;
 
 @MessageDriven(mappedName = "Game Started Topic", activationConfig = {
         @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Topic"),

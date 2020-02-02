@@ -89,17 +89,20 @@ class _AccountScreenState extends State<AccountScreen> {
                         style: TextStyle(color: Colors.white),
                       ),
                       onPressed: () {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ScenarioScreen()));
+                        if (Navigator.canPop(context)) {
+                          Navigator.pop(context);
+                        } else {
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ScenarioScreen()));
+                        }
                       },
                       color: Theme.of(context).primaryColorDark,
                     ),
                   ],
                 );
               } else {
-                // By default, show a loading spinner.
                 return Container(
                   constraints: BoxConstraints(maxWidth: 500),
                   padding: EdgeInsets.all(20),

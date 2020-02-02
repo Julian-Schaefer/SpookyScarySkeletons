@@ -1,6 +1,6 @@
 package SpookyScarySkeletons.api.messaging;
 
-import SpookyScarySkeletons.api.endpoints.ConnectedSessionsBean;
+import SpookyScarySkeletons.api.ConnectedSessionsBean;
 import SpookyScarySkeletons.api.model.Response;
 
 import javax.ejb.ActivationConfigProperty;

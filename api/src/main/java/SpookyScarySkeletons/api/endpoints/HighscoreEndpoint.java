@@ -1,25 +1,37 @@
 package SpookyScarySkeletons.api.endpoints;
 
-import SpookyScarySkeletons.anwendungslogik.AccountManagement;
-import SpookyScarySkeletons.persistenzlogik.model.Account;
+import SpookyScarySkeletons.persistenzlogik.model.Score;
 
-import javax.ejb.EJB;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import java.util.LinkedList;
 import java.util.List;
 
-@Path("/highscore")
+@Path("/scores")
 @Produces({ "application/json" })
 public class HighscoreEndpoint {
 
-    @EJB
-    AccountManagement accountManagement;
+    @GET
+    @Path("/highscore")
+    public List<Score> getHighScores() {
+        List<Score> scores = new LinkedList<>();
+        scores.add(new Score("test", "2 min", "sad"));
+        scores.add(new Score("test", "2 min", "asd"));
+        scores.add(new Score("test", "2 min", "asd"));
+        scores.add(new Score("test", "2 min", "asd"));
+        return scores;
+    }
 
     @GET
-    public List<Account> getHighscores() {
-        List<Account> accounts = accountManagement.getAllAccounts();
-//        accounts.sort(Comparator.comparingDouble(Account::getHighscore).reversed());
-        return accounts;
+    @Path("/{username}")
+    public List<Score> getScoresForUser(@PathParam("username") String username) {
+        List<Score> scores = new LinkedList<>();
+        scores.add(new Score("test", "2 min", "sad"));
+        scores.add(new Score("sdasdtest", "2 min", "asd"));
+        scores.add(new Score("test", "2 min", "asd"));
+        scores.add(new Score("test", "2 min", "asd"));
+        return scores;
     }
 }

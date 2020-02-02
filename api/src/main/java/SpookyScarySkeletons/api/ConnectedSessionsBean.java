@@ -1,4 +1,4 @@
-package SpookyScarySkeletons.api.endpoints;
+package SpookyScarySkeletons.api;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.*;
