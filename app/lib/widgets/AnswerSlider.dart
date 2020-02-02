@@ -3,60 +3,71 @@ import 'package:flutter/material.dart';
 
 class AnswerSlider extends StatefulWidget {
   final ThemeData themeData;
-  final Choice firstChoice;
-  final Choice secondChoice;
   final Function(Choice) onChoiceSelected;
 
-  const AnswerSlider(
-      {this.themeData,
-      @required this.firstChoice,
-      @required this.secondChoice,
-      @required this.onChoiceSelected});
+  AnswerSlider({Key key, this.themeData, @required this.onChoiceSelected})
+      : super(key: key);
 
   @override
-  _AnswerSliderState createState() => _AnswerSliderState();
+  AnswerSliderState createState() => AnswerSliderState();
 }
 
-class _AnswerSliderState extends State<AnswerSlider>
-    with SingleTickerProviderStateMixin {
-  Animation<Offset> _outAnimation;
-  Animation<Offset> _inAnimation;
+class AnswerSliderState extends State<AnswerSlider>
+    with TickerProviderStateMixin {
+  Animation<Offset> _answerAnimation;
+  Animation<Offset> _choicesAnimation;
 
-  AnimationController _animationController;
+  Choice _firstChoice;
+  Choice _secondChoice;
+
+  AnimationController _answerAnimationController;
+  AnimationController _choicesAnimationController;
+
+  void setChoices(Choice firstChoice, Choice secondChoice) {
+    setState(() {
+      _firstChoice = firstChoice;
+      _secondChoice = secondChoice;
+    });
+
+    if (firstChoice != null || secondChoice != null) {
+      _answerAnimationController.forward();
+    }
+  }
 
   @override
   void initState() {
     super.initState();
 
-    _animationController = AnimationController(
-      duration: const Duration(milliseconds: 800),
+    _answerAnimationController = AnimationController(
+      duration: const Duration(milliseconds: 400),
       vsync: this,
     );
 
-    _outAnimation = Tween<Offset>(
-      begin: Offset.zero,
-      end: const Offset(0.0, 2.0),
-    ).animate(CurvedAnimation(
-        parent: _animationController, curve: new Interval(0, 0.4)));
+    _choicesAnimationController = AnimationController(
+      duration: const Duration(milliseconds: 400),
+      vsync: this,
+    );
 
-    _inAnimation = Tween<Offset>(
+    _answerAnimation = Tween<Offset>(
       begin: const Offset(0.0, 2.0),
       end: Offset.zero,
     ).animate(CurvedAnimation(
-        parent: _animationController, curve: new Interval(0.6, 1)));
+        parent: _answerAnimationController, curve: new Interval(0, 1)));
+
+    _choicesAnimation = Tween<Offset>(
+      begin: const Offset(0.0, 2.0),
+      end: Offset.zero,
+    ).animate(CurvedAnimation(
+        parent: _choicesAnimationController, curve: new Interval(0, 1)));
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.firstChoice == null && widget.secondChoice == null) {
-      return SizedBox.shrink();
-    }
-
     return Stack(
       alignment: Alignment.bottomCenter,
       children: <Widget>[
         SlideTransition(
-          position: _outAnimation,
+          position: _answerAnimation,
           child: Container(
             width: double.infinity,
             height: 100,
@@ -70,62 +81,68 @@ class _AnswerSliderState extends State<AnswerSlider>
               ),
               color: widget.themeData.primaryColorDark,
               onPressed: () {
-                _animationController.forward();
+                _answerAnimationController
+                    .reverse()
+                    .whenComplete(() => _choicesAnimationController.forward());
               },
             ),
           ),
         ),
-        SlideTransition(
-          position: _inAnimation,
-          child: Container(
-            width: double.infinity,
-            padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  child: FlatButton(
-                    padding: EdgeInsets.all(10),
-                    child: Text(
-                      widget.firstChoice.content,
-                      style: TextStyle(color: Colors.white, fontSize: 15),
-                    ),
-                    color: widget.themeData.primaryColorDark,
-                    onPressed: () {
-                      widget.onChoiceSelected(widget.firstChoice);
-                      _animationController.reverse();
-                    },
-                  ),
-                ),
-                if (widget.secondChoice != null)
-                  Padding(
-                    padding: EdgeInsets.all(5),
-                  ),
-                if (widget.secondChoice != null)
+        if (_firstChoice != null || _secondChoice != null)
+          SlideTransition(
+            position: _choicesAnimation,
+            child: Container(
+              width: double.infinity,
+              padding: EdgeInsets.fromLTRB(10, 0, 10, 10),
+              child: Row(
+                children: <Widget>[
                   Expanded(
                     child: FlatButton(
                       padding: EdgeInsets.all(10),
                       child: Text(
-                        widget.secondChoice.content,
+                        _firstChoice.content,
                         style: TextStyle(color: Colors.white, fontSize: 15),
                       ),
                       color: widget.themeData.primaryColorDark,
                       onPressed: () {
-                        widget.onChoiceSelected(widget.secondChoice);
-                        _animationController.reverse();
+                        widget.onChoiceSelected(_firstChoice);
+                        _choicesAnimationController
+                            .reverse()
+                            .whenComplete(() => setChoices(null, null));
                       },
                     ),
                   ),
-              ],
+                  if (_secondChoice != null)
+                    Padding(
+                      padding: EdgeInsets.all(5),
+                    ),
+                  if (_secondChoice != null)
+                    Expanded(
+                      child: FlatButton(
+                        padding: EdgeInsets.all(10),
+                        child: Text(
+                          _secondChoice.content,
+                          style: TextStyle(color: Colors.white, fontSize: 15),
+                        ),
+                        color: widget.themeData.primaryColorDark,
+                        onPressed: () {
+                          widget.onChoiceSelected(_secondChoice);
+                          _choicesAnimationController.reverse();
+                        },
+                      ),
+                    ),
+                ],
+              ),
             ),
           ),
-        ),
       ],
     );
   }
 
   @override
   void dispose() {
+    _answerAnimationController.dispose();
+    _choicesAnimationController.dispose();
     super.dispose();
-    _animationController.dispose();
   }
 }

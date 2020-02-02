@@ -28,9 +28,9 @@ class ChatScreenWidget extends StatefulWidget {
 class _ChatScreenWidgetState extends State<ChatScreenWidget> {
   List<ChatMessage> _messages = new List();
   GameOver _gameOver;
-  Choice _firstChoice;
-  Choice _secondChoice;
   int _value = 0;
+
+  final _anwerSliderKey = new GlobalKey<AnswerSliderState>();
 
   final _scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController textEditingController =
@@ -48,8 +48,8 @@ class _ChatScreenWidgetState extends State<ChatScreenWidget> {
         var message = response.getMessage();
 
         setState(() {
-          _firstChoice = message.firstChoice;
-          _secondChoice = message.secondChoice;
+          _anwerSliderKey.currentState
+              .setChoices(message.firstChoice, message.secondChoice);
 
           _messages.insert(0, ChatMessage(true, message.content));
           listScrollController.animateTo(0.0,
@@ -87,8 +87,6 @@ class _ChatScreenWidgetState extends State<ChatScreenWidget> {
   void _onChoiceSelected(Choice choice) {
     setState(() {
       _messages.insert(0, ChatMessage(false, choice.content));
-      _firstChoice = null;
-      _secondChoice = null;
     });
 
     sendToWebSocket(jsonEncode(choice.toJSON()));
@@ -125,9 +123,8 @@ class _ChatScreenWidgetState extends State<ChatScreenWidget> {
                         // List of messages
                         buildListMessage(),
                         AnswerSlider(
+                          key: _anwerSliderKey,
                           themeData: Theme.of(context),
-                          firstChoice: _firstChoice,
-                          secondChoice: _secondChoice,
                           onChoiceSelected: (choice) {
                             _onChoiceSelected(choice);
                           },
@@ -163,49 +160,6 @@ class _ChatScreenWidgetState extends State<ChatScreenWidget> {
       ),
     );
   }
-
-  // Widget buildInput() {
-  //   return Container(
-  //     child: Row(
-  //       children: <Widget>[
-  //         // Edit text
-  //         Flexible(
-  //           child: Container(
-  //             child: TextField(
-  //               style: TextStyle(fontSize: 15.0),
-  //               controller: textEditingController,
-  //               decoration: InputDecoration.collapsed(
-  //                 hintText: 'Type your message...',
-  //                 hintStyle: TextStyle(color: Colors.grey),
-  //               ),
-  //             ),
-  //             padding: EdgeInsets.only(left: 15),
-  //           ),
-  //         ),
-
-  //         // Button send message
-  //         Material(
-  //           child: new Container(
-  //             margin: new EdgeInsets.symmetric(horizontal: 8.0),
-  //             child: new IconButton(
-  //               icon: new Icon(Icons.send),
-  //               onPressed: () => print("Hallo"),
-  //               //onPressed: () => onSendMessage(textEditingController.text),
-  //               color: _themeData.primaryColor,
-  //             ),
-  //           ),
-  //           color: Colors.white,
-  //         ),
-  //       ],
-  //     ),
-  //     width: double.infinity,
-  //     height: 50.0,
-  //     decoration: new BoxDecoration(
-  //         border:
-  //             new Border(top: new BorderSide(color: Colors.grey, width: 0.5)),
-  //         color: Colors.white),
-  //   );
-  // }
 
   Widget buildItem(int index, ChatMessage message) {
     if (!message.isIncoming) {
