@@ -1,22 +1,26 @@
 package SpookyScarySkeletons.persistenzlogik.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Account {
 
     @Id
     private String username;
+
+    @OneToMany(mappedBy = "userId", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Highscore> highscoreList = new ArrayList<Highscore>();
 //    private double highscore = 100;
 //
-//    public double getHighscore() {
-//        return highscore;
-//    }
-//
-//    public void setHighscore(double highscore) {
-//        this.highscore = highscore;
-//    }
+    public List<Highscore> getHighscoreList() {
+        return highscoreList;
+    }
+
+    public void setHighscoreList(List<Highscore> highscoreList) {
+        this.highscoreList = highscoreList;
+    }
 
     public String getUsername() {
         return username;

@@ -1,12 +1,14 @@
 package SpookyScarySkeletons.api.endpoints;
 
-import SpookyScarySkeletons.anwendungslogik.AccountManagement;
+import SpookyScarySkeletons.persistenzlogik.AccountServiceLocal;
 import SpookyScarySkeletons.persistenzlogik.model.Account;
+import SpookyScarySkeletons.persistenzlogik.model.Highscore;
 
 import javax.ejb.EJB;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import java.util.Comparator;
 import java.util.List;
 
 @Path("/highscore")
@@ -14,12 +16,12 @@ import java.util.List;
 public class HighscoreEndpoint {
 
     @EJB
-    AccountManagement accountManagement;
+    AccountServiceLocal accountService;
 
     @GET
-    public List<Account> getHighscores() {
-        List<Account> accounts = accountManagement.getAllAccounts();
-//        accounts.sort(Comparator.comparingDouble(Account::getHighscore).reversed());
-        return accounts;
+    public List<Highscore> getHighscores() {
+        List<Highscore> highscores = accountService.getAllHighscores();
+ //       highscores.sort(Comparator.comparingDouble(Highscore::getZeit).reversed());
+        return highscores;
     }
 }

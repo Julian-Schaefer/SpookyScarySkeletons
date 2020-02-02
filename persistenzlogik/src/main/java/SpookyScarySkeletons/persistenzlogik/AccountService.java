@@ -2,6 +2,7 @@ package SpookyScarySkeletons.persistenzlogik;
 
 import SpookyScarySkeletons.persistenzlogik.model.Account;
 import SpookyScarySkeletons.persistenzlogik.model.AccountAlreadyExistsException;
+import SpookyScarySkeletons.persistenzlogik.model.Highscore;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
@@ -44,5 +45,23 @@ public class AccountService implements AccountServiceLocal {
     @Override
     public boolean checkUsername(String username) {
         return entityManager.find(Account.class, username) != null;
+    }
+
+    @Override
+    public Highscore addScore(String username, String scenario, double seconds) {
+        Highscore score = new Highscore();
+        score.setUser(entityManager.find(Account.class, username));
+        score.setScenario(scenario);
+        score.setZeit(seconds);
+        entityManager.persist(score);
+
+        return score;
+    }
+
+    @Override
+    public List<Highscore> getAllHighscores() {
+        Query query = entityManager.createQuery("SELECT a FROM Highscore a");
+        List<Highscore> highscores = (List<Highscore>) query.getResultList();
+        return highscores;
     }
 }
