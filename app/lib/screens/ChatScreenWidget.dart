@@ -15,11 +15,13 @@ import 'package:app/model/WebSocket.dart';
 import '../App.dart';
 
 class ChatScreenWidget extends StatefulWidget {
+  final String title;
   final Scenario scenario;
   final WebSocket webSocket;
   final String valueText;
 
-  const ChatScreenWidget({this.scenario, this.webSocket, this.valueText});
+  const ChatScreenWidget(
+      {this.title, this.scenario, this.webSocket, this.valueText});
 
   @override
   _ChatScreenWidgetState createState() => _ChatScreenWidgetState();
@@ -102,7 +104,7 @@ class _ChatScreenWidgetState extends State<ChatScreenWidget> {
       key: _scaffoldKey,
       appBar: AppBar(
         title: Text(
-          "Unknown number",
+          widget.title,
           style: TextStyle(color: Theme.of(context).cardColor),
         ),
       ),

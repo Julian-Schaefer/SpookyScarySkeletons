@@ -18,6 +18,7 @@ class WrongNumberScreen extends StatelessWidget {
           cardColor: Colors.white,
         ),
         child: ChatScreenWidget(
+          title: "Unknown number",
           scenario: scenario,
           webSocket: webSocket,
           valueText: "Vertrauen",

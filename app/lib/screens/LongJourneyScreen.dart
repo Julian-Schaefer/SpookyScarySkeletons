@@ -18,6 +18,7 @@ class LongJourneyScreen extends StatelessWidget {
           cardColor: Colors.white,
         ),
         child: ChatScreenWidget(
+          title: "A long journey...",
           scenario: scenario,
           webSocket: webSocket,
           valueText: "Verrücktheit",
