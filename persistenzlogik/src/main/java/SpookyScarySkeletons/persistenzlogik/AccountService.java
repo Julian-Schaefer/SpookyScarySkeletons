@@ -22,6 +22,7 @@ public class AccountService implements AccountServiceLocal {
     @PostConstruct
     private void init() {
         System.out.println("Initialized AccountManagement Bean!");
+        entityManager.createQuery("DELETE FROM Score").executeUpdate();
     }
 
     @Override

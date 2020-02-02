@@ -27,7 +27,7 @@ public class Score {
         this.duration = duration;
         this.durationString = getMinutes() + ":" + getSeconds() + " min";
 
-        DateFormat dateFormat = new SimpleDateFormat("DD/MM/YYYY HH:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date date = new Date();
         this.dateTime = dateFormat.format(date);
     }
