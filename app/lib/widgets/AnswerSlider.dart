@@ -20,6 +20,8 @@ class AnswerSliderState extends State<AnswerSlider>
   Choice _firstChoice;
   Choice _secondChoice;
 
+  bool _choiceSelected = false;
+
   AnimationController _answerAnimationController;
   AnimationController _choicesAnimationController;
 
@@ -27,11 +29,26 @@ class AnswerSliderState extends State<AnswerSlider>
     setState(() {
       _firstChoice = firstChoice;
       _secondChoice = secondChoice;
+      _choiceSelected = false;
     });
 
     if (firstChoice != null || secondChoice != null) {
+      _choicesAnimationController.reset();
       _answerAnimationController.forward();
     }
+  }
+
+  void _selectChoice(Choice coice) {
+    if (_choiceSelected) {
+      return;
+    }
+
+    _choiceSelected = true;
+
+    widget.onChoiceSelected(coice);
+    _choicesAnimationController
+        .reverse()
+        .whenComplete(() => setChoices(null, null));
   }
 
   @override
@@ -81,9 +98,8 @@ class AnswerSliderState extends State<AnswerSlider>
               ),
               color: widget.themeData.primaryColorDark,
               onPressed: () {
-                _answerAnimationController
-                    .reverse()
-                    .whenComplete(() => _choicesAnimationController.forward());
+                _answerAnimationController.reverse().whenComplete(
+                    () => {_choicesAnimationController.forward()});
               },
             ),
           ),
@@ -104,12 +120,7 @@ class AnswerSliderState extends State<AnswerSlider>
                         style: TextStyle(color: Colors.white, fontSize: 15),
                       ),
                       color: widget.themeData.primaryColorDark,
-                      onPressed: () {
-                        widget.onChoiceSelected(_firstChoice);
-                        _choicesAnimationController
-                            .reverse()
-                            .whenComplete(() => setChoices(null, null));
-                      },
+                      onPressed: () => _selectChoice(_firstChoice),
                     ),
                   ),
                   if (_secondChoice != null)
@@ -125,10 +136,7 @@ class AnswerSliderState extends State<AnswerSlider>
                           style: TextStyle(color: Colors.white, fontSize: 15),
                         ),
                         color: widget.themeData.primaryColorDark,
-                        onPressed: () {
-                          widget.onChoiceSelected(_secondChoice);
-                          _choicesAnimationController.reverse();
-                        },
+                        onPressed: () => _selectChoice(_secondChoice),
                       ),
                     ),
                 ],
