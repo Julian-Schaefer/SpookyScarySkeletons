@@ -3,6 +3,8 @@ package SpookyScarySkeletons.anwendungslogik;
 import SpookyScarySkeletons.anwendungslogik.model.Choice;
 import SpookyScarySkeletons.anwendungslogik.model.Message;
 import SpookyScarySkeletons.messaging.TopicMessagingBean;
+import SpookyScarySkeletons.persistenzlogik.AccountService;
+import SpookyScarySkeletons.persistenzlogik.AccountServiceLocal;
 
 import javax.ejb.EJB;
 import java.time.Duration;
@@ -18,6 +20,9 @@ public abstract class AnwendungsLogikBean {
 
     @EJB
     protected TopicMessagingBean topicMessagingBean;
+
+    @EJB
+    protected AccountServiceLocal accountService;
 
     protected Message firstMessage;
     protected Message currentMessage;
@@ -107,6 +112,9 @@ public abstract class AnwendungsLogikBean {
         endTime = LocalDateTime.now();
 
         int[] minutesAndSeconds = getMinutesAndSeconds();
+
+        accountService.addScore(username, scenarioName, (minutesAndSeconds[0]*60+minutesAndSeconds[1]));
+
         System.out.println("User " + username + " took " + minutesAndSeconds[0] + " minutes and " + minutesAndSeconds[1] + " seconds to complete a scenario");
         anwendungslogikListener.onGameOver(won, "You took " + minutesAndSeconds[0] + " minutes and " + minutesAndSeconds[1] + " seconds.");
     }

@@ -1,6 +1,7 @@
 package SpookyScarySkeletons.api.endpoints;
 
 import SpookyScarySkeletons.persistenzlogik.model.Score;
+import SpookyScarySkeletons.persistenzlogik.model.Highscore;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -13,6 +14,9 @@ import java.util.List;
 @Produces({ "application/json" })
 public class HighscoreEndpoint {
 
+    @EJB
+    AccountServiceLocal accountService;
+    
     @GET
     @Path("/highscore")
     public List<Score> getHighScores() {
@@ -33,5 +37,12 @@ public class HighscoreEndpoint {
         scores.add(new Score("test", "2 min", "asd"));
         scores.add(new Score("test", "2 min", "asd"));
         return scores;
+    }
+    
+    @GET
+    public List<Highscore> getHighscores() {
+        List<Highscore> highscores = accountService.getAllHighscores();
+ //       highscores.sort(Comparator.comparingDouble(Highscore::getZeit).reversed());
+        return highscores;
     }
 }
