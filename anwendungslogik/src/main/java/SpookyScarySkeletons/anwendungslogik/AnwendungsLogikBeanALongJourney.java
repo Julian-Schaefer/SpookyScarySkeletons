@@ -2,6 +2,7 @@ package SpookyScarySkeletons.anwendungslogik;
 
 import SpookyScarySkeletons.anwendungslogik.model.Choice;
 import SpookyScarySkeletons.anwendungslogik.model.Message;
+import SpookyScarySkeletons.persistenzlogik.model.Score;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -16,6 +17,7 @@ public class AnwendungsLogikBeanALongJourney extends AnwendungsLogikBean {
     @PostConstruct
     public void init() {
         firstMessage = entscheidungsbaumParserBean.buildTree("/alongjourney.xml");
+        scenarioName = ScenarioManagement.NAME_LONG_JOURNEY;
 //        todo add xml for lowValuePath
 //        lowValueStartMessage = entscheidungsbaumParserBean.buildTree("");
     }
@@ -24,7 +26,6 @@ public class AnwendungsLogikBeanALongJourney extends AnwendungsLogikBean {
     public void startGame(String username) {
         super.startGame(username);
         timerManagementBean.startSanityTimer(username);
-        topicMessagingBean.sendGameStartedMessage(username, ScenarioManagement.NAME_LONG_JOURNEY);
     }
 
     @Override
@@ -45,8 +46,6 @@ public class AnwendungsLogikBeanALongJourney extends AnwendungsLogikBean {
     protected void gameOver(boolean won) {
         super.gameOver(won);
         timerManagementBean.stopSanityTimer(username);
-        int[] minutesAndSeconds = getMinutesAndSeconds();
-        topicMessagingBean.sendGameOverMessage(username, ScenarioManagement.NAME_LONG_JOURNEY, minutesAndSeconds[0], minutesAndSeconds[1]);
     }
 
     @Remove

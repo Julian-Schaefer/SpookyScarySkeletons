@@ -60,7 +60,7 @@ class _UserScoreScreenState extends State<UserScoreScreen> {
                     itemBuilder: (BuildContext ctxt, int index) {
                       return new Container(
                         height: 80,
-                        padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
+                        padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
                         decoration: BoxDecoration(
                             border: Border(
                                 bottom: BorderSide(
@@ -70,8 +70,8 @@ class _UserScoreScreenState extends State<UserScoreScreen> {
                             child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            Text((index + 1).toString() + "."),
-                            Text(snapshot.data[index].username),
+                            Text(snapshot.data[index].dateTime),
+                            Text(snapshot.data[index].scenario),
                             Text(snapshot.data[index].duration),
                           ],
                         )),

@@ -2,7 +2,7 @@ package SpookyScarySkeletons.persistenzlogik;
 
 import SpookyScarySkeletons.persistenzlogik.model.Account;
 import SpookyScarySkeletons.persistenzlogik.model.AccountAlreadyExistsException;
-import SpookyScarySkeletons.persistenzlogik.model.Highscore;
+import SpookyScarySkeletons.persistenzlogik.model.Score;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
@@ -48,20 +48,22 @@ public class AccountService implements AccountServiceLocal {
     }
 
     @Override
-    public Highscore addScore(String username, String scenario, double seconds) {
-        Highscore score = new Highscore();
-        score.setUser(entityManager.find(Account.class, username));
-        score.setScenario(scenario);
-        score.setZeit(seconds);
+    public Score addScore(Score score) {
         entityManager.persist(score);
-
         return score;
     }
 
     @Override
-    public List<Highscore> getAllHighscores() {
-        Query query = entityManager.createQuery("SELECT a FROM Highscore a");
-        List<Highscore> highscores = (List<Highscore>) query.getResultList();
-        return highscores;
+    public List<Score> getAllHighScores() {
+        Query query = entityManager.createQuery("SELECT a FROM Score a ORDER BY a.duration ASC");
+        List<Score> highScores = (List<Score>) query.getResultList();
+        return highScores;
+    }
+
+    @Override
+    public List<Score> getScoresForUsername(String username) {
+        Query query = entityManager.createQuery("SELECT a FROM Score a WHERE a.username = username");
+        List<Score> scores = (List<Score>) query.getResultList();
+        return scores;
     }
 }

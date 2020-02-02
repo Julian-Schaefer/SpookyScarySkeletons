@@ -33,7 +33,7 @@ class _HighScoreScreenState extends State<HighScoreScreen> {
 
       return scores;
     } else {
-      throw Exception('Could not load highscores.');
+      throw Exception('Could not load scores.');
     }
   }
 
@@ -51,7 +51,7 @@ class _HighScoreScreenState extends State<HighScoreScreen> {
                     itemBuilder: (BuildContext ctxt, int index) {
                       return new Container(
                         height: 80,
-                        padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
+                        padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
                         decoration: BoxDecoration(
                             border: Border(
                                 bottom: BorderSide(
@@ -63,6 +63,7 @@ class _HighScoreScreenState extends State<HighScoreScreen> {
                           children: <Widget>[
                             Text((index + 1).toString() + "."),
                             Text(snapshot.data[index].username),
+                            Text(snapshot.data[index].scenario),
                             Text(snapshot.data[index].duration),
                           ],
                         )),

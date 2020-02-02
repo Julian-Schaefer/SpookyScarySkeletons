@@ -1,7 +1,7 @@
 package SpookyScarySkeletons.persistenzlogik;
 
 import SpookyScarySkeletons.persistenzlogik.model.Account;
-import SpookyScarySkeletons.persistenzlogik.model.Highscore;
+import SpookyScarySkeletons.persistenzlogik.model.Score;
 
 import javax.ejb.Local;
 import java.util.List;
@@ -12,7 +12,8 @@ public interface AccountServiceLocal {
     Account createAccount(Account account);
     List<Account> getAllAccounts();
     boolean checkUsername(String username);
-    Highscore addScore(String username, String scenario, double seconds);
-    List<Highscore> getAllHighscores();
+    Score addScore(Score score);
+    List<Score> getAllHighScores();
+    List<Score> getScoresForUsername(String username);
 
 }

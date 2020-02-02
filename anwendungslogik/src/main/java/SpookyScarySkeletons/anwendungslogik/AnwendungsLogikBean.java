@@ -3,8 +3,8 @@ package SpookyScarySkeletons.anwendungslogik;
 import SpookyScarySkeletons.anwendungslogik.model.Choice;
 import SpookyScarySkeletons.anwendungslogik.model.Message;
 import SpookyScarySkeletons.messaging.TopicMessagingBean;
-import SpookyScarySkeletons.persistenzlogik.AccountService;
 import SpookyScarySkeletons.persistenzlogik.AccountServiceLocal;
+import SpookyScarySkeletons.persistenzlogik.model.Score;
 
 import javax.ejb.EJB;
 import java.time.Duration;
@@ -92,6 +92,7 @@ public abstract class AnwendungsLogikBean {
         this.username = username;
 
         startTime = LocalDateTime.now();
+        topicMessagingBean.sendGameStartedMessage(username, scenarioName);
     }
 
     public void onTimerExired(TimerManagementBean.TimerRequest timerRequest) {
@@ -111,22 +112,21 @@ public abstract class AnwendungsLogikBean {
     protected void gameOver(boolean won) {
         endTime = LocalDateTime.now();
 
-        int[] minutesAndSeconds = getMinutesAndSeconds();
+        Score score = new Score(username, scenarioName, getDuration());
 
-        accountService.addScore(username, scenarioName, (minutesAndSeconds[0]*60+minutesAndSeconds[1]));
+        if(won) {
+            accountService.addScore(score);
+        }
 
-        System.out.println("User " + username + " took " + minutesAndSeconds[0] + " minutes and " + minutesAndSeconds[1] + " seconds to complete a scenario");
-        anwendungslogikListener.onGameOver(won, "You took " + minutesAndSeconds[0] + " minutes and " + minutesAndSeconds[1] + " seconds.");
+        System.out.println("User " + username + " took " + score.getMinutes() + " minutes and " + score.getSeconds() + " seconds to complete a scenario");
+        anwendungslogikListener.onGameOver(won, "You took " + score.getMinutes() + " minutes and " + score.getSeconds() + " seconds.");
+        topicMessagingBean.sendGameOverMessage(username, scenarioName, score.getMinutes(),score.getSeconds());
     }
 
-    protected int[] getMinutesAndSeconds() {
-        Duration duration = Duration.between(startTime, endTime);
-        long diff = Math.abs(duration.toMillis());
-        int minutes = (int) (diff/1000.0/60.0);
-        double lastMinute = (diff/1000.0/60.0) % 1;
-        int seconds = (int) (lastMinute * 60.0);
 
-        return new int[]{ minutes, seconds };
+    protected long getDuration() {
+        Duration duration = Duration.between(startTime, endTime);
+        return Math.abs(duration.toMillis());
     }
 
     protected void setValue(int value, boolean callListener) {
