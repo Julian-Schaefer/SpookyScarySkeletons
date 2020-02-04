@@ -29,7 +29,7 @@ public class AnwendungsLogikBeanALongJourney extends AnwendungsLogikBean {
     }
 
     @Override
-    public void onTimerExired(TimerManagementBean.TimerRequest timerRequest) {
+    public void onTimerExpired(TimerManagementBean.TimerRequest timerRequest) {
         if(timerRequest.getType() == TimerManagementBean.Type.SANITY) {
             int newValue = getValue() - 1;
             if(newValue > 0) {
@@ -38,7 +38,7 @@ public class AnwendungsLogikBeanALongJourney extends AnwendungsLogikBean {
                gameOver(false);
             }
         } else {
-            super.onTimerExired(timerRequest);
+            super.onTimerExpired(timerRequest);
         }
     }
 

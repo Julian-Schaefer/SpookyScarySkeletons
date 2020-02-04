@@ -31,9 +31,6 @@ public abstract class AnwendungsLogikBean {
     protected String username;
     protected String scenarioName;
 
-    protected Message lowValueStartMessage = null;
-    private boolean lowValuePath = false;
-
     private AnwendungslogikListener anwendungslogikListener;
 
     private LocalDateTime startTime;
@@ -57,45 +54,18 @@ public abstract class AnwendungsLogikBean {
             boolean won = choice.getType() == Choice.Type.WON;
             timerManagementBean.addGameOverTimer(username, won);
         }
-        //Commented out logic for now to test communication with frontend
-//        if (value >= 0 && !lowValuePath) {
-            //normal
-//        } else if (lowValuePath) {
-//            if (value < 0)
-//                nextMessage = choice.getNextMessage();
-//            else {
-//                //lowValuePath beenden
-//                nextMessage = currentMessage;
-//                lowValuePath = false;
-//            }
-//        } else {
-//            // !lowValuePath && value < 0; lowValuePath starten
-//            nextMessage = lowValueStartMessage;
-//            lowValuePath = true;
-//        }
-//
-//        if (nextMessage.getFirstChoice() != null) {
-//            if (nextMessage.getFirstChoice().getMinValue() >= value) {
-//                nextMessage.setFirstChoice(null);
-//            }
-//        }
-//        if (nextMessage.getSecondChoice()!= null) {
-//            if (nextMessage.getSecondChoice().getMinValue() >= value) {
-//                nextMessage.setSecondChoice(null);
-//            }
-//        }
     }
 
     public void startGame(String username) {
         System.out.println("Starting game for Username: " + username);
-        timerManagementBean.addTimerRequestListener(username, this::onTimerExired);
+        timerManagementBean.addTimerRequestListener(username, this::onTimerExpired);
         this.username = username;
 
         startTime = LocalDateTime.now();
         topicMessagingBean.sendGameStartedMessage(username, scenarioName);
     }
 
-    public void onTimerExired(TimerManagementBean.TimerRequest timerRequest) {
+    public void onTimerExpired(TimerManagementBean.TimerRequest timerRequest) {
         if(timerRequest.getType() == TimerManagementBean.Type.MESSAGE) {
             Message message = (Message) timerRequest.getContent();
             anwendungslogikListener.onNewMessage(message);

@@ -29,8 +29,8 @@ public class AnwendungsLogikBeanSorryWrongNumber extends AnwendungsLogikBean {
     }
 
     @Override
-    public void onTimerExired(TimerManagementBean.TimerRequest timerRequest) {
-        super.onTimerExired(timerRequest);
+    public void onTimerExpired(TimerManagementBean.TimerRequest timerRequest) {
+        super.onTimerExpired(timerRequest);
         setValue(getValue(), true);
     }
 
