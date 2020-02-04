@@ -45,7 +45,10 @@ class GameOverWidget extends StatelessWidget {
             Padding(
               padding: EdgeInsets.only(top: 10),
             ),
-            MaterialButton(
+            RaisedButton(
+              shape: new RoundedRectangleBorder(
+                borderRadius: new BorderRadius.circular(30.0),
+              ),
               child: Text(
                 'Back to the Scenarios',
                 style: TextStyle(color: Colors.white),
