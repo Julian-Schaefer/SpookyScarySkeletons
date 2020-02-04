@@ -12,8 +12,7 @@
         <message>
             <id>1</id>
             <content>
-                Ich heiße Jerry, ich weiß nicht wo ich bin...\n
-                Kannst du mir helfen?
+                Ich heiße Jerry, ich weiß nicht wo ich bin... Kannst du mir helfen?
             </content>
             <firstChoice>2</firstChoice>
             <secondChoice>1</secondChoice>
@@ -29,8 +28,7 @@
         <message>
             <id>3</id>
             <content>
-                Ich weiß nicht! Ich bin in einem dunklen Raum aufgewacht
-                und kann mich an nichts erinnern! Ich hab Angst..
+                Ich weiß nicht! Ich bin in einem dunklen Raum aufgewacht und kann mich an nichts erinnern! Ich hab Angst..
             </content>
             <firstChoice>4</firstChoice>
             <secondChoice>-1</secondChoice>
@@ -38,8 +36,7 @@
         <message>
             <id>4</id>
             <content>
-                Oh mein Gott! Ich bin so froh, danke!\n
-                Ich wüsste gar nicht was ich machen soll, so ganz alleine..
+                Oh mein Gott! Ich bin so froh, danke! Ich wüsste gar nicht was ich machen soll, so ganz alleine..
             </content>
             <firstChoice>5</firstChoice>
             <secondChoice>6</secondChoice>
@@ -55,9 +52,7 @@
         <message>
             <id>6</id>
             <content>
-                Nein..\n
-                Hier ist es sehr dunkel, keine Fenster und ich sehe nur
-                das Handy und 2 Türen.
+                Nein.. Hier ist es sehr dunkel, keine Fenster und ich sehe nur das Handy und 2 Türen.
             </content>
             <firstChoice>7</firstChoice>
             <secondChoice>-1</secondChoice>
@@ -65,8 +60,7 @@
         <message>
             <id>7</id>
             <content>
-                Gute Idee! Vielleicht ist da etwas versteckt...\n
-                Moment...
+                Gute Idee! Vielleicht ist da etwas versteckt... Moment...
             </content>
             <firstChoice>8</firstChoice>
             <secondChoice>-1</secondChoice>
@@ -74,8 +68,7 @@
         <message>
             <id>8</id>
             <content>
-                Tatsächlich ja! Hier sind die Wände an einer Stelle
-                eingekerbt... Sowas wie eine Strichliste. Gruselig!
+                Tatsächlich ja! Hier sind die Wände an einer Stelle eingekerbt... Sowas wie eine Strichliste. Gruselig!
             </content>
             <firstChoice>9</firstChoice>
             <secondChoice>10</secondChoice>
@@ -91,8 +84,7 @@
         <message>
             <id>10</id>
             <content>
-                Ja! Ein zusammengefaltetes Stück Papier.\n
-                Ich falte es auf!
+                Ja! Ein zusammengefaltetes Stück Papier. Ich falte es auf!
             </content>
             <firstChoice>11</firstChoice>
             <secondChoice>-1</secondChoice>
@@ -108,9 +100,7 @@
         <message>
             <id>12</id>
             <content>
-                Da steht, dass eine Tür zu meiner Freiheit führt und die
-                andere in meinen Tod...\n
-                Wie bin ich hier nur hereingeraten?! Warum denn ich?!
+                Da steht, dass eine Tür zu meiner Freiheit führt und die andere in meinen Tod... Wie bin ich hier nur hereingeraten?! Warum denn ich?!
             </content>
             <firstChoice>13</firstChoice>
             <secondChoice>14</secondChoice>
@@ -118,8 +108,7 @@
         <message>
             <id>13</id>
             <content>
-                Du hast ja Recht...\n
-                Da stehen komische Buchstaben, die keine Wörter bilden...
+                Du hast ja Recht... Da stehen komische Buchstaben, die keine Wörter bilden...
             </content>
             <firstChoice>15</firstChoice>
             <secondChoice>-1</secondChoice>
@@ -159,8 +148,7 @@
         <message>
             <id>18</id>
             <content>
-                A -> D \n
-                Sagt dir das was?
+                "A -> D" Sagt dir das was?
             </content>
             <firstChoice>20</firstChoice>
             <secondChoice>21</secondChoice>
@@ -208,8 +196,7 @@
         <message>
             <id>24</id>
             <content>
-                Du bist genial! Jetzt müssen wir den Code nur noch
-                entschlüsseln...
+                Du bist genial! Jetzt müssen wir den Code nur noch entschlüsseln...
             </content>
             <firstChoice>30</firstChoice>
             <secondChoice>31</secondChoice>

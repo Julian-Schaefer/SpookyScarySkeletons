@@ -11,6 +11,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -67,7 +68,7 @@ public class EntscheidungsbaumParserBean {
         StringBuilder sb = new StringBuilder();
         String line;
         try {
-            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
+            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
             while ((line = br.readLine()) != null) {
                 sb.append(line);
             }
