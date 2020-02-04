@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:app/Util.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:gradient_app_bar/gradient_app_bar.dart';
 
 import '../App.dart';
 import '../model/Account.dart';
@@ -68,7 +69,10 @@ class _AccountScreenState extends State<AccountScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Spooky Scary Skeletons')),
+      appBar: GradientAppBar(title: Text('Spooky Scary Skeletons'),
+      centerTitle: true,
+      gradient: LinearGradient(colors: [Color(0xff523755), Color(0xff00213E)]),
+      ),
       body: Center(
         child: FutureBuilder<Account>(
             future: _createdAccount,
@@ -128,16 +132,16 @@ class _AccountScreenState extends State<AccountScreen> {
                             Padding(
                               padding:
                                   const EdgeInsets.symmetric(vertical: 16.0),
-                              child: MaterialButton(
+                              child: Center(child: MaterialButton(
                                 onPressed: () {
                                   if (_formKey.currentState.validate()) {
                                     onCreateAccount();
-                                    //saveAccount();
                                   }
                                 },
                                 child: Text('Create Account',
                                     style: TextStyle(color: Colors.white)),
                                 color: Theme.of(context).primaryColorDark,
+                              ),
                               ),
                             ),
                           if (snapshot.connectionState ==

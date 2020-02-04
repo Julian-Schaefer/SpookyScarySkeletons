@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:app/model/Score.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:gradient_app_bar/gradient_app_bar.dart';
 
 import '../App.dart';
 
@@ -40,7 +41,9 @@ class _HighScoreScreenState extends State<HighScoreScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('High Scores')),
+      appBar: GradientAppBar(title: Text('Highscores'),
+      centerTitle: true,
+      gradient: LinearGradient(colors: [Color(0xff523755), Color(0xff00213E)])),
       body: Center(
         child: FutureBuilder<List<Score>>(
             future: _highScores,

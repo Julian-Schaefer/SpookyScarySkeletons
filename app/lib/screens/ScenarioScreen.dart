@@ -9,9 +9,12 @@ import 'package:app/screens/UserScoreScreen.dart';
 import 'package:app/screens/WrongNumberScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:gradient_app_bar/gradient_app_bar.dart';
 
 import '../App.dart';
 import 'package:app/model/WebSocket.dart';
+
+import '../App.dart';
 
 class ScenarioScreen extends StatefulWidget {
   @override
@@ -50,8 +53,11 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Spooky Scary Skeletons'),
+      appBar: GradientAppBar(
+        title: Text('Scenarios'),
+        centerTitle: true,
+        gradient:
+            LinearGradient(colors: [Color(0xff523755), Color(0xff00213E)]),
       ),
       drawer: Drawer(
         child: ListView(
@@ -59,10 +65,11 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
           children: <Widget>[
             DrawerHeader(
               child: Center(
-                child: Text(''),
-              ),
+                  child: Image.asset(
+                      'assets/spookyscaryskeletons_icon_medium.png')),
               decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
+                gradient: LinearGradient(
+                    colors: [Color(0xff523755), Color(0xff00213E)]),
               ),
             ),
             ListTile(
@@ -95,11 +102,59 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               WebSocket webSocket = WebSocket();
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+              return Wrap(
+                //crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
                   for (var scenarioEndpoint in snapshot.data)
-                    Expanded(
+                    Container(
+                      child: InkWell(
+                          onTap: () {
+                            if (Navigator.canPop(context)) {
+                              Navigator.pop(context);
+                            }
+                            switch (scenarioEndpoint.name) {
+                              case 'Sorry, wrong number.':
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => WrongNumberScreen(
+                                            scenario: scenarioEndpoint,
+                                            webSocket: webSocket,
+                                          )),
+                                );
+                                break;
+                              case 'A long journey.':
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => LongJourneyScreen(
+                                            scenario: scenarioEndpoint,
+                                            webSocket: webSocket,
+                                          )),
+                                );
+                                break;
+                              default:
+                                this._showDialog('Scenario was not found: ' +
+                                    scenarioEndpoint.name);
+                            }
+                          },
+                          child: Card(
+                            semanticContainer: true,
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            child: Image.network(
+                              getBaseUrlAPI() +
+                                  scenarioEndpoint.backgroundImageUrl,
+                              fit: BoxFit.cover,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            elevation: 5,
+                            margin: EdgeInsets.all(10),
+                          )),
+                    )
+
+                  /*Expanded(
                       child: Container(
                         decoration: BoxDecoration(
                           image: DecorationImage(
@@ -109,14 +164,7 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
                           ),
                         ),
                         child: FlatButton(
-                          child: Text(
-                            scenarioEndpoint.name,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 32,
-                              fontStyle: FontStyle.italic,
-                            ),
-                          ),
+                          
                           onPressed: () {
                             if (Navigator.canPop(context)) {
                               Navigator.pop(context);
@@ -149,7 +197,7 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
                           },
                         ),
                       ),
-                    ),
+                    ),*/
                 ],
               );
             } else if (snapshot.hasError) {

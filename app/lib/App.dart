@@ -14,11 +14,13 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'SpookyScarySkeletons',
+      title: 'Spooky Scary Chat Game',
       theme: ThemeData(
-        primaryColor: Colors.red,
-        primarySwatch: Colors.red,
-        primaryColorDark: Colors.red[800],
+        brightness: Brightness.dark,
+        canvasColor: Color(0xff121212),
+        primaryColor: Colors.deepPurple[700],
+        primarySwatch: Colors.deepPurple,
+        primaryColorDark: Colors.deepPurple[800],
       ),
       home: AccountScreen(),
     );
