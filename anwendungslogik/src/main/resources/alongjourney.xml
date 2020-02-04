@@ -62,7 +62,7 @@
 		<message>
             <id>7</id>
             <content>
-				Es scheint alles ausgeschaltet zu sein und der Microship in der Mitte sieht verbrannt aus.
+				Es scheint alles ausgeschaltet zu sein und der Microchip in der Mitte sieht verbrannt aus.
             </content>
             <firstChoice>10</firstChoice>
             <secondChoice>11</secondChoice>
@@ -97,7 +97,7 @@
             <content>
 				Sieht nicht so aus als könnte ich hier etwas entfernen. 
 				Die ganze Maschine ist mit dicken Platten versiegelt.
-				Aber ich habe einen Schockoriegel gefunden :D.
+				Aber ich habe einen Schokoriegel gefunden :D.
 				Was soll ich jetzt tun?
             </content>
             <firstChoice>21</firstChoice>
@@ -355,7 +355,7 @@
 		<choice>
 		    <id>22</id>
             <content>
-				Das muss die Abstellkammer sein. Vieleicht sind dort ein paar Maschinen gelagert. Sie einfach mal nach.
+				Das muss die Abstellkammer sein. Vielleicht sind dort ein paar Maschinen gelagert. Sie einfach mal nach.
             </content>
             <nextMessage>23</nextMessage>
             <valueChange>0</valueChange>
@@ -410,8 +410,7 @@
 		<choice>
 		    <id>14</id>
             <content>
-				Im Lager-Abteil sind mehrer Ersatzteile gelagert. Laut meinen Dokumenten auch mehrer passende Chips.
-				Geh ins Lager und melde dich dann wieder.
+				Im Lager-Abteil sind mehrere Ersatzteile gelagert. Laut meinen Dokumenten auch mehrer passende Chips. Geh ins Lager und melde dich dann wieder.
             </content>
             <nextMessage>50</nextMessage>
             <valueChange>0</valueChange>
@@ -420,7 +419,7 @@
 		<choice>
 		    <id>50</id>
             <content>
-				Sieh dich mal um. Findest du vieleicht eine Taschenlampe?
+				Sieh dich mal um. Findest du vielleicht eine Taschenlampe?
             </content>
             <nextMessage>52</nextMessage>
             <valueChange>0</valueChange>
