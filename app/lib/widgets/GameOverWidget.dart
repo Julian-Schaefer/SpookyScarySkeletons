@@ -30,13 +30,17 @@ class GameOverWidget extends StatelessWidget {
           children: <Widget>[
             Text(
               gameOver.won ? "You won!" : "You lost!",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black),
             ),
             Padding(
               padding: EdgeInsets.only(top: 10),
             ),
             Text(
               gameOver.message,
+              style: TextStyle(color: Colors.black),
             ),
             Padding(
               padding: EdgeInsets.only(top: 10),

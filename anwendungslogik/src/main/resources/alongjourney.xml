@@ -62,7 +62,7 @@
 		<message>
             <id>7</id>
             <content>
-				Es scheitn alle ausgeschaltet zu sein und der Microship in der Mitte sieht verbrannt aus.
+				Es scheint alles ausgeschaltet zu sein und der Microship in der Mitte sieht verbrannt aus.
             </content>
             <firstChoice>10</firstChoice>
             <secondChoice>11</secondChoice>
@@ -148,7 +148,7 @@
 		<message>
             <id>50</id>
             <content>
-				Ich bin im Lager angekommen, aber es ist stock duster. Das Licht ist anscheind ausgefallen.
+				Ich bin im Lager angekommen, aber es ist stock duster. Das Licht ist anscheinend ausgefallen.
             </content>
             <firstChoice>50</firstChoice>
             <secondChoice>51</secondChoice>
@@ -164,8 +164,7 @@
 		<message>
             <id>52</id>
             <content>
-				Ich hab mir im Dunkeln den Zeh gestoßen und als ich ganz Tapfer auf dem Boden lag und nicht geweint habe,
-				habe ich eine Taschenlampe auf dem Boden gefunden.
+				Ich hab mir im Dunkeln den Zeh gestoßen und als ich ganz Tapfer auf dem Boden lag und nicht geweint habe, habe ich eine Taschenlampe auf dem Boden gefunden.
             </content>
             <firstChoice>52</firstChoice>
             <secondChoice>53</secondChoice>
@@ -198,11 +197,10 @@
 		<message>
             <id>100</id>
             <content>
-				Ich habe den Chip ausgetauscht und das System hat sich anscheinend neu gestartet. Aber auf der anzeige steht etwas von einem Fehler Code.
-				"Fehler. Vitalsensor nicht gefuden." 
+				Ich habe den Chip ausgetauscht und das System hat sich anscheinend neu gestartet. Aber auf der Anzeige steht etwas von einem Fehler Code: "Fehler. Vitalsensor nicht gefunden."
             </content>
             <firstChoice>100</firstChoice>
-            <secondChoice>-1</secondChoice>
+            <secondChoice>101</secondChoice>
         </message>
     </messages>	
     <choices>
@@ -431,7 +429,7 @@
 		<choice>
 		    <id>51</id>
             <content>
-				In der nähe müsste ein Lichtschalter sein.
+				In der Nähe müsste ein Lichtschalter sein.
             </content>
             <nextMessage>51</nextMessage>
             <valueChange>0</valueChange>
@@ -440,7 +438,7 @@
 		<choice>
 		    <id>52</id>
             <content>
-				Hoffentlich funtioniert das beim nächsten Porblem auch so einfach...			
+				Hoffentlich funtioniert das beim nächsten Problem auch so einfach...
             </content>
             <nextMessage>53</nextMessage>
             <valueChange>+2</valueChange>
@@ -458,8 +456,7 @@
 		<choice>
 		    <id>54</id>
             <content>
-				Ich habe keine Informationen darüber wie die Waren gelagert sind du musst wohl suchen. 
-				Der Container sollte Blau sein mit der Aufschrift "NetztHardWare".
+				Ich habe keine Informationen darüber wie die Waren gelagert sind du musst wohl suchen. Der Container sollte Blau sein mit der Aufschrift "NetzHardware".
             </content>
             <nextMessage>55</nextMessage>
             <valueChange>-5</valueChange>
@@ -504,9 +501,18 @@
 		<choice>
 		    <id>100</id>
             <content>
-				Tut mir Leid aber die Demo ist hier zu ende.
+				Tut mir Leid aber die Demo ist hier zu Ende.
             </content>
             <nextMessage>-1</nextMessage>
+            <valueChange>0</valueChange>
+            <minValue>0</minValue>
+        </choice>
+        <choice>
+            <id>101</id>
+            <content>
+                Steig einfach ein, das wird schon!
+            </content>
+            <nextMessage>-2</nextMessage>
             <valueChange>0</valueChange>
             <minValue>0</minValue>
         </choice>
