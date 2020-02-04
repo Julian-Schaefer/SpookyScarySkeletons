@@ -13,9 +13,11 @@ class WrongNumberScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Theme(
         data: ThemeData(
-          primaryColor: Colors.deepPurpleAccent,
-          primaryColorDark: Colors.deepPurple,
+          primaryColor: Color(0xffF10935),
+          primaryColorDark: Color(0xffF10935),
           cardColor: Colors.white,
+          brightness: Brightness.dark,
+        canvasColor: Color(0xff121212),
         ),
         child: ChatScreenWidget(
           title: "Unknown number",

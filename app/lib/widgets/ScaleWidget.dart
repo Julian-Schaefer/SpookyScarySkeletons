@@ -15,28 +15,33 @@ class ScaleWidget extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.all(Radius.circular(12)),
-            border: Border.all(color: Theme.of(context).primaryColor, width: 5),
+            border: Border.all(color: Theme.of(context).primaryColor, width: 3),
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.7),
-                spreadRadius: 4,
-                blurRadius: 4,
+                color: Colors.grey.withOpacity(0.6),
+                spreadRadius: 2,
+                blurRadius: 3,
                 offset: Offset(0, 0), // changes position of shadow
               ),
             ],
           ),
           child: CustomPaint(
-            size: Size(60, 240),
+            size: Size(40, 120),
             // Values reach from 100 to -100!
             foregroundPainter: ScaleWidgetPainter(value: value),
           ),
         ),
         Padding(
-          padding: EdgeInsets.all(6),
+          padding: EdgeInsets.all(3),
         ),
         Text(
           "$text: $value",
-          style: TextStyle(color: Colors.white, fontSize: 20),
+          style: TextStyle(color: Colors.white, fontSize: 12, shadows: [
+            Shadow(
+                offset: Offset(0.0, 0.0),
+                blurRadius: 5.0,
+                color: Color(0xff000000))
+          ]),
         ),
       ],
     );

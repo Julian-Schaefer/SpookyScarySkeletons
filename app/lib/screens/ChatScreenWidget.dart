@@ -103,6 +103,7 @@ class _ChatScreenWidgetState extends State<ChatScreenWidget> {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
+        centerTitle: true,
         title: Text(
           widget.title,
           style: TextStyle(color: Theme.of(context).cardColor),
@@ -111,13 +112,13 @@ class _ChatScreenWidgetState extends State<ChatScreenWidget> {
       body: Stack(
         children: <Widget>[
           Container(
-            decoration: BoxDecoration(
+            /*decoration: BoxDecoration(
               image: DecorationImage(
                 image: NetworkImage(
                     getBaseUrlAPI() + widget.scenario.backgroundImageUrl),
                 fit: BoxFit.fill,
               ),
-            ),
+            ),*/
             child: SafeArea(
               child: _gameOver == null
                   ? Column(
@@ -140,12 +141,14 @@ class _ChatScreenWidgetState extends State<ChatScreenWidget> {
           ),
           if (_gameOver == null)
             Positioned(
-                top: 30,
+                top: 20,
                 right: 10,
+                child: Container(
+                  height: 300,
                 child: ScaleWidget(
                   text: widget.valueText,
                   value: _value,
-                ))
+                )))
         ],
       ),
     );
