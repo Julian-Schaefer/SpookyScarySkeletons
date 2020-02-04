@@ -69,9 +69,11 @@ class _AccountScreenState extends State<AccountScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GradientAppBar(title: Text('Spooky Scary Skeletons'),
-      centerTitle: true,
-      gradient: LinearGradient(colors: [Color(0xff523755), Color(0xff00213E)]),
+      appBar: GradientAppBar(
+        title: Text('Spooky Scary Skeletons'),
+        centerTitle: true,
+        gradient:
+            LinearGradient(colors: [Color(0xff523755), Color(0xff00213E)]),
       ),
       body: Center(
         child: FutureBuilder<Account>(
@@ -87,7 +89,10 @@ class _AccountScreenState extends State<AccountScreen> {
                     Padding(
                       padding: EdgeInsets.only(top: 20),
                     ),
-                    MaterialButton(
+                    RaisedButton(
+                      shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(30.0),
+                      ),
                       child: Text(
                         'Show Scenarios',
                         style: TextStyle(color: Colors.white),
@@ -132,16 +137,21 @@ class _AccountScreenState extends State<AccountScreen> {
                             Padding(
                               padding:
                                   const EdgeInsets.symmetric(vertical: 16.0),
-                              child: Center(child: MaterialButton(
-                                onPressed: () {
-                                  if (_formKey.currentState.validate()) {
-                                    onCreateAccount();
-                                  }
-                                },
-                                child: Text('Create Account',
-                                    style: TextStyle(color: Colors.white)),
-                                color: Theme.of(context).primaryColorDark,
-                              ),
+                              child: Center(
+                                child: RaisedButton(
+                                  shape: new RoundedRectangleBorder(
+                                    borderRadius:
+                                        new BorderRadius.circular(30.0),
+                                  ),
+                                  onPressed: () {
+                                    if (_formKey.currentState.validate()) {
+                                      onCreateAccount();
+                                    }
+                                  },
+                                  child: Text('Create Account',
+                                      style: TextStyle(color: Colors.white)),
+                                  color: Theme.of(context).primaryColorDark,
+                                ),
                               ),
                             ),
                           if (snapshot.connectionState ==

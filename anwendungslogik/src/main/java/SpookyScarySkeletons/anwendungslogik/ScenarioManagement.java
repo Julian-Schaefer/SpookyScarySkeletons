@@ -23,17 +23,19 @@ public class ScenarioManagement implements ScenarioManagementLocal {
     @Override
     public List<Scenario> getScenarios() {
         List<Scenario> scenarios = new LinkedList<>();
-        
+
         Scenario sorryWrongNumberScenario = new Scenario();
         sorryWrongNumberScenario.setName(NAME_SORRY_WRONG_NUMBER);
         sorryWrongNumberScenario.setWebsocketEndpoint("/api" + ENDPOINT_SORRY_WRONG_NUMBER);
-        sorryWrongNumberScenario.setBackgroundImageUrl("/frontend/images/sorrywrongnumber_card_bg.png");
+        sorryWrongNumberScenario.setPreviewImageUrl("/frontend/images/sorrywrongnumber_card_bg.png");
+        sorryWrongNumberScenario.setBackgroundImageUrl("/frontend/images/sorrywrongnumber_chat_bg.jpg");
         scenarios.add(sorryWrongNumberScenario);
 
         Scenario longJourneyScenario = new Scenario();
         longJourneyScenario.setName(NAME_LONG_JOURNEY);
         longJourneyScenario.setWebsocketEndpoint("/api" + ENDPOINT_LONG_JOURNEY);
-        longJourneyScenario.setBackgroundImageUrl("/frontend/images/alongjourney_card_bg.png");
+        longJourneyScenario.setPreviewImageUrl("/frontend/images/alongjourney_card_bg.png");
+        longJourneyScenario.setBackgroundImageUrl("/frontend/images/alongjourney_chat_bg.jpg");
         scenarios.add(longJourneyScenario);
         return scenarios;
     }

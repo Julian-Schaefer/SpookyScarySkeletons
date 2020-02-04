@@ -112,13 +112,13 @@ class _ChatScreenWidgetState extends State<ChatScreenWidget> {
       body: Stack(
         children: <Widget>[
           Container(
-            /*decoration: BoxDecoration(
+            decoration: BoxDecoration(
               image: DecorationImage(
                 image: NetworkImage(
                     getBaseUrlAPI() + widget.scenario.backgroundImageUrl),
-                fit: BoxFit.fill,
+                fit: BoxFit.cover,
               ),
-            ),*/
+            ),
             child: SafeArea(
               child: _gameOver == null
                   ? Column(

@@ -108,6 +108,7 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
                   for (var scenarioEndpoint in snapshot.data)
                     Container(
                       child: InkWell(
+                          borderRadius: BorderRadius.circular(15.0),
                           onTap: () {
                             if (Navigator.canPop(context)) {
                               Navigator.pop(context);
@@ -143,7 +144,7 @@ class _ScenarioScreenState extends State<ScenarioScreen> {
                             clipBehavior: Clip.antiAliasWithSaveLayer,
                             child: Image.network(
                               getBaseUrlAPI() +
-                                  scenarioEndpoint.backgroundImageUrl,
+                                  scenarioEndpoint.previewImageUrl,
                               fit: BoxFit.cover,
                             ),
                             shape: RoundedRectangleBorder(

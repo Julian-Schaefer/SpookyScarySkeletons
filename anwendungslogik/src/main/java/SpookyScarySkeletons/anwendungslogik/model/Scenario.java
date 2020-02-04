@@ -4,6 +4,7 @@ public class Scenario {
 
     private String name;
     private String websocketEndpoint;
+    private String previewImageUrl;
     private String backgroundImageUrl;
 
     public String getName() {
@@ -22,9 +23,11 @@ public class Scenario {
         this.websocketEndpoint = websocketEndpoint;
     }
 
-    public String getBackgroundImageUrl() {
-        return backgroundImageUrl;
-    }
+    public String getPreviewImageUrl() {return previewImageUrl; }
+
+    public void setPreviewImageUrl(String previewImageUrl) { this.previewImageUrl = previewImageUrl; }
+
+    public String getBackgroundImageUrl() { return backgroundImageUrl; }
 
     public void setBackgroundImageUrl(String backgroundImageUrl) {
         this.backgroundImageUrl = backgroundImageUrl;
