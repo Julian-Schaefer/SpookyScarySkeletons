@@ -63,7 +63,8 @@ public class AccountService implements AccountServiceLocal {
 
     @Override
     public List<Score> getScoresForUsername(String username) {
-        Query query = entityManager.createQuery("SELECT a FROM Score a WHERE a.username = username");
+        Query query = entityManager.createQuery("SELECT a FROM Score a WHERE a.username LIKE :username")
+                .setParameter("username", username);
         List<Score> scores = (List<Score>) query.getResultList();
         return scores;
     }
